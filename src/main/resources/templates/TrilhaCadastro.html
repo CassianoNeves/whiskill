@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta chaset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/components/dist/css/bootstrap.css">
+	<title>Cadastrar Trilha</title>
+	<style type="text/css">
+		.row{
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		{{> navbar}}
+		<div class="row">
+			<div class="col-xs-4 col-md-4 col-lg-4">
+			</div>
+
+			<div class="col-xs-4 col-md-4 col-lg-4">
+				<div class="row text-center">
+					<h2>Cadastrar Usuário</h2>
+				</div>
+				<form action="/trilha/inserir" method="POST">
+					<div class="row text-center">
+						<label>Nome:</label>
+						<input type="text" name="nome" class="form-control" required />
+					</div>
+
+					<div class="row text-center">
+						<label>Descrição:</label>
+						<input type="text" name="descricao" class="form-control" required/>
+					</div>
+
+					<div class="row text-center">
+						<input type="submit" value="Cadastrar" class="btn btn-primary"/>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-xs-4 col-md-4 col-lg-4">
+			</div>
+		</div>
+	</div>
+	{{> scripts}}
+</body>
+</html>
