@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta chaset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/components/dist/css/bootstrap.css">
+	<title>Lista de Usuários</title>
+	<style type="text/css">
+		.titulo{
+			margin-top: 50px;
+			margin-bottom: 30px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		{{> navbar}}
+
+		<div class="row titulo text-center">
+			<h2>Lista de Usuários</h2>
+		</div>
+
+		<div class="row">
+			<a href="/usuario/cadastro"><button class="btn btn-default">Cadastrar</button></a>
+		</div>
+		<br>
+
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Email</th>
+						<th>Senha</th>
+						<th>Admistrador</th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{{#usuarios}}
+						<tr>
+							<td>{{nome}}</td>
+							<td>{{email}}</td>
+							<td>{{senha}}</td>
+							<td>{{#admin}}Sim{{/admin}} {{^admin}}Não{{/admin}}</td>
+							
+							<td>
+								{{#usuarioLogado.admin}}
+									<a href="/usuario/excluir?idUsuario={{idUsuario}}"><button class="btn btn-danger">
+									Excluir</button></a>
+								{{/usuarioLogado.admin}}
+							</td>
+						</tr>
+					{{/usuarios}}
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="row">
+			<a href="/usuario/cadastro"><button class="btn btn-default">Cadastrar</button></a>
+		</div>
+
+	</div>
+	{{> scripts}}
+</body>
+</html>
