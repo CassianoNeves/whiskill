@@ -31,7 +31,6 @@
 						<th>Nome</th>
 						<th>Email</th>
 						<th>Senha</th>
-						<th>Admistrador</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -42,13 +41,10 @@
 							<td>{{nome}}</td>
 							<td>{{email}}</td>
 							<td>{{senha}}</td>
-							<td>{{#admin}}Sim{{/admin}} {{^admin}}Não{{/admin}}</td>
 							
 							<td>
-								{{#usuarioLogado.admin}}
-									<a href="/usuario/excluir?idUsuario={{idUsuario}}"><button class="btn btn-danger">
-									Excluir</button></a>
-								{{/usuarioLogado.admin}}
+								<a href="/usuario/excluir?idUsuario={{idUsuario}}"><button class="btn btn-danger">
+								Excluir</button></a>
 							</td>
 						</tr>
 					{{/usuarios}}

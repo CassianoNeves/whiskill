@@ -30,16 +30,6 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 		
 			if(usuario != null) {
-				
-				if( uri.endsWith("/usuario/listar") ){
-					if( usuario.isAdmin() ){
-						return true;
-					}else{
-						response.sendRedirect("/usuario/semPermissao");
-						return false;
-					}
-				}
-				
 		        return true;
 		    }
 			

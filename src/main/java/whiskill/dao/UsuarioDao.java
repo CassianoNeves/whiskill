@@ -18,12 +18,11 @@ public class UsuarioDao {
 
 	public Usuario existeUsuario( Usuario usuario ){
 		
-		List<Usuario> usuarios = jdbcTemplate.query( "SELECT * FROM USUARIO WHERE NOME = ? AND SENHA = ?",
+		List<Usuario> usuarios = jdbcTemplate.query( "SELECT * FROM USUARIO WHERE (NOME = ? OR EMAIL = ?) AND SENHA = ?",
 				(ResultSet rs, int rowNum) -> {
 					Usuario usuarioRetorno = new Usuario( rs.getString( "nome" ),
 							                              rs.getString( "email" ),
-											              rs.getString( "senha" ),
-											              rs.getBoolean( "admin") );
+											              rs.getString( "senha" ));
 					usuarioRetorno.setIdUsuario( rs.getInt( "idUsuario") );
 					return usuarioRetorno;
 				},
@@ -41,21 +40,18 @@ public class UsuarioDao {
 	public void inserirUsuario( Usuario usuario ){
 		jdbcTemplate.update( "INSERT INTO USUARIO(NOME, " +
 				"EMAIL, " +
-				"SENHA, " +
-				"ADMIN) " +
-				"VALUES (?, ?, ?, ?)",
+				"SENHA) " +
+				"VALUES (?, ?, ?)",
 				usuario.getNome(),
 				usuario.getEmail(),
-				usuario.getSenha(),
-				usuario.isAdmin());
+				usuario.getSenha());
 	}
 	
 	public List<Usuario> buscaTodosUsuarios(){
 		return jdbcTemplate.query("SELECT * FROM USUARIO", ( ResultSet rs, int rowNum ) ->{
 			 Usuario usuario = new Usuario( rs.getString( "nome" ),
                     		    rs.getString( "email" ),
-                    		    rs.getString( "senha" ),
-                    		    rs.getBoolean( "admin") );
+                    		    rs.getString( "senha" ));
 			 usuario.setIdUsuario( rs.getInt( "idUsuario" ) );
 			 return usuario;
 		});
