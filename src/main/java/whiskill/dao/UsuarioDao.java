@@ -18,7 +18,7 @@ public class UsuarioDao {
 
 	public Usuario existeUsuario( Usuario usuario ){
 		
-		List<Usuario> usuarios = jdbcTemplate.query( "SELECT * FROM USUARIO WHERE (NOME = ? OR EMAIL = ?) AND SENHA = ?",
+		List<Usuario> usuarios = jdbcTemplate.query( "SELECT * FROM USUARIO WHERE NOME = ? AND SENHA = ?",
 				(ResultSet rs, int rowNum) -> {
 					Usuario usuarioRetorno = new Usuario( rs.getString( "nome" ),
 							                              rs.getString( "email" ),
