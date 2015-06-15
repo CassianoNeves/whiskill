@@ -42,9 +42,12 @@
 							<td>{{email}}</td>
 							<td>{{senha}}</td>
 							<td>
+								<a href="/usuario/atualizar?idUsuario={{idUsuario}}"><button class="btn btn-warning">
+								Editar</button></a>
+
 								<a href="/usuario/excluir?idUsuario={{idUsuario}}"><button class="btn btn-danger">
 								Excluir</button></a>
-							</td>
+							</td>						
 						</tr>
 					{{/usuarios}}
 				</tbody>

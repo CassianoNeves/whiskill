@@ -79,6 +79,18 @@ public class UsuarioController {
 		return "usuario/UsuarioListar";
 	}
 	
+	@RequestMapping(value = "/usuario/atualizar", method = RequestMethod.GET)
+	public String usuarioAtualizar( Model model, @RequestParam int idUsuario ){
+		model.addAttribute( "usuario", usuarioDao.buscarUsuarioPorId( idUsuario ) );
+		return "usuario/UsuarioAtualizar";
+	}
+	
+	@RequestMapping(value = "/usuario/atualizar", method = RequestMethod.POST)
+	public String usuarioAtualizar( Model model, Usuario usuario ){
+		usuarioDao.atualizarUsuario( usuario );
+		return "redirect:/usuario/listar";
+	}
+	
 	@RequestMapping(value = "/usuario/excluir", method = RequestMethod.GET)
 	public String usuarioExcluir( @RequestParam int idUsuario ){
 		usuarioDao.excluir( idUsuario );
