@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta chaset="utf-8">
-	<link rel="stylesheet" type="text/css" href="/components/dist/css/bootstrap.css">
+	{{> header}}
 	<title>Login</title>
 	<style type="text/css">
 		.margin-bottom-30{
@@ -28,11 +27,11 @@
 				<form action="/usuario/validar{{#returnUrl}}?returnUrl={{returnUrl}}{{/returnUrl}}" method="POST">
 
 					<div class="row text-center margin-top-50	">
-						<h1>Bem-Vindo! Fa√ßa login.</h1>
+						<h1>Bem-Vindo! FaÁa login.</h1>
 					</div>
 
 					<div class="row">
-						<label class="margin-top-50">Usu√°rio:</label>
+						<label class="margin-top-50">Usu·rio:</label>
 						<input type="text" name="nome" placeholder="Ex: Cassiano" class="form-control margin-bottom-30 " required/>
 					</div>
 
