@@ -2,18 +2,18 @@
 <html>
 <head>
 	{{> header}}
-	<title>Lista de Trilhas</title>
+	<title>Lista de Projetos</title>
 </head>
 <body>
 	{{> navbar}}
 	<div class="container">
 		<br><br>
 		<div class="row titulo text-center">
-			<h2>Lista de Trilha do Conhecimento</h2>
+			<h2>Lista de Projetos</h2>
 		</div>
 
 		<div class="row">
-			<a href="/trilha/cadastro"><button class="btn btn-default">Cadastrar</button></a>
+			<a href="/projeto/cadastro"><button class="btn btn-default">Cadastrar</button></a>
 		</div>
 
 		<br>
@@ -23,25 +23,23 @@
 				<thead>
 					<tr>
 						<th>Nome</th>
-						<th>Descricao</th>
 						<th></th>
 					</tr>
 				</thead>
 
 				<tbody>
-					{{#trilhas}}
+					{{#projetos}}
 						<tr>
 							<td>{{#nome}}{{nome}}{{/nome}}</td>
-							<td>{{#descricao}}{{descricao}}{{/descricao}}</td>
 							<td>
-								<a href="/trilha/atualizar?idTrilha={{idTrilha}}"><button class="btn btn-warning">
+								<a href="/projeto/atualizar?idProjeto={{idProjeto}}"><button class="btn btn-warning">
 								Editar</button></a>
 
-								<a href="/trilha/excluir?idTrilha={{idTrilha}}"><button class="btn btn-danger">
+								<a href="/projeto/excluir?idProjeto={{idProjeto}}"><button class="btn btn-danger">
 								Excluir</button></a>
 							</td>
 						</tr>
-					{{/trilhas}}
+					{{/projetos}}
 				</tbody>
 			</table>
 		</div>

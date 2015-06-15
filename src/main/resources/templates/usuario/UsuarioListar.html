@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta chaset="utf-8">
-	<link rel="stylesheet" type="text/css" href="/components/dist/css/bootstrap.css">
+	<meta charset="utf-8">
+	{{> header}}
 	<title>Lista de Usuários</title>
 	<style type="text/css">
 		.titulo{
@@ -30,7 +30,6 @@
 					<tr>
 						<th>Nome</th>
 						<th>Email</th>
-						<th>Senha</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -40,7 +39,6 @@
 						<tr>
 							<td>{{nome}}</td>
 							<td>{{email}}</td>
-							<td>{{senha}}</td>
 							<td>
 								<a href="/usuario/atualizar?idUsuario={{idUsuario}}"><button class="btn btn-warning">
 								Editar</button></a>
