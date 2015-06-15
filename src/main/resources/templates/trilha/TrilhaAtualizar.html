@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta chaset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/components/dist/css/bootstrap.css">
+	<title>Atualizar Trilha</title>
+	<style type="text/css">
+		.row{
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		{{> navbar}}
+		<div class="row">
+			<div class="col-xs-4 col-md-4 col-lg-4">
+			</div>
+
+			<div class="col-xs-4 col-md-4 col-lg-4">
+				<div class="row text-center">
+					<h2>Atualizar Usuário</h2>
+				</div>
+				<form action="/trilha/atualizar" method="POST">
+
+					<input value="{{trilha.idTrilha}}" type="hidden" name="idTrilha"/>
+
+					<div class="row text-center">
+						<label>Nome:</label>
+						<input value="{{trilha.nome}}" type="text" name="nome" class="form-control" required />
+					</div>
+
+					<div class="row text-center">
+						<label>Descrição:</label>
+						<input  value="{{trilha.descricao}}" type="text" name="descricao" class="form-control" required/>
+					</div>
+
+					<div class="row text-center">
+						<input type="submit" value="Atualizar" class="btn btn-primary"/>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-xs-4 col-md-4 col-lg-4">
+			</div>
+		</div>
+	</div>
+	{{> scripts}}
+</body>
+</html>

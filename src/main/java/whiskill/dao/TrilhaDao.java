@@ -38,6 +38,23 @@ public class TrilhaDao {
 		jdbcTemplate.update( "DELETE FROM TRILHA WHERE idTrilha = ?", idTrilha );
 	}
 	
-	
-	
+public Trilha buscaTrilhaPorId( int idTrilha ){
+		
+		List<Trilha> trilhas = jdbcTemplate.query("SELECT * FROM Trilha WHERE IDTRILHA = ?", ( ResultSet rs, int rowNum ) ->{
+			 Trilha trilha = new Trilha ( rs.getString( "nome" ),
+                    		    rs.getString( "descricao" ));
+			 trilha.setIdTrilha( rs.getInt( "idTrilha" ) );
+			 return trilha;
+		},
+		idTrilha);
+		
+		return trilhas.get(0);
+	}
+
+	public void atualizarTrilha( Trilha trilha ){
+		jdbcTemplate.update( "UPDATE TRILHA SET NOME = ?, DESCRICAO = ? WHERE IDTRILHA = ?", 
+				trilha.getNome(),
+				trilha.getDescricao(),
+				trilha.getIdTrilha() );
+	}
 }

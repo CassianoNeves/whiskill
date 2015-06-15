@@ -34,6 +34,18 @@ public class TrilhaController {
 		return "trilha/TrilhaListar";
 	}
 	
+	@RequestMapping( value = "/trilha/atualizar", method = RequestMethod.GET )
+	public String trilhaAltualizar( Model model, @RequestParam int idTrilha ){
+		model.addAttribute( "trilha", trilhaDao.buscaTrilhaPorId( idTrilha ) );
+		return "trilha/TrilhaAtualizar";
+	}
+	
+	@RequestMapping( value = "/trilha/atualizar", method = RequestMethod.POST )
+	public String trilhaAltualizar( Trilha trilha ){
+		trilhaDao.atualizarTrilha( trilha );
+		return "redirect:/trilha/listar";
+	}
+	
 	@RequestMapping( value = "/trilha/excluir", method = RequestMethod.GET )
 	public String trilhaExcluir( @RequestParam int idTrilha ){
 		trilhaDao.excluirTrilha( idTrilha );
