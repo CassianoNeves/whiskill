@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta chaset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/components/dist/css/bootstrap.css">
+	<title>Lista de Colaboradores</title>
+</head>
+<body>
+	{{> navbar}}
+	<div class="container">
+		<br><br>
+		<div class="row titulo text-center">
+			<h2>Lista de Colaboradores</h2>
+		</div>
+
+		<div class="row">
+			<a href="/colaborador/cadastro"><button class="btn btn-default">Cadastrar</button></a>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{{#colaboradores}}
+						<tr>
+							<td>{{#nome}}{{nome}}{{/nome}}</td>
+							<td>
+								<a href="/colaborador/atualizar?idColaborador={{idColaborador}}"><button class="btn btn-warning">
+								Editar</button></a>
+
+								<a href="/colaborador/excluir?idColaborador={{idColaborador}}"><button class="btn btn-danger">
+								Excluir</button></a>
+							</td>
+						</tr>
+					{{/colaboradores}}
+				</tbody>
+			</table>
+		</div>
+		</div>
+	{{> scripts}}
+</body>
+</html>
