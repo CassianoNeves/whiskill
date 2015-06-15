@@ -35,3 +35,18 @@ INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES(' JUnit' , ' JUnit é um fram
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('  Selenium IDE' , ' Selenium é um framework de testes para aplicações Web', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('MSTest ' , ' MSTest  é um utilitário para execução de testes unitários de sistemas criados no Visual Studio', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Cucumber' , ' Cucumber é uma plataforma de testes para desktop, web, mobile, e server applications em diversas plataformas', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
+
+-- Cadastro de Projetos
+INSERT INTO PROJETO(NOME) VALUES('Filmator Web');
+INSERT INTO PROJETO(NOME) VALUES('Turbo Rango');
+INSERT INTO PROJETO(NOME) VALUES('WhiSkill');
+-- Cadastro de Skills do Projeto
+		-- Cadastro de Skills do Projeto Filmator Web
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Java',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Filmator Web');
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Spring',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Filmator Web');
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Maven',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Filmator Web');
+
+
+
+
+
