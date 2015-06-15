@@ -30,7 +30,7 @@ CREATE TABLE Skill
   (
     IDSkill   INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT ,
     Nome      VARCHAR2 (100) NOT NULL ,
-    Descricap VARCHAR2 (200) NOT NULL ,
+    Descricao VARCHAR2 (200) NOT NULL ,
     Trilha_ID INTEGER NOT NULL
   ) ;
 
