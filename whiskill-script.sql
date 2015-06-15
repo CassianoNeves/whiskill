@@ -43,9 +43,9 @@ CREATE TABLE SkillColaborador
 
 CREATE TABLE SkillProjeto
   (
-    IDSkill        INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    IDSkill        INTEGER NOT NULL ,
     IDProjeto      INTEGER NOT NULL ,
-    IDSkillProjeto INTEGER NOT NULL
+    IDSkillProjeto INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT
   ) ;
 
 CREATE TABLE Trilha
