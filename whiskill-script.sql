@@ -37,9 +37,9 @@ CREATE TABLE Skill
 
 CREATE TABLE SkillColaborador
   (
-    IDSkill            INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+    IDSkill            INTEGER NOT NULL ,
     IDColaborador      INTEGER NOT NULL ,
-    IDSkillColaborador INTEGER NOT NULL
+    IDSkillColaborador INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT 
   ) ;
 
 CREATE TABLE SkillProjeto
@@ -53,7 +53,7 @@ CREATE TABLE Trilha
   (
     IDTrilha  INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Nome      VARCHAR2 (100) ,
-    Descricao VARCHAR2 (200)
+    Descricao VARCHAR2 (200),
 	Ativo 			BOOLEAN DEFAULT TRUE,
   ) ;
 
