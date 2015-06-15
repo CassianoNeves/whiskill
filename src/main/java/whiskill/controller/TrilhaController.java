@@ -19,7 +19,7 @@ public class TrilhaController {
 	
 	@RequestMapping( value = "/trilha/cadastro", method = RequestMethod.GET )
 	public String trilhaCadastro(){
-		return "TrilhaCadastro";
+		return "trilha/TrilhaCadastro";
 	}
 	
 	@RequestMapping( value = "/trilha/inserir", method = RequestMethod.POST )
@@ -31,7 +31,7 @@ public class TrilhaController {
 	@RequestMapping( value = "/trilha/listar", method = RequestMethod.GET )
 	public String trilhaListar( Model model ){
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
-		return "TrilhaListar";
+		return "trilha/TrilhaListar";
 	}
 	
 	@RequestMapping( value = "/trilha/excluir", method = RequestMethod.GET )

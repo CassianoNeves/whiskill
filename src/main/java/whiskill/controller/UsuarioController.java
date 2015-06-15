@@ -22,7 +22,7 @@ public class UsuarioController {
 //	Aqui vai ser a nossa home
 	@RequestMapping( value = "/", method = RequestMethod.GET )
 	public String index() {
-			return "home";
+			return "home/home";
 	}
 	
 	@RequestMapping( value = "/usuario/semPermissao", method = RequestMethod.GET )
@@ -31,7 +31,7 @@ public class UsuarioController {
 			model.addAttribute( "erro", "Usuário ou Senha inválidos." );
 		}
 		
-		return "semPermissao";
+		return "login/semPermissao";
 	}
 	
 	@RequestMapping( value = "/usuario/login", method = RequestMethod.GET )
@@ -40,7 +40,7 @@ public class UsuarioController {
 			model.addAttribute( "erro", "Usuário ou Senha inválidos." );
 		}
 		
-		return "login";
+		return "login/login";
 	}
 	
 	@RequestMapping(value = "/usuario/validar", method = RequestMethod.POST)
@@ -58,12 +58,12 @@ public class UsuarioController {
 	@RequestMapping(value = "/usuario/sair", method = RequestMethod.GET)
 	public String deslogarUsuario( HttpSession session ){
 		session.invalidate();
-		return "redirect:/login";
+		return "redirect:/usuario/login";
 	}
 	
 	@RequestMapping(value = "/usuario/cadastro", method = RequestMethod.GET)
 	public String usuarioCadastro( Usuario usuario ){
-		return "UsuarioCadastro";
+		return "usuario/UsuarioCadastro";
 	}
 	
 	@RequestMapping(value = "/usuario/inserir", method = RequestMethod.POST)
@@ -76,7 +76,7 @@ public class UsuarioController {
 	@RequestMapping(value = "/usuario/listar", method = RequestMethod.GET)
 	public String usuarioListar(Model model ){
 		model.addAttribute( "usuarios", usuarioDao.buscaTodosUsuarios() );
-		return "UsuarioListar";
+		return "usuario/UsuarioListar";
 	}
 	
 	@RequestMapping(value = "/usuario/excluir", method = RequestMethod.GET)
