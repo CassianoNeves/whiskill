@@ -55,8 +55,8 @@ public class ProjetoController {
 
 	@RequestMapping( value = "/projeto/atualizar", method = RequestMethod.GET )
 	public String projetoAtualizar( Model model, @RequestParam int idProjeto){
-		model.addAttribute( "projeto", projetoDao.buscaProjetoPorId( idProjeto ) );
-		model.addAttribute( "skillsDoProjeto", projetoDao.buscarSkillsProjeto( idProjeto ) );
+		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
+	//	model.addAttribute( "skillsDoProjeto", projetoDao.buscarSkillsProjeto( idProjeto ) );
 		model.addAttribute( "skills", skillDao.buscarTodasSkills() );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
 		return "/projeto/ProjetoAtualizar";

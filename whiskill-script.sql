@@ -17,7 +17,8 @@ CREATE TABLE Projeto
   (
     IDProjeto INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Nome      VARCHAR2 (100) NOT NULL,
-    Ativo         BOOLEAN DEFAULT TRUE
+    Ativo         BOOLEAN DEFAULT TRUE,
+	ImagemLogo VARCHAR(100) NOT NULL,
   ) ;
 
 CREATE TABLE ProjetoColaborador

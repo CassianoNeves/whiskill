@@ -34,7 +34,6 @@ public class SkillDao {
 					rs.getString( "nome" ),
 					rs.getString( "descricao" ));
 			
-			
 			skill.setTrilha( trilhaDao.buscaTrilhaPorId(rs.getInt( "trilha_id") ) );
 			return skill;
 		});	
