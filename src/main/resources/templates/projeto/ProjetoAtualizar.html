@@ -28,6 +28,12 @@
 						<label>Nome:</label>
 						<input value="{{projeto.nome}}" type="text" name="nome" class="form-control" required />
 					</div>
+					{{#skills}}
+					<label>
+						<input type="checkbox" value="{{idSkill}}" name="idSkill">{{nome}}
+					</label>
+					{{/skills}}
+					
 					<div class="row text-center">
 						<input type="submit" value="Atualizar" class="btn btn-primary"/>
 					</div>
