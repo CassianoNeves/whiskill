@@ -16,11 +16,21 @@ public class ProjetoDao {
 	@Inject
 	private JdbcTemplate jdbcTemplate;
 	
-	public void inserirProjeto( Projeto projeto ){
-		jdbcTemplate.update( "INSERT INTO Projeto (NOME) VALUES (?)",
-				projeto.getNome()
-							);
+	public int inserirProjeto( Projeto projeto ){
+		jdbcTemplate.update( "INSERT INTO PROJETO (NOME) VALUES (?)",
+				projeto.getNome() );
+		List<Integer> idProjeto = jdbcTemplate.query( "SELECT MAX(IDPROJETO) AS IDPROJETO  FROM PROJETO", ( ResultSet rs, int rowNum ) ->{
+			
+			return rs.getInt( "IDPROJETO" );
+		});
+		
+		return idProjeto.get(0);
 	}
+	
+	public void inserirSkillProjeto( String query ){
+		jdbcTemplate.update( query );
+	}
+	
 	
 	public List<Projeto> buscaTodosProjetos(){
 		
@@ -56,22 +66,6 @@ public class ProjetoDao {
 	}
 
 	// Métodos SkillProjeto
-	
-    /**
-     * Método para buscar Skills de um Projeto informando seu Id como parâmetro.
-     * @param idProjeto
-     * @return
-     */
-    public List<Skill> buscaSkillsProjeto(int idProjeto){
-        
-        List<Skill> skillsProjeto = jdbcTemplate.query("SELECT s.Nome, sp.IDSkill, s.descricao FROM SkillProjeto as sp WHERE IdProjeto = ? LEFT JOIN Skill s ON s.IDSkill = sp.idSkill", ( ResultSet rs, int rowNum ) ->{
-             Skill skill = new Skill ( rs.getInt("sp.idProjeto"), rs.getString( "s.nome" ), rs.getString("s.descricao"));
-             return skill;
-        },
-        idProjeto);
-        
-        return skillsProjeto;
-    }
     /**
      * Inserir SkillProjeto
      * 
@@ -93,4 +87,14 @@ public class ProjetoDao {
         return projetos.get(0).getIdProjeto();
 	}
 
+	public List<Integer> buscarSkillsProjeto( int idProjeto ){
+		return jdbcTemplate.query( "SELECT idSkill  FROM SKILLProjeto WHERE IDProjeto  = ?", ( ResultSet rs, int rowNum ) ->{
+			return rs.getInt( "idSkill");
+		},
+		idProjeto);
+	}
+	public void excluirSkillsProjeto( int idProjeto ){
+		jdbcTemplate.update( "DELETE SKILLPROJETO WHERE IDPROJETO = ?", idProjeto );
+	}
+	
 }
