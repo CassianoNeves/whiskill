@@ -4,7 +4,7 @@ INSERT INTO USUARIO(Nome, Email, Senha) VALUES('Teste', 'teste@teste.com.br','se
 INSERT INTO TRILHA(Nome, Descricao) VALUES('.NET', '.NET é uma plataforma de desenvolvimento da Microsoft.');
 INSERT INTO TRILHA(Nome, Descricao) VALUES('Java', 'A plataforma Java permite desenvolver aplicativos utilizando a linguagem Java com a vantagem de não estar presa a um único sistema operacional.');
 INSERT INTO TRILHA(Nome, Descricao) VALUES('Mobile', 'Tecnologias para desenvolvimento Mobile.');
-INSERT INTO TRILHA(Nome, Descricao) VALUES('Testes:', 'Tecnologias para testes de Software.');
+INSERT INTO TRILHA(Nome, Descricao) VALUES('Testes', 'Tecnologias para testes de Software.');
 -- Cadastros de Skills nas tecnologias 
 	-- Skills .NET
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('C#','C# é uma linguagem orientada a objeto elegante e de tipo seguro que permite aos desenvolvedores criar uma variedade de aplicativos seguros e robustos', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
