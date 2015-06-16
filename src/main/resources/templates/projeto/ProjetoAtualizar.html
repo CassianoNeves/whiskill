@@ -66,9 +66,9 @@
 			$('#{{trilha.idTrilha}}').append( '<div class="padding"><label>{{nome}}</label>    <input idSkill="{{idSkill}}" class="checkbox skills" type="checkbox" name="idSkills"/></div> ' );
 			{{/skills}}
 
-			{{#skillsDoProjeto}}
-			$('input.skills[idSkill="{{.}}"]').attr('checked', 'checked')
-			{{/skillsDoProjeto}}
+			{{#projeto.skillsProjeto}}
+				$('input.skills[idSkill="{{idSkill}}"]').attr('checked', 'checked')
+			{{/projeto.skillsProjeto}}
 
 			$('[type="submit"]').click(function(i){
 				$.ajax({
@@ -96,7 +96,7 @@
 				  			contentType: 'json',
 						}).done(function(res){
 							//console.log('feito');
-							window.location = '/projeto/listar';
+						//	window.location = '/projeto/listar';
 						});
 					});
 				});

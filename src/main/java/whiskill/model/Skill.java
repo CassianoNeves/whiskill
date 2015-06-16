@@ -7,6 +7,8 @@ public class Skill {
 	private String descricao;
 	private Trilha trilha;
 	
+	
+	// Construtores
 	public Skill(){}
 	
 	public Skill( int idSkill, String nome, String descricao ){
@@ -14,6 +16,14 @@ public class Skill {
 		this.nome = nome;
 		this.descricao = descricao;
 	}
+	
+	public Skill( int idSkill, String nome, String descricao, Trilha trilha ){
+		this.idSkill = idSkill;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.trilha = trilha;
+	}
+	
 		
 	public int getIdSkill() {
 		return idSkill;
