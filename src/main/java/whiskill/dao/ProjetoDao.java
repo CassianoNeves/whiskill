@@ -77,7 +77,7 @@ public class ProjetoDao {
      * 
      */
     public void inserirSkillProjeto(int idProjeto, int idSkill){
-        jdbcTemplate.update( "INSERT INTO SKILLPROJETO(IDProjeto,IDSkill) VALUES(?,?);", 
+        jdbcTemplate.update( "INSERT INTO SKILLPROJETO(IDProjeto,IDSkill) VALUES(?,?)", 
                 idProjeto,
                 idSkill );
     }

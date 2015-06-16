@@ -28,6 +28,7 @@ public class ProjetoController {
 	
 	@RequestMapping( value = "/projeto/inserir", method = RequestMethod.POST )
 	public String projetoInserir( Projeto projeto){
+		System.out.println("aquii");
 		projetoDao.inserirProjeto( projeto );
 		int idSkill = projetoDao.buscaIdDoProjetoPorNome(projeto.getNome());
 		projetoDao.inserirSkillProjeto(projeto.getIdProjeto(), idSkill);
