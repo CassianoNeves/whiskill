@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import whiskill.model.Colaborador;
 import whiskill.model.Projeto;
 import whiskill.model.Skill;
 
@@ -21,7 +22,7 @@ public class ProjetoDao {
 	TrilhaDao trilhaDao;
 	
 	public int inserirProjeto( Projeto projeto ){
-		jdbcTemplate.update( "INSERT INTO PROJETO (NOME) VALUES (?)",
+		jdbcTemplate.update( "INSERT INTO PROJETO (NOME, IMAGEMLOGO) VALUES (?, ' ')",
 				projeto.getNome() );
 		List<Integer> idProjeto = jdbcTemplate.query( "SELECT MAX(IDPROJETO) AS IDPROJETO  FROM PROJETO", ( ResultSet rs, int rowNum ) ->{
 			
@@ -53,18 +54,26 @@ public class ProjetoDao {
 
 	public Projeto buscaProjetoComSkillsPorId(int idProjeto){
 		
-		List<Projeto> projetos = jdbcTemplate.query("SELECT s.Trilha_id, p.IDProjeto, p.Nome as nomeProjeto, s.descricao,s.nome as nomeSkill, sp.idSkill FROM Projeto as p INNER JOIN SkillProjeto sp ON sp.idProjeto = p.idProjeto INNER JOIN Skill s ON s.idSkill = sp.idSkill WHERE p.IDPROJETO = ?", new RowMapper<Projeto>(){
-
-			@Override
-			public Projeto mapRow(ResultSet rs, int rowNum) throws SQLException {
-				 Projeto projeto = new Projeto ( rs.getString( "nomeProjeto"));
+		List<Projeto> projetos = jdbcTemplate.query("SELECT * FROM PROJETO WHERE IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
+				 Projeto projeto = new Projeto ( rs.getString( "nome"));
 				 projeto.setIdProjeto( rs.getInt( "idProjeto" ) );
-				 projeto.addSkill(new Skill(rs.getInt("idSkill"),rs.getString("nomeSkill"), rs.getString("descricao"),trilhaDao.buscaTrilhaPorId(rs.getInt("trilha_id"))));
 				 return projeto;
-			}
-			
 		}, idProjeto);
-	 return projetos.get(0);
+		
+		List<Skill> skills = jdbcTemplate.query( "SELECT * FROM SKILLPROJETO SP JOIN SKILL S ON S.IDSKILL = SP.IDSKILL WHERE SP.IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
+			
+			Skill skill = new Skill( rs.getInt( "IDSKILL" ), 
+					rs.getString( "NOME" ),
+					rs.getString( "DESCRICAO" ));
+			
+			skill.setTrilha( trilhaDao.buscaTrilhaPorId(rs.getInt( "trilha_id") ) );
+			
+			return skill;
+		}, idProjeto);
+		Projeto projeto = projetos.get(0);
+		projeto.setSkills(skills);
+		
+	 return projeto;
 	}
 	
 	

@@ -7,12 +7,12 @@ public class Projeto {
 	// Atributos
 	private int idProjeto;
 	private String nome;
-	private List<Skill> skillsProjeto = new ArrayList<>();
+	private List<Skill> skills = new ArrayList<>();
 	// Métodos
-	
-	public void addSkill(Skill skill){
-		this.skillsProjeto.add(skill);
-	}
+//	
+//	public void addSkill(Skill skill){
+//		this.skillsProjeto.add(skill);
+//	}
 	
 	// Construtores
 	public Projeto(){}
@@ -42,12 +42,12 @@ public class Projeto {
 		this.nome = nome;
 	}
 
-	public List<Skill> getSkillsProjeto() {
-		return skillsProjeto;
+	public List<Skill> getSkills() {
+		return skills;
 	}
 
-	public void setSkillsProjeto(List<Skill> skillsProjeto) {
-		this.skillsProjeto = skillsProjeto;
+	public void setSkills(List<Skill> skillsProjeto) {
+		this.skills = skillsProjeto;
 	}
 	
 	
