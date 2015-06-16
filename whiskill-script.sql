@@ -74,11 +74,17 @@ ALTER TABLE SkillColaborador ADD CONSTRAINT FK_SkillColaborador_Colab FOREIGN KE
 
 ALTER TABLE SkillColaborador ADD CONSTRAINT FK_SkillColaborador_Skill FOREIGN KEY ( IDSkill ) REFERENCES Skill ( IDSkill ) ;
 
+ALTER TABLE SkillColaborador ADD CONSTRAINT UK_SkillColaborador_Ids UNIQUE ( IDSkill, IdColaborador )  ;
+
 ALTER TABLE SkillProjeto ADD CONSTRAINT FK_SkillProjeto_Proj FOREIGN KEY ( IDProjeto ) REFERENCES Projeto ( IDProjeto ) ;
 
 ALTER TABLE SkillProjeto ADD CONSTRAINT FK_SkillProjeto_Skill FOREIGN KEY ( IDSkill ) REFERENCES Skill ( IDSkill ) ;
 
+ALTER TABLE SkillProjeto ADD CONSTRAINT UK_SkillProjeto_Ids UNIQUE ( IDSkill, IdProjeto )  ;
+
 ALTER TABLE Skill ADD CONSTRAINT FK_Skill_Trilha FOREIGN KEY ( Trilha_ID ) REFERENCES Trilha ( IDTrilha ) ;
+
+ALTER TABLE Skill ADD CONSTRAINT UK_Skill_IdTrilha_IdSkill UNIQUE ( IDSkill, Trilha_ID )  ;
 
 
 -- Relatório do Resumo do Oracle SQL Developer Data Modeler: 
