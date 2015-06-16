@@ -17,18 +17,16 @@ CREATE TABLE Projeto
   (
     IDProjeto INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Nome      VARCHAR2 (100) NOT NULL,
-    Data_Inicio datetime not null,
-    Data_Fim datetime not null,
     Ativo         BOOLEAN DEFAULT TRUE
   ) ;
 
 CREATE TABLE ProjetoColaborador
   (
-    IDProjetoColaborador INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    IDProjeto            INTEGER NOT NULL ,
-    IDColaborador        INTEGER NOT NULL ,
-    TempoAlocacao        DATE NOT NULL
-    
+    IDProjetoColaborador 	INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    IDProjeto            				INTEGER NOT NULL ,
+    IDColaborador        			INTEGER NOT NULL ,
+    DataInicio        					DATE NOT NULL,
+    DataFim 							DATE NOT NULL
   ) ;
 
 CREATE TABLE Skill
