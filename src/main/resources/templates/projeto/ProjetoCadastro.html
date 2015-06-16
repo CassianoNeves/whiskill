@@ -1,98 +1,82 @@
 <!DOCTYPE html>
 <html>
-<head>
-	{{> header}}
-	<title>Cadastrar Projeto</title>
-	<style type="text/css">
-		.row{
-			margin-top: 20px;
-		}
-		.padding{
-			padding: 10px;
-			display: inline-block;
-		}
-		.alert-danger {
-		  	color: rgb(51, 51, 51);
-		  	background-color: #F8F8F8;
-		  	border-color: #E7E7E7;
-		}
-		.checkbox{
-			width: 20px !important;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		{{> navbar}}
-		<!-- <form action="/projeto/inserir" method="POST"> -->
-			<div class="row">
-				<div class="col-xs-4 col-md-4 col-lg-4">
-				</div>
-
-				<div class="col-xs-4 col-md-4 col-lg-4">
-					<div class="row text-center">
-						<h2>Cadastrar Projeto</h2>
+	<head>
+		<meta charset="utf-8">
+		{{> header}}
+		<title>Cadastrar projeto</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{{> style}}
+		{{> stylecadastro}}
+	</head>
+	<body>
+		<div class="container">
+			{{> navbar}}
+			<!-- <form action="/projeto/inserir" method="POST"> -->
+				<div class="row">
+					<div class="col-xs-4 col-md-4 col-lg-4">
 					</div>
-					
-					<div class="row text-center">
-						<label>Nome:</label>
-						<input type="text" name="nome" class="form-control" required />
+	
+					<div class="col-xs-4 col-md-4 col-lg-4">
+						<div class="row text-center">
+						</div>
+						
+						<div class="row text-center">
+							<h3>Nome:</h3>
+							<input type="text" name="nome" class="form-control" required />
+						</div>
+					</div>
+	
+					<div class="col-xs-4 col-md-4 col-lg-4">
 					</div>
 				</div>
-
-				<div class="col-xs-4 col-md-4 col-lg-4">
+	
+				<div class="row text-center">
+					<h3>Que conhecimentos o projeto demanda?</h3>
 				</div>
-			</div>
-
-			<div class="row text-center">
-				<h2>Quais são os Conhecimentos?</h2>
-			</div>
-
-			{{#trilhas}}
-				<div id="{{idTrilha}}"class="row text-center alert alert-danger">
-					<h2>{{nome}}</h2>
+	
+				{{#trilhas}}
+					<div id="{{idTrilha}}"class="row text-center alert alert-danger">
+						<h3>{{nome}}</h3>
+					</div>
+				{{/trilhas}}
+	
+				<div class="row text-center">
+					<input type="submit" value="Cadastrar" class="btn btn-primary"/>
 				</div>
-			{{/trilhas}}
-
-			<div class="row text-center">
-				<input type="submit" value="Cadastrar" class="btn btn-primary"/>
-			</div>
-		<!-- </form> -->
-	</div>
-	{{> scripts}}
-	<script>
-		$(function(){
-			{{#skills}}
-			$('#{{trilha.idTrilha}}').append( 
-				'<div class="padding thumbnail text-center">'+
-					'<label>{{nome}}</label>'+
-					'<input idSkill="{{idSkill}}" class="checkbox skills" type="checkbox" name="idSkills"/>'+
-				'</div> ' );
-			{{/skills}}
-
-			$('[type="submit"]').click(function(i){
-				$.ajax({
-		  			url: '/projeto/inserir/projeto?nome='+$('input[name="nome"]').val(),
-		  			type: 'POST',
-		  			contentType: 'json',
-				}).done(function(idProjeto){
-					console.log(idProjeto);
-					var query = '';
-					$('input.skills:checked').each(function(i){
-						query = query + 'INSERT INTO SKILLPROJETO (IDSKILL, IDPROJETO) VALUES ('+ $(this).attr("idSkill") +', '+ idProjeto +'); ';
-					});
-
+				<br>
+			<!-- </form> -->
+		</div>
+		{{> scripts}}
+		<script>
+			$(function(){
+				{{#skills}}
+				$('#{{trilha.idTrilha}}').append( 
+					'<div class="padding text-center"> <input idSkill="{{idSkill}}" class="checkbox skills" type="checkbox" name="idSkills"/>  <label>{{nome}}</label> </div> ' );
+				{{/skills}}
+	
+				$('[type="submit"]').click(function(i){
 					$.ajax({
-			  			url: '/projeto/inserir/SkillProjeto?query=' + query,
+			  			url: '/projeto/inserir/projeto?nome='+$('input[name="nome"]').val(),
 			  			type: 'POST',
 			  			contentType: 'json',
-					}).done(function(res){
-						//console.log('feito');
-						window.location = '/projeto/listar';
+					}).done(function(idProjeto){
+						console.log(idProjeto);
+						var query = '';
+						$('input.skills:checked').each(function(i){
+							query = query + 'INSERT INTO SKILLPROJETO (IDSKILL, IDPROJETO) VALUES ('+ $(this).attr("idSkill") +', '+ idProjeto +'); ';
+						});
+	
+						$.ajax({
+				  			url: '/projeto/inserir/SkillProjeto?query=' + query,
+				  			type: 'POST',
+				  			contentType: 'json',
+						}).done(function(res){
+							//console.log('feito');
+							window.location = '/projeto/listar';
+						});
 					});
 				});
 			});
-		});
-	</script>
-</body>
+		</script>
+	</body>
 </html>

@@ -1,67 +1,66 @@
 <!DOCTYPE html>
 <html>
-<head>
-	{{> header}}
-	<title>Atualizar Skill</title>
-	<style type="text/css">
-		.row{
-			margin-top: 20px;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		{{> navbar}}
-		<div class="row">
-			<div class="col-xs-4 col-md-4 col-lg-4">
-			</div>
-
-			<div class="col-xs-4 col-md-4 col-lg-4">
-				<div class="row text-center">
-					<h2>Atualizar Skill</h2>
+	<head>
+		<meta charset="utf-8">
+		{{> header}}
+		<title>Atualizar skill</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{{> style}}
+		{{> stylecadastro}}
+	</head>
+	<body>
+		<div class="container">
+			{{> navbar}}
+			<div class="row">
+				<div class="col-xs-4 col-md-4 col-lg-4">
 				</div>
-				<form action="/skill/atualizar" method="POST">
-
-					<input value="{{skill.idSkill}}" type="hidden" name="idSkill" />
-
+	
+				<div class="col-xs-4 col-md-4 col-lg-4">
 					<div class="row text-center">
-						<label>Nome:</label>
-						<input value="{{skill.nome}}" type="text" name="nome" class="form-control" required />
 					</div>
-
-					<div class="row text-center">
-						<label>Descrição:</label>
-						<input value="{{skill.descricao}}" type="text" name="descricao" class="form-control" required/>
-					</div>
-
-					<div class="row text-center">
-						<label>Trilha:</label>
-						<select name="idTrilha" class="form-control">
-							<option value="" required>-- Selecione --</option>
-							{{#trilhas}}
-							<option value="{{idTrilha}}">{{nome}}</option>
-							{{/trilhas}}
-						</select>
-					</div>
-
-					<div class="row text-center">
-						<input type="submit" value="Atualizar" class="btn btn-primary"/>
-					</div>
-				</form>
+					<form action="/skill/atualizar" method="POST">
+	
+						<input value="{{skill.idSkill}}" type="hidden" name="idSkill" />
+	
+						<div class="row text-center">
+							<h4>Nome:</h4>
+							<input value="{{skill.nome}}" type="text" name="nome" class="form-control" required />
+						</div>
+	
+						<div class="row text-center">
+							<h4>DescriÃ§Ã£o:</h4>
+							<input value="{{skill.descricao}}" type="text" name="descricao" class="form-control" required/>
+						</div>
+	
+						<div class="row text-center">
+							<h4>Trilha:</h4>
+							<select name="idTrilha" class="form-control">
+								<option value="" required>-- Selecione --</option>
+								{{#trilhas}}
+								<option value="{{idTrilha}}">{{nome}}</option>
+								{{/trilhas}}
+							</select>
+						</div>
+	
+						<div class="row text-center">
+							<input type="submit" value="Atualizar" class="btn btn-primary"/>
+						</div>
+					</form>
+				</div>
+				<div class="col-xs-4 col-md-4 col-lg-4">
+				</div>
 			</div>
-			<div class="col-xs-4 col-md-4 col-lg-4">
-			</div>
+			<br>
 		</div>
-	</div>
-	{{> scripts}}
-	<script type="text/javascript">
-	$(function(){
-		$('select option').each(function(i){
-			if($(this).attr('value') === '{{skill.trilha.idTrilha}}'){
-				$(this).attr('selected', 'selected')
-			}
+		{{> scripts}}
+		<script type="text/javascript">
+		$(function(){
+			$('select option').each(function(i){
+				if($(this).attr('value') === '{{skill.trilha.idTrilha}}'){
+					$(this).attr('selected', 'selected')
+				}
+			});
 		});
-	});
-	</script>
-</body>
+		</script>
+	</body>
 </html>
