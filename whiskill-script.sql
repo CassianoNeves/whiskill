@@ -17,6 +17,8 @@ CREATE TABLE Projeto
   (
     IDProjeto INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Nome      VARCHAR2 (100) NOT NULL,
+    Data_Inicio datetime not null,
+    Data_Fim datetime not null,
     Ativo         BOOLEAN DEFAULT TRUE
   ) ;
 
