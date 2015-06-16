@@ -16,6 +16,9 @@
 		  	background-color: #F8F8F8;
 		  	border-color: #E7E7E7;
 		}
+		.checkbox{
+			width: 20px !important;
+		}
 	</style>
 </head>
 <body>
@@ -60,7 +63,11 @@
 	<script>
 		$(function(){
 			{{#skills}}
-			$('#{{trilha.idTrilha}}').append( '<div class="padding"><label>{{nome}}</label>    <input idSkill="{{idSkill}}" class="skills" type="checkbox" name="idSkills"/></div> ' );
+			$('#{{trilha.idTrilha}}').append( 
+				'<div class="padding thumbnail text-center">'+
+					'<label>{{nome}}</label>'+
+					'<input idSkill="{{idSkill}}" class="checkbox skills" type="checkbox" name="idSkills"/>'+
+				'</div> ' );
 			{{/skills}}
 
 			$('[type="submit"]').click(function(i){
