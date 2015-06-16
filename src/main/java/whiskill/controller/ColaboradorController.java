@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import whiskill.dao.ColaboradorDao;
+import whiskill.dao.SkillDao;
+import whiskill.dao.TrilhaDao;
 import whiskill.model.Colaborador;
+import whiskill.model.Trilha;
 
 @Controller
 public class ColaboradorController {
@@ -17,8 +20,16 @@ public class ColaboradorController {
 	@Inject 
 	ColaboradorDao colaboradorDao;
 	
+	@Inject
+	SkillDao skillDao;
+	
+	@Inject
+	TrilhaDao trilhaDao;
+	
 	@RequestMapping( value = "/colaborador/cadastro", method = RequestMethod.GET )
-	public String colaboradorCadastro(){
+	public String colaboradorCadastro( Model model){
+		model.addAttribute( "skills", skillDao.buscarTodasSkills() );
+		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
 		return "/colaborador/ColaboradorCadastro";
 	}
 	
