@@ -21,13 +21,16 @@ public class ProjetoController {
 	SkillDao skillDao;
 	
 	@RequestMapping( value = "/projeto/cadastro", method = RequestMethod.GET )
-	public String projetoCadastro(){
+	public String projetoCadastro(Model model){
+		model.addAttribute("skills", skillDao.buscarTodasSkills() );
 		return "/projeto/ProjetoCadastro";
 	}
 	
 	@RequestMapping( value = "/projeto/inserir", method = RequestMethod.POST )
 	public String projetoInserir( Projeto projeto){
 		projetoDao.inserirProjeto( projeto );
+		int idSkill = projetoDao.buscaIdDoProjetoPorNome(projeto.getNome());
+		projetoDao.inserirSkillProjeto(projeto.getIdProjeto(), idSkill);
 		return "redirect:/projeto/listar";
 	}
 	
@@ -41,7 +44,6 @@ public class ProjetoController {
 	public String projetoAtualizar( Model model, @RequestParam int idProjeto){
 		model.addAttribute( "projeto", projetoDao.buscaProjetoPorId( idProjeto ) );
 		model.addAttribute("skills", skillDao.buscarTodasSkills() );
-		model.addAttribute("skillsDoProjeto",projetoDao.buscaSkillsProjeto(idProjeto) );
 		return "/projeto/ProjetoAtualizar";
 	}
 	
