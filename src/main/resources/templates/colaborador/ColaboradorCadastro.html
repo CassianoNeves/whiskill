@@ -7,6 +7,15 @@
 		.row{
 			margin-top: 20px;
 		}
+		.padding{
+			padding: 10px;
+			display: inline-block;
+		}
+		.alert-danger {
+		  	color: rgb(51, 51, 51);
+		  	background-color: #F8F8F8;
+		  	border-color: #E7E7E7;
+		}
 	</style>
 </head>
 <body>
@@ -32,17 +41,13 @@
 				</div>
 			</div>
 
-			{{#trilhas}}
-				<div id="{{idTrilha}}"class="row text-center">
-					<h2>{{nome}}</h2>
+			<div class="row text-center">
+				<h2>Quais são os Conhecimentos?</h2>
+			</div>
 
-				<!-- 	<div class="row">
-						{{#skills}}
-						<label>{{nome}}</label>
-						<input type="checkbox" name="idSkill">
-						{{/skills}}
-					</div> -->
-					
+			{{#trilhas}}
+				<div id="{{idTrilha}}"class="row text-center alert alert-danger">
+					<h2>{{nome}}</h2>
 				</div>
 			{{/trilhas}}
 
@@ -55,7 +60,7 @@
 	<script>
 		$(function(){
 			{{#skills}}
-			$('#{{}}').append( $('<div/>') )
+			$('#{{trilha.idTrilha}}').append( '<div class="padding"><label>{{nome}}</label>    <input type="checkbox" name="idSkill"></div>' );
 			{{/skills}}
 		});
 	</script>
