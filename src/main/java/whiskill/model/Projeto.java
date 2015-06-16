@@ -8,6 +8,7 @@ public class Projeto {
 	private int idProjeto;
 	private String nome;
 	private List<Skill> skills = new ArrayList<>();
+	private String imagemLogo;
 	// Métodos
 //	
 //	public void addSkill(Skill skill){
@@ -50,6 +51,12 @@ public class Projeto {
 		this.skills = skillsProjeto;
 	}
 	
-	
+	public String getImagemLogo() {
+		return imagemLogo;
+	}
+
+	public void setImagemLogo(String imagemLogo) {
+		this.imagemLogo = imagemLogo;
+	}	
 
 }

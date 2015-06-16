@@ -24,6 +24,11 @@
 							<h3>Nome:</h3>
 							<input type="text" name="nome" class="form-control" required />
 						</div>
+						
+						<div class="row text-center">
+							<label>URL Imagem do Projeto:</label>
+							<input type="text" name="imagemlogo" class="form-control" required />
+						</div>
 					</div>
 	
 					<div class="col-xs-4 col-md-4 col-lg-4">
@@ -56,7 +61,7 @@
 	
 				$('[type="submit"]').click(function(i){
 					$.ajax({
-			  			url: '/projeto/inserir/projeto?nome='+$('input[name="nome"]').val(),
+			  			url: '/projeto/inserir/projeto?nome='+$('input[name="nome"]').val()+'&imagemLogo='+$('input[name="imagemlogo"]').val(),
 			  			type: 'POST',
 			  			contentType: 'json',
 					}).done(function(idProjeto){
