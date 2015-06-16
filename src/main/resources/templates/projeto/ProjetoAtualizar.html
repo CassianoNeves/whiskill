@@ -24,6 +24,10 @@
 							<h3>Nome:</h3>
 							<input value="{{projeto.nome}}" type="text" name="nome" class="form-control" required />
 						</div>
+						<div class="row text-center">
+							<label>URL Imagem do Projeto:</label>
+							<input value="{{projeto.imagemLogo}}"type="text" name="imagemlogo" class="form-control" required />
+						</div>
 					</div>
 	
 					<div class="col-xs-4 col-md-4 col-lg-4">
@@ -57,7 +61,7 @@
 				{{/projeto.skills}}
 				$('[type="submit"]').click(function(i){
 					$.ajax({
-			  			url: '/projeto/atualizar?nome='+$('input[name="nome"]').val() + '&idProjeto={{projeto.idProjeto}}',
+			  			url: '/projeto/atualizar?nome='+$('input[name="nome"]').val() + '&idProjeto={{projeto.idProjeto}}'+'&imagemLogo='+$('input[name="imagemlogo"]').val(),		
 			  			type: 'POST',
 			  			contentType: 'json',
 					}).done(function(res){

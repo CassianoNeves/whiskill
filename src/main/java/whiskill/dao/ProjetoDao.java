@@ -22,8 +22,8 @@ public class ProjetoDao {
 	TrilhaDao trilhaDao;
 	
 	public int inserirProjeto( Projeto projeto ){
-		jdbcTemplate.update( "INSERT INTO PROJETO (NOME, IMAGEMLOGO) VALUES (?, ' ')",
-				projeto.getNome() );
+		jdbcTemplate.update( "INSERT INTO PROJETO (NOME, IMAGEMLOGO) VALUES (?, ?)",
+				projeto.getNome(), projeto.getImagemLogo() );
 		List<Integer> idProjeto = jdbcTemplate.query( "SELECT MAX(IDPROJETO) AS IDPROJETO  FROM PROJETO", ( ResultSet rs, int rowNum ) ->{
 			
 			return rs.getInt( "IDPROJETO" );
@@ -39,9 +39,10 @@ public class ProjetoDao {
 	
 	public List<Projeto> buscaTodosProjetos(){
 		
-		List<Projeto> projetos = jdbcTemplate.query("SELECT IDProjeto, Nome FROM Projeto", ( ResultSet rs, int rowNum ) ->{
+		List<Projeto> projetos = jdbcTemplate.query("SELECT IDProjeto, Nome, ImagemLogo FROM Projeto", ( ResultSet rs, int rowNum ) ->{
 			 Projeto projeto = new Projeto ( rs.getString( "nome" ));
 			 projeto.setIdProjeto( rs.getInt( "idProjeto" ) );
+			 projeto.setImagemLogo(rs.getString("ImagemLogo"));
 			 return projeto;
 		});
 		
@@ -57,6 +58,7 @@ public class ProjetoDao {
 		List<Projeto> projetos = jdbcTemplate.query("SELECT * FROM PROJETO WHERE IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
 				 Projeto projeto = new Projeto ( rs.getString( "nome"));
 				 projeto.setIdProjeto( rs.getInt( "idProjeto" ) );
+				 projeto.setImagemLogo(rs.getString("ImagemLogo"));
 				 return projeto;
 		}, idProjeto);
 		
@@ -94,8 +96,9 @@ public class ProjetoDao {
 	}
 
 	public void atualizarProjeto( Projeto projeto ){
-		jdbcTemplate.update( "UPDATE Projeto SET NOME = ? WHERE IDProjeto = ?", 
+		jdbcTemplate.update( "UPDATE Projeto SET NOME = ?, IMAGEMLOGO=? WHERE IDProjeto = ?", 
 				projeto.getNome(),
+				projeto.getImagemLogo(),
 				projeto.getIdProjeto() );
 	}
 
