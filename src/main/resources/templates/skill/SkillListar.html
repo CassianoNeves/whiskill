@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-	{{> header}}
-	<title>Lista Skills</title>
-	<style type="text/css">
-		.titulo{
-			margin-top: 50px;
-			margin-bottom: 30px;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		{{> navbar}}
-
-		<div class="row titulo text-center">
-			<h2>Lista de Skills</h2>
-		</div>
-
-		<div class="row">
-			<a href="/skill/cadastro"><button class="btn btn-default">Cadastrar</button></a>
-		</div>
-		<br>
-
-		<div class="row">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Descrição</th>
-						<th>Trilha</th>
-						<th></th>
-					</tr>
-				</thead>
-
-				<tbody>
-					{{#skills}}
+	<head>
+			<meta charset="utf-8">
+			{{> header}}
+			<title>Lista de skills</title>
+			<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+			{{> style}}
+			{{> row}}
+			<style>
+				th{
+					width: 50px;
+				}
+			</style>
+	</head>
+	<body>
+		<div class="container">
+			{{> navbar}}
+			<div class="row titulo text-center">
+				<h2>Lista de Skills</h2>
+			</div>
+	
+			<div class="row">
+				<a href="/skill/cadastro"><button class="btn btn-primary">Cadastrar</button></a>
+			</div>
+			<br>
+	
+			<div class="row">
+				<table class="table">
+					<thead>
 						<tr>
-							<td>{{nome}}</td>
-							<td>{{descricao}}</td>
-							<td>{{trilha.nome}}</td>
-							<td>
-								<a href="/skill/atualizar?idSkill={{idSkill}}"><button class="btn btn-warning">
-								Editar</button></a>
-
-								<a href="/skill/excluir?idSkill={{idSkill}}"><button class="btn btn-danger">
-								Excluir</button></a>
-							</td>						
+							<th>Nome</th>
+							<th>DescriÃ§Ã£o</th>
+							<th>Trilha</th>
+							<th></th>
 						</tr>
-					{{/skills}}
-				</tbody>
-			</table>
+					</thead>
+	
+					<tbody>
+						{{#skills}}
+							<tr>
+								<td>{{nome}}</td>
+								<td>{{descricao}}</td>
+								<td>{{trilha.nome}}</td>
+								<td>
+									<a href="/skill/atualizar?idSkill={{idSkill}}"><button class="btn btn-primary">
+									Editar</button></a>
+	
+									<a href="/skill/excluir?idSkill={{idSkill}}"><button class="btn btn-primary">
+									Excluir</button></a>
+								</td>						
+							</tr>
+						{{/skills}}
+					</tbody>
+				</table>
+			</div>
 		</div>
-		
-		<div class="row">
-			<a href="/skill/cadastro"><button class="btn btn-default">Cadastrar</button></a>
-		</div>
-
-	</div>
-	{{> scripts}}
-</body>
+		{{> scripts}}
+	</body>
 </html>
