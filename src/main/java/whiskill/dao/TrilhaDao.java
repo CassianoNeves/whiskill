@@ -24,7 +24,7 @@ public class TrilhaDao {
 	
 	public List<Trilha> buscaTodasTrilhas(){
 		
-		List<Trilha> trilhas = jdbcTemplate.query("SELECT * FROM Trilha", ( ResultSet rs, int rowNum ) ->{
+		List<Trilha> trilhas = jdbcTemplate.query("SELECT * FROM Trilha WHERE ATIVO = 'TRUE'", ( ResultSet rs, int rowNum ) ->{
 			 Trilha trilha = new Trilha ( rs.getString( "nome" ),
                     		    rs.getString( "descricao" ));
 			 trilha.setIdTrilha( rs.getInt( "idTrilha" ) );
@@ -35,7 +35,7 @@ public class TrilhaDao {
 	}
 	
 	public void excluirTrilha( int idTrilha ){
-		jdbcTemplate.update( "DELETE FROM TRILHA WHERE idTrilha = ?", idTrilha );
+		jdbcTemplate.update( "UPDATE TRILHA SET ATIVO = 'FALSE' WHERE idTrilha = ?", idTrilha );
 	}
 	
 public Trilha buscaTrilhaPorId( int idTrilha ){
