@@ -43,33 +43,19 @@
 				<div class="row text-center">
 					<input type="submit" value="Atualizar" class="btn btn-primary"/>
 				</div>
-<<<<<<< HEAD
-			{{/trilhas}}
-
-			<div class="row text-center">
-				<input type="submit" value="Atualizar" class="btn btn-primary"/>
-			</div>
-		<!-- </form> -->
-	</div>
-	{{> scripts}}
-	<script>
-		$(function(){
-			{{#skills}}
-			$('#{{trilha.idTrilha}}').append( '<div class="padding"><label>{{nome}}</label>    <input idSkill="{{idSkill}}" class="checkbox skills" type="checkbox" name="idSkills"/></div> ' );
-			{{/skills}}
-
-			{{#projeto.skills}}
-				$('input.skills[idSkill="{{idSkill}}"]').attr('checked', 'checked')
-			{{/projeto.skills}}
-
-			$('[type="submit"]').click(function(i){
-				$.ajax({
-		  			url: '/projeto/atualizar?nome='+$('input[name="nome"]').val() + '&idProjeto={{projeto.idProjeto}}',
-		  			type: 'POST',
-		  			contentType: 'json',
-				}).done(function(res){
-					//console.log(res);
-					//var query = '';
+				<br>
+			<!-- </form> -->
+		</div>
+		{{> scripts}}
+		<script>
+			$(function(){
+				{{#skills}}
+				$('#{{trilha.idTrilha}}').append( '<div class="padding"><input idSkill="{{idSkill}}" class="checkbox skills" type="checkbox" name="idSkills"/><label>{{nome}}</label> </div> ' );
+				{{/skills}}
+				{{#projeto.skills}}
+					$('input.skills[idSkill="{{idSkill}}"]').attr('checked', 'checked')
+				{{/projeto.skills}}
+				$('[type="submit"]').click(function(i){
 					$.ajax({
 			  			url: '/projeto/atualizar?nome='+$('input[name="nome"]').val() + '&idProjeto={{projeto.idProjeto}}',
 			  			type: 'POST',
@@ -82,8 +68,20 @@
 				  			type: 'POST',
 				  			contentType: 'json',
 						}).done(function(res){
-							//console.log('feito');
-							window.location = '/projeto/listar';
+							console.log(res);
+							var query = "";
+							$('input.skills:checked').each(function(i){
+								query = query + 'INSERT INTO SKILLProjeto (IDSKILL, IDProjeto) VALUES ('+ $(this).attr("idSkill") +', '+ {{projeto.idProjeto}} +'); ';
+							});
+							console.log(query);
+							$.ajax({
+					  			url: '/projeto/inserir/SkillProjeto?query=' + query,
+					  			type: 'POST',
+					  			contentType: 'json',
+							}).done(function(res){
+								//console.log('feito');
+								window.location = '/projeto/listar';
+							});
 						});
 					});
 				});
