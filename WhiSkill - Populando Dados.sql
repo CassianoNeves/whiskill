@@ -28,11 +28,11 @@ INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Maven' , 'Maven, é uma ferr
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Design Responsivo' , 'Busca criar sites onde a experiência do usuário é otimizada independente da forma a qual ele acessa o website, facilitando a navegação e scrolling em qualquer caso.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('AngularJS' , 'AngularJS é um framework JavaScript open-source, mantido pelo Google, que auxilia na execução de single-page applications visando criar aplicativos que podem ser acessados por um navegador web.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Android' , 'Desenvolvimento de aplicativos no sistema operacional Android', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES(' iOS' , 'Desenvolvimento de aplicativos no sistema operacional  iOS', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES(' Cordova' , 'Desenvolvimento de aplicativos a partir de HTML5, CSS3 e Javascript', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('iOS' , 'Desenvolvimento de aplicativos no sistema operacional  iOS', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Cordova' , 'Desenvolvimento de aplicativos a partir de HTML5, CSS3 e Javascript', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
 	-- Testes
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES(' JUnit' , ' JUnit é um framework open-source, criado por Erich Gamma e Kent Beck, com suporte à criação de testes automatizados na linguagem de programação Java.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('  Selenium IDE' , ' Selenium é um framework de testes para aplicações Web', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('JUnit' , ' JUnit é um framework open-source, criado por Erich Gamma e Kent Beck, com suporte à criação de testes automatizados na linguagem de programação Java.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Selenium IDE' , ' Selenium é um framework de testes para aplicações Web', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('MSTest ' , ' MSTest  é um utilitário para execução de testes unitários de sistemas criados no Visual Studio', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Cucumber' , ' Cucumber é uma plataforma de testes para desktop, web, mobile, e server applications em diversas plataformas', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
 
