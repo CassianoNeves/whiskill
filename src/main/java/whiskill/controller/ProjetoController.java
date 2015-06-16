@@ -27,10 +27,10 @@ public class ProjetoController {
 	}
 	
 	@RequestMapping( value = "/projeto/inserir", method = RequestMethod.POST )
-	public String projetoInserir( Projeto projeto){
+	public String projetoInserir( Projeto projeto , @RequestParam int idSkill){
 		projetoDao.inserirProjeto( projeto );
-		int idSkill = projetoDao.buscaIdDoProjetoPorNome(projeto.getNome());
-		projetoDao.inserirSkillProjeto(projeto.getIdProjeto(), idSkill);
+		int idProjeto = projetoDao.buscaIdDoProjetoPorNome(projeto.getNome());
+		projetoDao.inserirSkillProjeto(idProjeto, idSkill);
 		return "redirect:/projeto/listar";
 	}
 	
