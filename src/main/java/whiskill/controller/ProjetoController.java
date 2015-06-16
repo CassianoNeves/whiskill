@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import whiskill.dao.ProjetoDao;
+import whiskill.dao.SkillDao;
 import whiskill.model.Projeto;
 
 @Controller
@@ -16,6 +17,8 @@ public class ProjetoController {
 	
 	@Inject 
 	ProjetoDao projetoDao;
+	@Inject
+	SkillDao skillDao;
 	
 	@RequestMapping( value = "/projeto/cadastro", method = RequestMethod.GET )
 	public String projetoCadastro(){
@@ -37,12 +40,15 @@ public class ProjetoController {
 	@RequestMapping( value = "/projeto/atualizar", method = RequestMethod.GET )
 	public String projetoAtualizar( Model model, @RequestParam int idProjeto){
 		model.addAttribute( "projeto", projetoDao.buscaProjetoPorId( idProjeto ) );
+		model.addAttribute("skills", skillDao.buscarTodasSkills() );
+		model.addAttribute("skillsDoProjeto",projetoDao.buscaSkillsProjeto(idProjeto) );
 		return "/projeto/ProjetoAtualizar";
 	}
 	
 	@RequestMapping( value = "/projeto/atualizar", method = RequestMethod.POST )
-	public String projetoAtualizar( Projeto projeto ){
+	public String projetoAtualizar( Projeto projeto, @RequestParam int idSkill ){
 		projetoDao.atualizarProjeto( projeto );
+		projetoDao.inserirSkillProjeto(projeto.getIdProjeto(), idSkill);
 		return "redirect:/projeto/listar";
 	}
 	
@@ -51,5 +57,5 @@ public class ProjetoController {
 		projetoDao.excluirProjeto( idProjeto);
 		return "redirect:/projeto/listar";
 
-	}
+	}	
 }
