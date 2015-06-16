@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
-	{{> header}}
-	<title>Cadastro Skill</title>
-	<style type="text/css">
-		.row{
-			margin-top: 20px;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		{{> navbar}}
-		<div class="row">
-			<div class="col-xs-4 col-md-4 col-lg-4">
-			</div>
-
-			<div class="col-xs-4 col-md-4 col-lg-4">
-				<div class="row text-center">
-					<h2>Cadastrar Skill</h2>
+	<head>
+		<meta charset="utf-8">
+		{{> header}}
+		<title>Cadastrar skill</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{{> style}}
+		{{> stylecadastro}}
+		<style type="text/css">
+			.row{
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			{{> navbar}}
+			<div class="row">
+				<div class="col-xs-4 col-md-4 col-lg-4">
 				</div>
-				<form action="/skill/inserir" method="POST">
+	
+				<div class="col-xs-4 col-md-4 col-lg-4">
 					<div class="row text-center">
-						<label>Nome:</label>
-						<input type="text" name="nome" class="form-control" required />
+						<h2>Cadastrar Skill</h2>
 					</div>
-
-					<div class="row text-center">
-						<label>Descrição:</label>
-						<input type="text" name="descricao" class="form-control" required/>
-					</div>
-
-					<div class="row text-center">
-						<label>Trilha:</label>
-						<select name="idTrilha" class="form-control">
-							<option value="" required>-- Selecione --</option>
-							{{#trilhas}}
-							<option value="{{idTrilha}}">{{nome}}</option>
-							{{/trilhas}}
-						</select>
-					</div>
-
-					<div class="row text-center">
-						<input type="submit" value="Cadastrar" class="btn btn-primary"/>
-					</div>
-				</form>
-			</div>
-			<div class="col-xs-4 col-md-4 col-lg-4">
+					<form action="/skill/inserir" method="POST">
+						<div class="row text-center">
+							<label>Nome:</label>
+							<input type="text" name="nome" class="form-control" required />
+						</div>
+	
+						<div class="row text-center">
+							<label>DescriÃ§Ã£o:</label>
+							<input type="text" name="descricao" class="form-control" required/>
+						</div>
+	
+						<div class="row text-center">
+							<label>Trilha:</label>
+							<select name="idTrilha" class="form-control">
+								<option value="" required>-- Selecione --</option>
+								{{#trilhas}}
+								<option value="{{idTrilha}}">{{nome}}</option>
+								{{/trilhas}}
+							</select>
+						</div>
+	
+						<div class="row text-center">
+							<input type="submit" value="Cadastrar" class="btn btn-primary"/>
+						</div>
+					</form>
+				</div>
+				<div class="col-xs-4 col-md-4 col-lg-4">
+				</div>
 			</div>
 		</div>
-	</div>
-	{{> scripts}}
-</body>
+		{{> scripts}}
+	</body>
 </html>
