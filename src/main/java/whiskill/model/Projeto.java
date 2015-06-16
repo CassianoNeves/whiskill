@@ -7,6 +7,10 @@ public class Projeto {
 	// Construtores
 	public Projeto(){}
 	
+	public Projeto(int id){
+		this.idProjeto = id;
+	}
+	
 	public Projeto(String nome){
 		this.nome = nome;
 	}
