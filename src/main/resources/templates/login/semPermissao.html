@@ -1,15 +1,26 @@
+<!DOCTYPE html>
 <html>
-<head>
-	{{> header}}
-	<title>Acesso Negado!</title>
-</head>
-<body>
-	<div class="container">
-		<div class="row">
-			<h1>Acesso Negado! Você não é um administrador!</h1>
-			<a href="/usuario/login"><button class="btn btn-primary">Fazer Login</button></a>
+	<head>
+		<meta charset="utf-8">
+		{{> header}}
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<title>Acesso negado!</title> {{> style}}
+		<style type="text/css">
+			.margin-top-50 {
+				margin-top: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container centro margin-top-50">
+			<div class="row ">
+				<h1>Acesso negado!</h1>
+				<h3>Para acessar esta pÃ¡gina vocÃª deve ser um administrador.</h3>
+				<br>
+				<br> 
+				<a href="/usuario/login"><button class="btn btn-primary">Fazer Login</button></a>
+			</div>
 		</div>
-	</div>
-	{{> scripts}}
-</body>
+		{{> scripts}}
+	</body>
 </html>
