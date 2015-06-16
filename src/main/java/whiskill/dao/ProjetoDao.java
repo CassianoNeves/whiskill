@@ -1,11 +1,13 @@
 package whiskill.dao;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import whiskill.model.Projeto;
@@ -15,6 +17,8 @@ import whiskill.model.Skill;
 public class ProjetoDao {
 	@Inject
 	private JdbcTemplate jdbcTemplate;
+	@Inject
+	TrilhaDao trilhaDao;
 	
 	public int inserirProjeto( Projeto projeto ){
 		jdbcTemplate.update( "INSERT INTO PROJETO (NOME) VALUES (?)",
@@ -42,6 +46,27 @@ public class ProjetoDao {
 		
 		return projetos;
 	}
+	/**
+	 * Método para acesso ao banco realizando Join e trazendo as informações referentes as Skills do Projeto
+	 * @return
+	 */
+
+	public Projeto buscaProjetoComSkillsPorId(int idProjeto){
+		
+		List<Projeto> projetos = jdbcTemplate.query("SELECT s.Trilha_id, p.IDProjeto, p.Nome as nomeProjeto, s.descricao,s.nome as nomeSkill, sp.idSkill FROM Projeto as p INNER JOIN SkillProjeto sp ON sp.idProjeto = p.idProjeto INNER JOIN Skill s ON s.idSkill = sp.idSkill WHERE p.IDPROJETO = ?", new RowMapper<Projeto>(){
+
+			@Override
+			public Projeto mapRow(ResultSet rs, int rowNum) throws SQLException {
+				 Projeto projeto = new Projeto ( rs.getString( "nomeProjeto"));
+				 projeto.setIdProjeto( rs.getInt( "idProjeto" ) );
+				 projeto.addSkill(new Skill(rs.getInt("idSkill"),rs.getString("nomeSkill"), rs.getString("descricao"),trilhaDao.buscaTrilhaPorId(rs.getInt("trilha_id"))));
+				 return projeto;
+			}
+			
+		}, idProjeto);
+	 return projetos.get(0);
+	}
+	
 	
 	public void excluirProjeto( int idProjeto ){
 		jdbcTemplate.update( "DELETE FROM PROJETO WHERE idProjeto = ?", idProjeto );
