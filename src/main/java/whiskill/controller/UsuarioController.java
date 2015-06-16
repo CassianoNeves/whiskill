@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import whiskill.dao.ProjetoDao;
 import whiskill.dao.UsuarioDao;
 import whiskill.model.Usuario;
 
@@ -19,10 +20,15 @@ public class UsuarioController {
 	
 	@Inject 
 	UsuarioDao usuarioDao;
+	
+	@Inject
+	ProjetoDao projetoDao;
+	
 //	Aqui vai ser a nossa home
 	@RequestMapping( value = "/", method = RequestMethod.GET )
-	public String index() {
-			return "home/home";
+	public String index( Model model ) {
+		model.addAttribute( "Projeto", projetoDao.buscaTodosProjetos() );
+		return "home/home";
 	}
 	
 	@RequestMapping( value = "/usuario/semPermissao", method = RequestMethod.GET )

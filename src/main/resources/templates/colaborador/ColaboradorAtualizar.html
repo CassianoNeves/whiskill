@@ -50,9 +50,9 @@
 					$('#{{trilha.idTrilha}}').append('<div class="padding"><input idSkill="{{idSkill}}" class="checkbox skills" type="checkbox" name="idSkills"/><label>{{nome}}</label></div>');
 					{{/skills}}
 		
-					{{#skillsDoColaborador}}
-					$('input.skills[idSkill="{{.}}"]').attr('checked', 'checked')
-					{{/skillsDoColaborador}}
+					{{#colaborador.skills}}
+					$('input.skills[idSkill="{{idSkill}}"]').attr('checked', 'checked')
+					{{/colaborador.skills}}
 		
 					$('[type="submit"]').click(function(i){
 						$.ajax({
