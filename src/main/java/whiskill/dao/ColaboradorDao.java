@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import whiskill.model.Colaborador;
+import whiskill.model.Skill;
 
 @Component
 public class ColaboradorDao {
@@ -62,6 +63,17 @@ public class ColaboradorDao {
 	
 	public void inserirSkillColaborador( String query ){
 		jdbcTemplate.update( query );
+	}
+	
+	public List<Integer> buscarSkillsColaborador( int idColaborador ){
+		return jdbcTemplate.query( "SELECT *  FROM SKILLCOLABORADOR WHERE IDCOLABORADOR  = ?", ( ResultSet rs, int rowNum ) ->{
+			return rs.getInt( "idSkill");
+		},
+		idColaborador);
+	}
+	
+	public void excluirSkillsColaborador( int idColaborador ){
+		jdbcTemplate.update( "DELETE SKILLCOLABORADOR WHERE IDCOLABORADOR = ?", idColaborador );
 	}
 	
 }

@@ -57,13 +57,24 @@ public class ColaboradorController {
 	@RequestMapping( value = "/colaborador/atualizar", method = RequestMethod.GET )
 	public String colaboradorAtualizar( Model model, @RequestParam int idColaborador ){
 		model.addAttribute( "colaborador", colaboradorDao.buscaColaboradorPorId( idColaborador ) );
+		model.addAttribute( "skillsDoColaborador", colaboradorDao.buscarSkillsColaborador( idColaborador ) );
+		model.addAttribute( "skills", skillDao.buscarTodasSkills() );
+		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
 		return "/colaborador/ColaboradorAtualizar";
 	}
 	
+	@ResponseBody
 	@RequestMapping( value = "/colaborador/atualizar", method = RequestMethod.POST )
 	public String colaboradorAtualizar( Colaborador colaborador ){
 		colaboradorDao.atualizarColaborador( colaborador );
-		return "redirect:/colaborador/listar";
+		return "ok";
+	}
+	
+	@ResponseBody
+	@RequestMapping( value = "/colaborador/excluirSkills", method = RequestMethod.POST )
+	public String colaboradorExcluirSkills( @RequestParam int idColaborador ){
+		colaboradorDao.excluirSkillsColaborador( idColaborador );
+		return "ok";
 	}
 	
 	@RequestMapping( value = "/colaborador/excluir", method = RequestMethod.GET )
