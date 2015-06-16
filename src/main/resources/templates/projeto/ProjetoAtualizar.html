@@ -7,43 +7,101 @@
 		.row{
 			margin-top: 20px;
 		}
+		.padding{
+			padding: 10px;
+			display: inline-block;
+		}
+		.alert-danger {
+		  	color: rgb(51, 51, 51);
+		  	background-color: #F8F8F8;
+		  	border-color: #E7E7E7;
+		}
+		.checkbox{
+			width: 20px !important;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
 		{{> navbar}}
-		<div class="row">
-			<div class="col-xs-4 col-md-4 col-lg-4">
-			</div>
-
-			<div class="col-xs-4 col-md-4 col-lg-4">
-				<div class="row text-center">
-					<h2>Atualizar Projeto</h2>
+		<!-- <form action="/projeto/inserir" method="POST"> -->
+			<div class="row">
+				<div class="col-xs-4 col-md-4 col-lg-4">
 				</div>
-				<form action="/projeto/atualizar" method="POST">
 
-					<input value="{{projeto.idProjeto}}" type="hidden" name="idProjeto"/>
-
+				<div class="col-xs-4 col-md-4 col-lg-4">
+					<div class="row text-center">
+						<h2>Atualizar Projeto</h2>
+					</div>
+					
 					<div class="row text-center">
 						<label>Nome:</label>
 						<input value="{{projeto.nome}}" type="text" name="nome" class="form-control" required />
 					</div>
-					{{#skills}}
-					<label>
-						<input type="checkbox" value="{{idSkill}}" name="idSkill">{{nome}}
-					</label>
-					{{/skills}}
-					
-					<div class="row text-center">
-						<input type="submit" value="Atualizar" class="btn btn-primary"/>
-					</div>
-				</form>
+				</div>
+
+				<div class="col-xs-4 col-md-4 col-lg-4">
+				</div>
 			</div>
 
-			<div class="col-xs-4 col-md-4 col-lg-4">
+			<div class="row text-center">
+				<h2>Quais são os Conhecimentos?</h2>
 			</div>
-		</div>
+
+			{{#trilhas}}
+				<div id="{{idTrilha}}"class="row text-center alert alert-danger">
+					<h2>{{nome}}</h2>
+				</div>
+			{{/trilhas}}
+
+			<div class="row text-center">
+				<input type="submit" value="Atualizar" class="btn btn-primary"/>
+			</div>
+		<!-- </form> -->
 	</div>
 	{{> scripts}}
+	<script>
+		$(function(){
+			{{#skills}}
+			$('#{{trilha.idTrilha}}').append( '<div class="padding"><label>{{nome}}</label>    <input idSkill="{{idSkill}}" class="checkbox skills" type="checkbox" name="idSkills"/></div> ' );
+			{{/skills}}
+
+			{{#skillsDoProjeto}}
+			$('input.skills[idSkill="{{.}}"]').attr('checked', 'checked')
+			{{/skillsDoProjeto}}
+
+			$('[type="submit"]').click(function(i){
+				$.ajax({
+		  			url: '/projeto/atualizar?nome='+$('input[name="nome"]').val() + '&idProjeto={{projeto.idProjeto}}',
+		  			type: 'POST',
+		  			contentType: 'json',
+				}).done(function(res){
+					//console.log(res);
+					//var query = '';
+
+					$.ajax({
+			  			url: '/projeto/excluirSkills?idProjeto={{projeto.idProjeto}}',
+			  			type: 'POST',
+			  			contentType: 'json',
+					}).done(function(res){
+						console.log(res);
+						var query = "";
+						$('input.skills:checked').each(function(i){
+							query = query + 'INSERT INTO SKILLProjeto (IDSKILL, IDProjeto) VALUES ('+ $(this).attr("idSkill") +', '+ {{projeto.idProjeto}} +'); ';
+						});
+						console.log(query);
+						$.ajax({
+				  			url: '/projeto/inserir/SkillProjeto?query=' + query,
+				  			type: 'POST',
+				  			contentType: 'json',
+						}).done(function(res){
+							//console.log('feito');
+							window.location = '/projeto/listar';
+						});
+					});
+				});
+			});
+		});
+	</script>
 </body>
 </html>
