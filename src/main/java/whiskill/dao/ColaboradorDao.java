@@ -17,6 +17,9 @@ public class ColaboradorDao {
 	@Inject
 	private JdbcTemplate jdbcTemplate;
 	
+	@Inject
+	TrilhaDao trilhaDao;
+	
 	public int inserirColaborador( Colaborador colaborador ){
 		jdbcTemplate.update( "INSERT INTO COLABORADOR (NOME) VALUES (?)",
 				colaborador.getNome() );
@@ -45,14 +48,32 @@ public class ColaboradorDao {
 	
 	public Colaborador buscaColaboradorPorId( int idColaborador ){
 		
-		List<Colaborador> colaboradores = jdbcTemplate.query("SELECT IdColaborador, nome FROM Colaborador WHERE IdColaborador = ?", ( ResultSet rs, int rowNum ) ->{
+		List<Colaborador> colaboradores = 
+				jdbcTemplate.query("SELECT IdColaborador, nome FROM Colaborador"+
+					" WHERE IdColaborador = ?", ( ResultSet rs, int rowNum ) ->{
 			 Colaborador colaborador = new Colaborador ( rs.getString( "nome" ));
 			 colaborador.setIdColaborador( rs.getInt( "idColaborador" ) );
 			 return colaborador;
 		},
 		idColaborador);
 		
-		return colaboradores.get(0);
+		List<Skill> skills =
+				jdbcTemplate.query( "SELECT S.IDSKILL, S.NOME, S.DESCRICAO, S.TRILHA_ID  "
+						+ "FROM SKILLCOLABORADOR SC JOIN SKILL S ON S.IDSKILL = SC.IDSKILL  "
+						+ "WHERE SC.IDCOLABORADOR  = ?", ( ResultSet rs, int rowNum ) ->{
+							
+							Skill skill = new Skill( rs.getInt( "IDSKILL" ), 
+									rs.getString( "NOME" ),
+									rs.getString( "DESCRICAO" ));
+							
+							skill.setTrilha( trilhaDao.buscaTrilhaPorId(rs.getInt( "trilha_id") ) );
+							
+							return skill;
+						},
+						idColaborador);
+		Colaborador colaborador = colaboradores.get(0);
+		colaborador.setSkills(skills);
+		return colaborador;
 	}
 
 	public void atualizarColaborador( Colaborador colaborador ){
