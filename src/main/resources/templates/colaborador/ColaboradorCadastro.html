@@ -35,6 +35,14 @@
 			{{#trilhas}}
 				<div id="{{idTrilha}}"class="row text-center">
 					<h2>{{nome}}</h2>
+
+				<!-- 	<div class="row">
+						{{#skills}}
+						<label>{{nome}}</label>
+						<input type="checkbox" name="idSkill">
+						{{/skills}}
+					</div> -->
+					
 				</div>
 			{{/trilhas}}
 
@@ -46,8 +54,9 @@
 	{{> scripts}}
 	<script>
 		$(function(){
-			//$('#{{}}').append($('<div/>'))
-
+			{{#skills}}
+			$('#{{}}').append( $('<div/>') )
+			{{/skills}}
 		});
 	</script>
 </body>
