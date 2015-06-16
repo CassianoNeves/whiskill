@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import whiskill.model.Projeto;
+import whiskill.model.Skill;
 
 @Component
 public class ProjetoDao {
@@ -54,5 +55,31 @@ public class ProjetoDao {
 				projeto.getIdProjeto() );
 	}
 
+	// Métodos SkillProjeto
 	
+    /**
+     * Método para buscar Skills de um Projeto informando seu Id como parâmetro.
+     * @param idProjeto
+     * @return
+     */
+    public List<Skill> buscaSkillsProjeto(int idProjeto){
+        
+        List<Skill> skillsProjeto = jdbcTemplate.query("SELECT s.Nome, sp.IDSkill, s.descricao FROM SkillProjeto as sp WHERE IdProjeto = ? LEFT JOIN Skill s ON s.IDSkill = sp.idSkill", ( ResultSet rs, int rowNum ) ->{
+             Skill skill = new Skill ( rs.getInt("sp.idProjeto"), rs.getString( "s.nome" ), rs.getString("s.descricao"));
+             return skill;
+        },
+        idProjeto);
+        
+        return skillsProjeto;
+    }
+    /**
+     * Inserir SkillProjeto
+     * 
+     */
+    public void inserirSkillProjeto(int idProjeto, int idSkill){
+        jdbcTemplate.update( "INSERT INTO SKILLPROJETO(IDProjeto,IDSkill) VALUES(?,?);", 
+                idProjeto,
+                idSkill );
+    }
+
 }
