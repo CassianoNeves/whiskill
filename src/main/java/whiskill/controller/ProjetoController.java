@@ -20,8 +20,10 @@ public class ProjetoController {
 
 	@Inject 
 	ProjetoDao projetoDao;
+	
 	@Inject
 	SkillDao skillDao;
+	
 	@Inject
 	TrilhaDao trilhaDao;
 	
@@ -32,6 +34,13 @@ public class ProjetoController {
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );		
 		return "/projeto/ProjetoCadastro";
 	}
+	
+	@RequestMapping( value = "/projeto/perfil", method = RequestMethod.GET )
+	public String projetoPerfil(Model model, @RequestParam int idProjeto ){
+		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) ); 
+		return "/projeto/ProjetoPerfil";
+	}
+	
 	@ResponseBody
 	@RequestMapping( value = "/projeto/inserir/projeto", method = RequestMethod.POST )
 	public int projetoInserir( Projeto projeto ){
