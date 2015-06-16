@@ -21,7 +21,7 @@
 <body>
 	<div class="container">
 		{{> navbar}}
-		<form action="/colaborador/inserir" method="POST">
+		<!-- <form action="/colaborador/inserir" method="POST"> -->
 			<div class="row">
 				<div class="col-xs-4 col-md-4 col-lg-4">
 				</div>
@@ -54,14 +54,37 @@
 			<div class="row text-center">
 				<input type="submit" value="Cadastrar" class="btn btn-primary"/>
 			</div>
-		</form>
+		<!-- </form> -->
 	</div>
 	{{> scripts}}
 	<script>
 		$(function(){
 			{{#skills}}
-			$('#{{trilha.idTrilha}}').append( '<div class="padding"><label>{{nome}}</label>    <input type="checkbox" name="idSkill"></div>' );
+			$('#{{trilha.idTrilha}}').append( '<div class="padding"><label>{{nome}}</label>    <input idSkill="{{idSkill}}" class="skills" type="checkbox" name="idSkills"/></div> ' );
 			{{/skills}}
+
+			$('[type="submit"]').click(function(i){
+				$.ajax({
+		  			url: '/colaborador/inserir/colaborador?nome='+$('input[name="nome"]').val(),
+		  			type: 'POST',
+		  			contentType: 'json',
+				}).done(function(idColaborador){
+					console.log(idColaborador);
+					var query = '';
+					$('input.skills:checked').each(function(i){
+						query = query + 'INSERT INTO SKILLCOLABORADOR (IDSKILL, IDCOLABORADOR) VALUES ('+ $(this).attr("idSkill") +', '+ idColaborador +'); ';
+					});
+
+					$.ajax({
+			  			url: '/colaborador/inserir/SkillColaborador?query=' + query,
+			  			type: 'POST',
+			  			contentType: 'json',
+					}).done(function(res){
+						//console.log('feito');
+						window.location = '/colaborador/listar';
+					});
+				});
+			});
 		});
 	</script>
 </body>

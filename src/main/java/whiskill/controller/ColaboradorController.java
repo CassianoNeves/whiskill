@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import whiskill.dao.ColaboradorDao;
 import whiskill.dao.SkillDao;
@@ -33,10 +34,18 @@ public class ColaboradorController {
 		return "/colaborador/ColaboradorCadastro";
 	}
 	
-	@RequestMapping( value = "/colaborador/inserir", method = RequestMethod.POST )
-	public String colaboradorInserir( Colaborador colaborador){
-		colaboradorDao.inserirColaborador( colaborador );
-		return "redirect:/colaborador/listar";
+	@ResponseBody
+	@RequestMapping( value = "/colaborador/inserir/colaborador", method = RequestMethod.POST )
+	public int colaboradorInserirColaborador( Colaborador colaborador){
+		int idCriado = colaboradorDao.inserirColaborador( colaborador );
+		return idCriado;
+	}
+	
+	@ResponseBody
+	@RequestMapping( value = "/colaborador/inserir/SkillColaborador", method = RequestMethod.POST )
+	public String colaboradorInserirSkillColaborador(  @RequestParam String query ){
+		 colaboradorDao.inserirSkillColaborador( query );
+		return "ok";
 	}
 	
 	@RequestMapping( value = "/colaborador/listar", method = RequestMethod.GET )

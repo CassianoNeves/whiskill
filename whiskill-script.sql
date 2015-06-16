@@ -9,13 +9,15 @@
 CREATE TABLE Colaborador
   (
     IDColaborador INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Nome          VARCHAR2 (100) NOT NULL
+    Nome          VARCHAR2 (100) NOT NULL,
+    Ativo         BOOLEAN DEFAULT TRUE
   ) ;
 
 CREATE TABLE Projeto
   (
     IDProjeto INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Nome      VARCHAR2 (100) NOT NULL
+    Nome      VARCHAR2 (100) NOT NULL,
+    Ativo         BOOLEAN DEFAULT TRUE
   ) ;
 
 CREATE TABLE ProjetoColaborador
@@ -24,6 +26,7 @@ CREATE TABLE ProjetoColaborador
     IDProjeto            INTEGER NOT NULL ,
     IDColaborador        INTEGER NOT NULL ,
     TempoAlocacao        DATE NOT NULL
+    
   ) ;
 
 CREATE TABLE Skill

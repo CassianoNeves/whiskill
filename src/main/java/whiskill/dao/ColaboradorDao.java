@@ -16,15 +16,20 @@ public class ColaboradorDao {
 	@Inject
 	private JdbcTemplate jdbcTemplate;
 	
-	public void inserirColaborador( Colaborador colaborador ){
+	public int inserirColaborador( Colaborador colaborador ){
 		jdbcTemplate.update( "INSERT INTO COLABORADOR (NOME) VALUES (?)",
-				colaborador.getNome()
-							);
+				colaborador.getNome() );
+		List<Integer> idColaborador = jdbcTemplate.query( "SELECT MAX(IDCOLABORADOR) AS IDCOLABORADOR  FROM COLABORADOR", ( ResultSet rs, int rowNum ) ->{
+			
+			return rs.getInt( "IDCOLABORADOR" );
+		});
+		
+		return idColaborador.get(0);
 	}
 	
 	public List<Colaborador> buscaTodosColaboradores(){
 		
-		List<Colaborador> colaboradores = jdbcTemplate.query("SELECT IDColaborador, Nome FROM Colaborador", ( ResultSet rs, int rowNum ) ->{
+		List<Colaborador> colaboradores = jdbcTemplate.query("SELECT IDColaborador, Nome FROM Colaborador WHERE ATIVO = 'TRUE'", ( ResultSet rs, int rowNum ) ->{
 			 Colaborador colaborador = new Colaborador ( rs.getString( "nome" ));
 			 colaborador.setIdColaborador( rs.getInt( "idColaborador" ) );
 			 return colaborador;
@@ -34,7 +39,7 @@ public class ColaboradorDao {
 	}
 	
 	public void excluirColaborador( int idColaborador ){
-		jdbcTemplate.update( "DELETE FROM COLABORADOR WHERE idColaborador = ?", idColaborador );
+		jdbcTemplate.update( "UPDATE COLABORADOR SET ATIVO = 'FALSE' WHERE idColaborador = ?", idColaborador );
 	}
 	
 	public Colaborador buscaColaboradorPorId( int idColaborador ){
@@ -54,6 +59,9 @@ public class ColaboradorDao {
 				colaborador.getNome(),
 				colaborador.getIdColaborador() );
 	}
-
+	
+	public void inserirSkillColaborador( String query ){
+		jdbcTemplate.update( query );
+	}
 	
 }
