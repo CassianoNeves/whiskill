@@ -1,10 +1,23 @@
 package whiskill.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Colaborador {
 
 	private int idColaborador;
 	private String nome;
+	private List<Skill> skills = new ArrayList<Skill>();
 	
+	
+	public List<Skill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+
 	// Construtores
 	public Colaborador(){}
 	

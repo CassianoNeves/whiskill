@@ -57,7 +57,7 @@ public class ColaboradorController {
 	@RequestMapping( value = "/colaborador/atualizar", method = RequestMethod.GET )
 	public String colaboradorAtualizar( Model model, @RequestParam int idColaborador ){
 		model.addAttribute( "colaborador", colaboradorDao.buscaColaboradorPorId( idColaborador ) );
-		model.addAttribute( "skillsDoColaborador", colaboradorDao.buscarSkillsColaborador( idColaborador ) );
+		//model.addAttribute( "skillsDoColaborador", colaboradorDao.buscarSkillsColaborador( idColaborador ) );
 		model.addAttribute( "skills", skillDao.buscarTodasSkills() );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
 		return "/colaborador/ColaboradorAtualizar";
