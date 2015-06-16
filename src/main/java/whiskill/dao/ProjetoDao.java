@@ -39,7 +39,7 @@ public class ProjetoDao {
 	
 	public List<Projeto> buscaTodosProjetos(){
 		
-		List<Projeto> projetos = jdbcTemplate.query("SELECT IDProjeto, Nome, ImagemLogo FROM Projeto", ( ResultSet rs, int rowNum ) ->{
+		List<Projeto> projetos = jdbcTemplate.query("SELECT IDProjeto, Nome, ImagemLogo FROM Projeto WHERE ATIVO='TRUE'", ( ResultSet rs, int rowNum ) ->{
 			 Projeto projeto = new Projeto ( rs.getString( "nome" ));
 			 projeto.setIdProjeto( rs.getInt( "idProjeto" ) );
 			 projeto.setImagemLogo(rs.getString("ImagemLogo"));
