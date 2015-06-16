@@ -82,4 +82,15 @@ public class ProjetoDao {
                 idSkill );
     }
 
+	public int buscaIdDoProjetoPorNome(String nome) {
+		
+		List<Projeto> projetos = jdbcTemplate.query("SELECT idProjeto FROM Projeto WHERE nome = ?", ( ResultSet rs, int rowNum ) ->{
+             Projeto projeto = new Projeto ( rs.getInt("idProjeto"));
+             return projeto;
+        },
+        nome);
+        
+        return projetos.get(0).getIdProjeto();
+	}
+
 }
