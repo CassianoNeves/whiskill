@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	{{> header}}
-	<title>Lista de trilhas</title>
-</head>
-<body>
-	{{> navbar}}
-	<div class="container">
-		<br><br>
-		<div class="row titulo text-center">
-			<h2>Lista de trilhas do conhecimento</h2>
-		</div>
-
-		<div class="row">
-			<a href="/trilha/cadastro"><button class="btn btn-default">Cadastrar</button></a>
-		</div>
-
-		<br>
-
-		<div class="row">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Descrição</th>
-						<th></th>
-					</tr>
-				</thead>
-
-				<tbody>
-					{{#trilhas}}
+	<head>
+		<meta charset="utf-8">
+		{{> header}}
+		<title>Lista de trilhas</title>
+			<style>
+				th{
+					width: 50px;
+				}
+			</style>		
+	</head>
+	<body>
+		{{> navbar}}
+		<div class="container">
+			<br><br>
+			<div class="row titulo text-center">
+				<h2>Lista de trilhas do conhecimento</h2>
+			</div>
+	
+			<div class="row">
+				<a href="/trilha/cadastro"><button class="btn btn-default">Cadastrar</button></a>
+			</div>
+	
+			<br>
+	
+			<div class="row">
+				<table class="table">
+					<thead>
 						<tr>
-							<td>{{#nome}}{{nome}}{{/nome}}</td>
-							<td>{{#descricao}}{{descricao}}{{/descricao}}</td>
-							<td>
-								<a href="/trilha/atualizar?idTrilha={{idTrilha}}"><button class="btn btn-warning">
-								Editar</button></a>
-
-								<a href="/trilha/excluir?idTrilha={{idTrilha}}"><button class="btn btn-danger">
-								Excluir</button></a>
-							</td>
+							<th>Nome</th>
+							<th>Descrição</th>
+							<th></th>
 						</tr>
-					{{/trilhas}}
-				</tbody>
-			</table>
-		</div>
-		</div>
-	{{> scripts}}
-</body>
+					</thead>
+	
+					<tbody>
+						{{#trilhas}}
+							<tr>
+								<td>{{#nome}}{{nome}}{{/nome}}</td>
+								<td>{{#descricao}}{{descricao}}{{/descricao}}</td>
+								<td>
+									<a href="/trilha/atualizar?idTrilha={{idTrilha}}"><button class="btn btn-warning">
+									Editar</button></a>
+	
+									<a href="/trilha/excluir?idTrilha={{idTrilha}}"><button class="btn btn-danger">
+									Excluir</button></a>
+								</td>
+							</tr>
+						{{/trilhas}}
+					</tbody>
+				</table>
+			</div>
+			</div>
+		{{> scripts}}
+	</body>
 </html>
