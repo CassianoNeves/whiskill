@@ -76,7 +76,8 @@ public class ProjetoColaboradorDao {
 	
 	public ProjetoColaboradorData buscarProjetoEDataInicioEFim( int idColaborador ){
 		List<ProjetoColaboradorData> projetosData = jdbcTemplate.query( 
-				"SELECT p.idProjeto as ProjetoID, p.imagemLogo, p.nome, pc.datainicio, pc.datafim "
+				"SELECT p.idProjeto as ProjetoID, p.imagemLogo, p.nome,  to_char(pc.datainicio, 'dd/MM/yyyy') as dataInicio"
+				+ ",  to_char(pc.datafim, 'dd/MM/yyyy') as dataFim "
 				+ "FROM PROJETOCOLABORADOR PC "
 				+ "JOIN PROJETO P ON P.IDPROJETO = PC.IDPROJETO  "
 				+ "WHERE IDCOLABORADOR = ?", ( ResultSet rs, int rowNum ) ->{
@@ -88,8 +89,8 @@ public class ProjetoColaboradorDao {
 					ProjetoColaboradorData pcd = 
 							new ProjetoColaboradorData(
 									projeto,
-									rs.getDate( "DATAINICIO" ),
-									rs.getDate( "DATAFIM" ) );
+									rs.getString( "DATAINICIO" ),
+									rs.getString( "DATAFIM" ) );
 					
 					return pcd;
 				},
