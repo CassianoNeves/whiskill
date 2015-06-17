@@ -15,13 +15,17 @@
 			<div class="row">
 				<div class="col-xs-4 col-md-4 col-lg-4"></div>
 	
-				<div class="col-xs-4 col-md-4 col-lg-4">
-					
-	
+				<div class="col-xs-4 col-md-4 col-lg-4">	
 					<div class="row text-center">
 						<h3>Nome:</h3>
 						<input value="{{colaborador.nome}}" type="text" name="nome" class="form-control" required />
 					</div>
+					
+					<div class="row text-center">
+						<h3>ImagemPerfil:</h3>
+						<input value="{{colaborador.imagemPerfil}}" type="text" name="imagemPerfil" class="form-control" required />
+					</div>
+					
 				</div>
 
 				<div class="col-xs-4 col-md-4 col-lg-4"></div>
@@ -56,7 +60,7 @@
 		
 					$('[type="submit"]').click(function(i){
 						$.ajax({
-				  			url: '/colaborador/atualizar?nome='+$('input[name="nome"]').val() + '&idColaborador={{colaborador.idColaborador}}',
+				  			url: '/colaborador/atualizar?nome='+$('input[name="nome"]').val() + '&idColaborador={{colaborador.idColaborador}}'+ '&imagemPerfil='+$('input[name="imagemPerfil"]').val() ,
 				  			type: 'POST',
 				  			contentType: 'json',
 						}).done(function(res){

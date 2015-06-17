@@ -22,6 +22,11 @@
 						<h3>Nome:</h3>
 						<input type="text" name="nome" class="form-control" required />
 					</div>
+					
+					<div class="row text-center">
+						<h3>ImagemPerfil:</h3>
+						<input type="text" name="imagemPerfil" class="form-control" required />
+					</div>
 				</div>
 	
 				<div class="col-xs-4 col-md-4 col-lg-4"></div>
@@ -52,7 +57,7 @@
 		
 					$('[type="submit"]').click(function(i){
 						$.ajax({
-				  			url: '/colaborador/inserir/colaborador?nome='+$('input[name="nome"]').val(),
+				  			url: '/colaborador/inserir/colaborador?nome='+$('input[name="nome"]').val()+'&imagemPerfil='+$('input[name="imagemPerfil"]').val(),
 				  			type: 'POST',
 				  			contentType: 'json',
 						}).done(function(idColaborador){
