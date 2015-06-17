@@ -25,7 +25,6 @@ public class RelatoriosDao {
 	
 	public double calculaKPI(int idProjeto){
 		// Pega o Colaborador e Projeto com SKills
-			// Criar outro método pra buscar só o IDProjeto e Skills(perf)
 		Projeto projeto = projetoDao.buscaSkillsPorId(idProjeto);
 			//Criar outro método pra buscar só o IDColaborador e Skills(perf)
 		List<Colaborador> colaboradores = projetoColaboradorDao.bucarColaboradoresPorIdDoProjeto(idProjeto);
@@ -38,9 +37,11 @@ public class RelatoriosDao {
 		int colaboradoresRuim=0;
 		
 		// 
+		List<Skill> skillsProjeto = projeto.getSkills();
+		int countSkillsProjeto = skillsProjeto.size();
+		
 		for (Colaborador colaborador : colaboradores) {
 			List<Skill> skillsColaborador = colaborador.getSkills();
-			List<Skill> skillsProjeto = projeto.getSkills();
 			int skillsIguais = 0;
 			for (Skill skillColaborador : skillsColaborador) {
 				for (Skill skillProjeto : skillsProjeto) {
@@ -49,7 +50,6 @@ public class RelatoriosDao {
 					}					
 				}
 			}	
-			int countSkillsProjeto = skillsProjeto.size();
 			double porcentagemSkillColaborador = (skillsIguais / countSkillsProjeto)*100;
 			if(porcentagemSkillColaborador >= 80){
 				colaboradoresExcelente++;
@@ -69,11 +69,7 @@ public class RelatoriosDao {
 			return porcentagemExcelente;
 		} else if(porcentagemRegular >=40 && porcentagemRegular <=79 ){
 			return porcentagemRegular;
-		} else if(porcentagemRuim <= 39){
-			return porcentagemRuim;
-		}
-		
-		// se der Xabu retorna número Illuminati
-		return 0.33;
+		} 
+		return porcentagemRuim;
 	}	
 }
