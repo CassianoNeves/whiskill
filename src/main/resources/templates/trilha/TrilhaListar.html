@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		{{> header}}
-		<title>Lista de trilhas</title>
+			<meta charset="utf-8">
+			{{> header}}
+			<title>Lista de trilhas</title>
+			<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+			{{> style}}
+			{{> row}}
 			<style>
 				th{
 					width: 50px;
 				}
-			</style>		
+			</style>	
 	</head>
 	<body>
-		{{> navbar}}
 		<div class="container">
-			<br><br>
+			{{> navbar}}
 			<div class="row titulo text-center">
-				<h2>Lista de trilhas do conhecimento</h2>
+				<h2>Lista de trilhas de conhecimento</h2>
 			</div>
 	
 			<div class="row">
-				<a href="/trilha/cadastro"><button class="btn btn-default">Cadastrar</button></a>
+				<a href="/trilha/cadastro"><button class="btn btn-primary">Cadastrar</button></a>
 			</div>
 	
 			<br>
@@ -40,10 +42,10 @@
 								<td>{{#nome}}{{nome}}{{/nome}}</td>
 								<td>{{#descricao}}{{descricao}}{{/descricao}}</td>
 								<td>
-									<a href="/trilha/atualizar?idTrilha={{idTrilha}}"><button class="btn btn-warning">
+									<a href="/trilha/atualizar?idTrilha={{idTrilha}}"><button class="btn btn-primary">
 									Editar</button></a>
 	
-									<a href="/trilha/excluir?idTrilha={{idTrilha}}"><button class="btn btn-danger">
+									<a href="/trilha/excluir?idTrilha={{idTrilha}}"><button class="btn btn-primary">
 									Excluir</button></a>
 								</td>
 							</tr>

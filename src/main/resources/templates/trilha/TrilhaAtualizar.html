@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-	{{> header}}
-	<title>Atualizar trilha</title>
-	<style type="text/css">
-		.row{
-			margin-top: 20px;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		{{> navbar}}
-		<div class="row">
-			<div class="col-xs-4 col-md-4 col-lg-4">
-			</div>
-
-			<div class="col-xs-4 col-md-4 col-lg-4">
-				<div class="row text-center">
-					<h2>Atualizar trilha de conhecimento</h2>
+	<head>
+		<meta charset="utf-8">
+		{{> header}}
+		<title>Atualizar trilha</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{{> style}}
+		{{> stylecadastro}}
+	</head>
+	<body>
+		<div class="container">
+			{{> navbar}}
+			<div class="row">
+				<div class="col-xs-4 col-md-4 col-lg-4">
 				</div>
-				<form action="/trilha/atualizar" method="POST">
-
-					<input value="{{trilha.idTrilha}}" type="hidden" name="idTrilha"/>
-
-					<div class="row text-center">
-						<label>Nome:</label>
-						<input value="{{trilha.nome}}" type="text" name="nome" class="form-control" required />
+	
+				<div class="col-xs-4 col-md-4 col-lg-4">
+					<div class="text-center">
 					</div>
-
-					<div class="row text-center">
-						<label>Descrição:</label>
-						<input  value="{{trilha.descricao}}" type="text" name="descricao" class="form-control" required/>
-					</div>
-
-					<div class="row text-center">
-						<input type="submit" value="Atualizar" class="btn btn-primary"/>
-					</div>
-				</form>
-			</div>
-
-			<div class="col-xs-4 col-md-4 col-lg-4">
+					<form action="/trilha/atualizar" method="POST">
+						<input value="{{trilha.idTrilha}}" type="hidden" name="idTrilha"/>
+						<div class="row text-center">
+							<h4>Nome:</h4>
+							<input value="{{trilha.nome}}" type="text" name="nome" class="form-control" required />
+						</div>
+	
+						<div class="row text-center">
+							<h4>DescriÃ§Ã£o:</h4>
+							<input  value="{{trilha.descricao}}" type="text" name="descricao" class="form-control" required/>
+						</div>
+	
+						<div class="row text-center">
+							<input type="submit" value="Atualizar" class="btn btn-primary"/>
+						</div>
+					</form>
+				</div>
+	
+				<div class="col-xs-4 col-md-4 col-lg-4">
+				</div>
 			</div>
 		</div>
-	</div>
-	{{> scripts}}
-</body>
+		{{> scripts}}
+	</body>
 </html>

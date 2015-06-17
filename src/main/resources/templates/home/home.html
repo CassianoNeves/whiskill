@@ -15,15 +15,17 @@
 				<div class="titulo text-center">
 					<h2>Nossos projetos</h2>
 				</div>
-	
-				{{#Projeto}}
-				<div class="col-lg-4 col-xs-4 text-center">
-					<a href="/projeto/perfil?idProjeto={{idProjeto}}" class="thumbnail">
-						<img width="250px" class="img-rounded img-responsive img-center"	src="{{imagemLogo}}">
-					</a>
-					<h3>{{nome}}</h3>
+				<br>
+				<div class="row ">
+					{{#Projeto}}
+					<div class="col-lg-4 col-xs-4 text-center margem">
+						<a href="/projeto/perfil?idProjeto={{idProjeto}}" class="thumbnail">
+							<img width="200px" class="img-rounded img-responsive img-center"	src="{{imagemLogo}}">
+						</a>
+						<h3>{{nome}}</h3>
+					</div>
+					{{/Projeto}}
 				</div>
-				{{/Projeto}}
 			</div>
 			<hr>
 			<footer>

@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-	{{> header}}
-	<title>Cadastrar trilha</title>
-	<style type="text/css">
-		.row{
-			margin-top: 20px;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		{{> navbar}}
-		<div class="row">
-
-			<div class="row text-center">
-				<h2>Cadastrar trilha de conhecimento</h2>
-			</div>
-
-			<div class="col-xs-4 col-md-4 col-lg-4">
-			</div>
-
-			<div class="col-xs-4 col-md-4 col-lg-4">
-				
-				<form action="/trilha/inserir" method="POST">
-					<div class="row text-center">
-						<label>Nome:</label>
-						<input type="text" name="nome" class="form-control" required />
-					</div>
-
-					<div class="row text-center">
-						<label>Descrição:</label>
-						<input type="text" name="descricao" class="form-control" required/>
-					</div>
-
-					<div class="row text-center">
-						<input type="submit" value="Cadastrar" class="btn btn-primary"/>
-					</div>
-				</form>
-			</div>
-
-			<div class="col-xs-4 col-md-4 col-lg-4">
+	<head>
+		<meta charset="utf-8">
+		{{> header}}
+		<title>Cadastrar trilha</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{{> style}}
+		{{> stylecadastro}}
+	</head>
+	<body>
+		<div class="container">
+			{{> navbar}}
+			<div class="row">
+	
+				<div class="row text-center">
+				</div>
+	
+				<div class="col-xs-4 col-md-4 col-lg-4">
+				</div>
+	
+				<div class="col-xs-4 col-md-4 col-lg-4">
+					
+					<form action="/trilha/inserir" method="POST">
+						<div class="row text-center">
+							<h4>Nome:</h4>
+							<input type="text" name="nome" class="form-control" required />
+						</div>
+	
+						<div class="row text-center">
+							<h4>DescriÃ§Ã£o:</h4>
+							<input type="text" name="descricao" class="form-control" required/>
+						</div>
+	
+						<div class="row text-center">
+							<input type="submit" value="Cadastrar" class="btn btn-primary"/>
+						</div>
+					</form>
+				</div>
+	
+				<div class="col-xs-4 col-md-4 col-lg-4">
+				</div>
 			</div>
 		</div>
-	</div>
-	{{> scripts}}
-</body>
+		{{> scripts}}
+	</body>
 </html>
