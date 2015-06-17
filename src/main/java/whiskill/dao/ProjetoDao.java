@@ -80,7 +80,7 @@ public class ProjetoDao {
 	
 	
 	public void excluirProjeto( int idProjeto ){
-		jdbcTemplate.update( "DELETE FROM PROJETO WHERE idProjeto = ?", idProjeto );
+		jdbcTemplate.update( "UPDATE PROJETO SET ATIVO = 'FALSE' WHERE idProjeto = ?", idProjeto );
 	}
 	
 	public Projeto buscaProjetoPorId( int idProjeto ){
