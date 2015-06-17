@@ -73,18 +73,18 @@ INSERT INTO Colaborador(Nome) VALUES('Gabriel Moutinho');
 INSERT INTO Colaborador(Nome) VALUES('Paula Tomasi');
 INSERT INTO Colaborador(Nome) VALUES('Cassiano Neves');
 -- Novos
-INSERT INTO Colaborador(Nome) VALUES('Bernardo Bosak');
-INSERT INTO Colaborador(Nome) VALUES('Marlon Bernardes');
-INSERT INTO Colaborador(Nome) VALUES('Talles Ludwig');
-INSERT INTO Colaborador(Nome) VALUES('Eshilane  Cruz');
-INSERT INTO Colaborador(Nome) VALUES('João Bottoni');
-INSERT INTO Colaborador(Nome) VALUES('Gustavo Jardim');
-INSERT INTO Colaborador(Nome) VALUES('Lucas Kauer');
-INSERT INTO Colaborador(Nome) VALUES('Arthur Oliveira');
-INSERT INTO Colaborador(Nome) VALUES('Pablo Diehl');
-INSERT INTO Colaborador(Nome) VALUES('Rodrigo Dagnese');
-INSERT INTO Colaborador(Nome) VALUES('Vitor de Castro');
-INSERT INTO Colaborador(Nome) VALUES('Rodrigo Frohlich');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Bernardo Bosak', 'http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Marlon Bernardes', 'http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Talles Ludwig','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Eshilane  Cruz','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('João Bottoni','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Gustavo Jardim','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Lucas Kauer','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Arthur Oliveira','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Pablo Diehl','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Rodrigo Dagnese','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Vitor de Castro','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Rodrigo Frohlich','http://sharedseeker.com/file/profile_image/default_profile.jpg');
 
 	-- Cadastro de Skills do Colaborador
 		-- Cassiano
