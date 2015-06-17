@@ -130,6 +130,17 @@ public class ProjetoDao {
 		},
 		idProjeto);
 	}
+	
+	public int buscarQuantidadeDeSkillsPorProjeto( int idProjeto ){
+		List<Integer> quantidades = jdbcTemplate.query( "SELECT COUNT(1) AS QTDSKILLS FROM SKILLPROJETO WHERE IDPROJETO = ?", 
+				( ResultSet rs, int rowNum ) ->{
+			return rs.getInt( "QTDSKILLS" );
+		}, idProjeto);
+		
+		return quantidades.get(0);
+	}
+	
+	
 	public void excluirSkillsProjeto( int idProjeto ){
 		jdbcTemplate.update( "DELETE SKILLPROJETO WHERE IDPROJETO = ?", idProjeto );
 	}

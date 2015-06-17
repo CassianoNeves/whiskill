@@ -12,6 +12,11 @@ public class Projeto {
 	
 	// Construtores
 	public Projeto(){}
+	public Projeto( int idProjeto, String nome, String imagemLogo ){
+		this.idProjeto = idProjeto;
+		this.nome =nome;
+		this.imagemLogo = imagemLogo;
+	}
 	
 	public Projeto(int id){
 		this.idProjeto = id;

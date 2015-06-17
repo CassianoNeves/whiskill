@@ -69,6 +69,32 @@
 					{{/ColaboradoresDoProjeto}}
 				</div>
 			</div>
+
+			<div class="row text-center">
+				<h2>Profissionais indicados a este Projeto</h2>
+			</div>
+
+			<div class="row text-center">
+				<div class="col-xs-6">
+					<b>Nome</b>
+				</div>
+
+				<div class="col-xs-6">
+					<b>Indicação</b>
+				</div>	
+			</div>
+
+			{{#indicados}}
+				<div class="row text-center">
+					<div class="col-xs-6">
+						{{colaborador.nome}}
+					</div>
+
+					<div class="col-xs-6">
+						{{indicacao}}%
+					</div>	
+				</div>
+				{{/indicados}}
 		</div>
 		{{#ColaboradoresDoProjeto}}
 		<!-- Modal -->
@@ -100,7 +126,7 @@
 		{{> scripts}}
 		<script type="text/javascript">
 		$(function(){
-			
+
 
 			{{#projeto.skills}}
 			$('#{{trilha.idTrilha}}').removeClass('display-none').append('<label class="margin-10">{{nome}}</label>');

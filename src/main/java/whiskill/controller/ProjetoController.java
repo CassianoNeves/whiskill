@@ -29,7 +29,7 @@ public class ProjetoController {
 	TrilhaDao trilhaDao;
 	
 	@Inject
-	ProjetoColaboradorDao PCDao;
+	ProjetoColaboradorDao pcDao;
 	
 
 	@RequestMapping( value = "/projeto/cadastro", method = RequestMethod.GET )
@@ -43,7 +43,8 @@ public class ProjetoController {
 	public String projetoPerfil(Model model, @RequestParam int idProjeto ){
 		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
-		model.addAttribute( "ColaboradoresDoProjeto", PCDao.bucarColaboradoresPorIdDoProjeto( idProjeto) );
+		model.addAttribute( "ColaboradoresDoProjeto", pcDao.bucarColaboradoresPorIdDoProjeto( idProjeto) );
+		model.addAttribute( "indicados", pcDao.buscarColaboradoresIndicadosParaProjeto( idProjeto ) );
 		return "/projeto/ProjetoPerfil";
 	}
 	

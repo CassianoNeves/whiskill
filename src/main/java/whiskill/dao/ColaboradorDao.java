@@ -1,5 +1,6 @@
 package whiskill.dao;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -92,6 +93,8 @@ public class ColaboradorDao {
 		},
 		idColaborador);
 	}
+	
+
 	
 	public void excluirSkillsColaborador( int idColaborador ){
 		jdbcTemplate.update( "DELETE SKILLCOLABORADOR WHERE IDCOLABORADOR = ?", idColaborador );
