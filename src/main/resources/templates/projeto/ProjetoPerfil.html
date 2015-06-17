@@ -7,17 +7,21 @@
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		{{> style}}
 		{{> stylecadastro}}
+		{{> row}}
 		<style type="text/css">
-		.display-none{
-			display: none;
-		}
-		.margin-10{
-			margin: 10px;
-		}
-		.block-inline{
-			display: inline-block;
-			margin: 20px;
-		}
+			.display-none{
+				display: none;
+			}
+			.margin-10{
+				margin: 10px;
+			}
+			.block-inline{
+				display: inline-block;
+				margin: 20px;
+			}
+			.margemimagem{
+				margin-top: 20px;
+			}
 		</style>
 	</head>
 	<body>
@@ -25,17 +29,17 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-4">
-					<img class="img-thumbnail" width="250px" src="{{projeto.imagemLogo}}">
+				<div class="col-xs-4 titulo text-center">
+					<img class="img-thumbnail imagemdetalhes margemimagem" width="250px" src="{{projeto.imagemLogo}}">
 				</div>
 
 				<div class="col-xs-8">
 					<div class="row text-center">
-						<br><br><br>
-						<h1> {{projeto.nome}}</h1>
+						<br><br>
+						<h1 class="margemlado"> {{projeto.nome}}</h1>
 					</div>
-					
 				</div>
+				
 			</div>
 
 			<div class="row">
@@ -121,8 +125,8 @@
 		    	</div>
 		  	</div>
 		</div>
+		<br>
 		{{/ColaboradoresDoProjeto}}
-
 		{{> scripts}}
 		<script type="text/javascript">
 		$(function(){
