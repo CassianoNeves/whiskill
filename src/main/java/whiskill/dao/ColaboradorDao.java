@@ -22,8 +22,9 @@ public class ColaboradorDao {
 	TrilhaDao trilhaDao;
 	
 	public int inserirColaborador( Colaborador colaborador ){
-		jdbcTemplate.update( "INSERT INTO COLABORADOR (NOME) VALUES (?)",
-				colaborador.getNome() );
+		jdbcTemplate.update( "INSERT INTO COLABORADOR (NOME, IMAGEMPERFIL) VALUES (?,?)",
+				colaborador.getNome(),
+				colaborador.getImagemPerfil() );		
 		List<Integer> idColaborador = jdbcTemplate.query( "SELECT MAX(IDCOLABORADOR) AS IDCOLABORADOR  FROM COLABORADOR", ( ResultSet rs, int rowNum ) ->{
 			
 			return rs.getInt( "IDCOLABORADOR" );
@@ -34,9 +35,10 @@ public class ColaboradorDao {
 	
 	public List<Colaborador> buscaTodosColaboradores(){
 		
-		List<Colaborador> colaboradores = jdbcTemplate.query("SELECT IDColaborador, Nome FROM Colaborador WHERE ATIVO = 'TRUE'", ( ResultSet rs, int rowNum ) ->{
+		List<Colaborador> colaboradores = jdbcTemplate.query("SELECT IDColaborador, Nome, ImagemPerfil FROM Colaborador WHERE ATIVO = 'TRUE'", ( ResultSet rs, int rowNum ) ->{
 			 Colaborador colaborador = new Colaborador ( rs.getString( "nome" ));
 			 colaborador.setIdColaborador( rs.getInt( "idColaborador" ) );
+			 colaborador.setImagemPerfil(rs.getString("ImagemPerfil"));
 			 return colaborador;
 		});
 		
@@ -50,10 +52,12 @@ public class ColaboradorDao {
 	public Colaborador buscaColaboradorPorId( int idColaborador ){
 		
 		List<Colaborador> colaboradores = 
-				jdbcTemplate.query("SELECT IdColaborador, nome FROM Colaborador"+
+				jdbcTemplate.query("SELECT IdColaborador, nome, ImagemPerfil FROM Colaborador"+
 					" WHERE IdColaborador = ?", ( ResultSet rs, int rowNum ) ->{
 			 Colaborador colaborador = new Colaborador ( rs.getString( "nome" ));
-			 colaborador.setIdColaborador( rs.getInt( "idColaborador" ) );
+			 colaborador.setIdColaborador( rs.getInt( "idColaborador" ));
+			 colaborador.setImagemPerfil(rs.getString("ImagemPerfil"));			 
+			 ;
 			 return colaborador;
 		},
 		idColaborador);
@@ -78,8 +82,9 @@ public class ColaboradorDao {
 	}
 
 	public void atualizarColaborador( Colaborador colaborador ){
-		jdbcTemplate.update( "UPDATE Colaborador SET NOME = ? WHERE IDColaborador = ?", 
+		jdbcTemplate.update( "UPDATE Colaborador SET NOME = ?, IMAGEMPERFIL = ? WHERE IDColaborador = ?", 
 				colaborador.getNome(),
+				colaborador.getImagemPerfil(),
 				colaborador.getIdColaborador() );
 	}
 	
@@ -88,7 +93,7 @@ public class ColaboradorDao {
 	}
 	
 	public List<Integer> buscarSkillsColaborador( int idColaborador ){
-		return jdbcTemplate.query( "SELECT *  FROM SKILLCOLABORADOR WHERE IDCOLABORADOR  = ?", ( ResultSet rs, int rowNum ) ->{
+		return jdbcTemplate.query( "SELECT idSkill  FROM SKILLCOLABORADOR WHERE IDCOLABORADOR  = ?", ( ResultSet rs, int rowNum ) ->{
 			return rs.getInt( "idSkill");
 		},
 		idColaborador);
