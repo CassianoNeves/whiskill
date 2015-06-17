@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import whiskill.dao.ProjetoColaboradorDao;
 import whiskill.dao.ProjetoDao;
 import whiskill.dao.SkillDao;
 import whiskill.dao.TrilhaDao;
@@ -27,6 +28,9 @@ public class ProjetoController {
 	@Inject
 	TrilhaDao trilhaDao;
 	
+	@Inject
+	ProjetoColaboradorDao PCDao;
+	
 
 	@RequestMapping( value = "/projeto/cadastro", method = RequestMethod.GET )
 	public String projetoCadastro(Model model){
@@ -39,6 +43,7 @@ public class ProjetoController {
 	public String projetoPerfil(Model model, @RequestParam int idProjeto ){
 		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
+		model.addAttribute( "ColaboradoresDoProjeto", PCDao.bucarColaboradoresPorIdDoProjeto( idProjeto) );
 		return "/projeto/ProjetoPerfil";
 	}
 	

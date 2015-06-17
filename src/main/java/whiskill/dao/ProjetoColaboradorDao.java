@@ -1,6 +1,7 @@
 package whiskill.dao;
 
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,11 +17,17 @@ public class ProjetoColaboradorDao {
 	@Inject
 	private JdbcTemplate jdbcTemplate;
 	
-//	public List<Colaborador> bucarColaboradoresPorIdDoProjeto( int idProjeto ){
-//		jdbcTemplate.query( "SELECT C.* FROM PROJETOCOLABORADOR PC "
-//				+ "JOIN COLABORADOR C ON C.IDCOLABORADOR = PC.IDCOLABORADOR  "
-//				+ "WHERE IDPROJETO = ?", rse)
-//		
-//		return null;
-//	}
+	@Inject
+	ColaboradorDao colaboradorDao;
+	
+	public List<Colaborador> bucarColaboradoresPorIdDoProjeto( int idProjeto ){
+		return jdbcTemplate.query( "SELECT C.* FROM PROJETOCOLABORADOR PC "
+				+ "JOIN COLABORADOR C ON C.IDCOLABORADOR = PC.IDCOLABORADOR  "
+				+ "WHERE IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
+					Colaborador colaborador = 
+							colaboradorDao.buscaColaboradorPorId(rs.getInt( "idColaborador") );
+					return colaborador;
+				}, idProjeto);
+		
+	}
 }
