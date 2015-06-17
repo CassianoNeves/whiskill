@@ -1,45 +1,132 @@
-Ôªø--Usu√°rio de Testes 
-INSERT INTO USUARIO(Nome, Email, Senha) VALUES('Teste', 'teste@teste.com.br','senha');
+DROP TABLE IF EXISTS Colaborador;
+DROP TABLE IF EXISTS Projeto;
+DROP TABLE IF EXISTS ProjetoColaborador;
+DROP TABLE IF EXISTS Skill;
+DROP TABLE IF EXISTS SkillColaborador;
+DROP TABLE IF EXISTS SkillProjeto;
+DROP TABLE IF EXISTS Trilha;
+DROP TABLE IF EXISTS Usuario;
+
+CREATE TABLE Colaborador
+  (
+    IDColaborador INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Nome          		VARCHAR2 (100) NOT NULL,
+	ImagemPerfil 	VARCHAR(300) NOT NULL,
+    Ativo         			BOOLEAN DEFAULT TRUE
+  ) ;
+
+CREATE TABLE Projeto
+  (
+    IDProjeto INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Nome      VARCHAR2 (100) NOT NULL,
+    Ativo         BOOLEAN DEFAULT TRUE,
+	ImagemLogo VARCHAR(300) NOT NULL,
+  ) ;
+
+CREATE TABLE ProjetoColaborador
+  (
+    IDProjetoColaborador 	INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    IDProjeto            				INTEGER NOT NULL ,
+    IDColaborador        			INTEGER NOT NULL ,
+    DataInicio        					DATE NOT NULL,
+    DataFim 							DATE NOT NULL
+  ) ;
+
+CREATE TABLE Skill
+  (
+    IDSkill   		INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+    Nome      	VARCHAR2 (100) NOT NULL ,
+    Descricao VARCHAR2 (200) NOT NULL ,
+	Ativo 			BOOLEAN DEFAULT TRUE,
+    Trilha_ID INTEGER NOT NULL
+  ) ;
+
+CREATE TABLE SkillColaborador
+  (
+    IDSkill            INTEGER NOT NULL ,
+    IDColaborador      INTEGER NOT NULL ,
+    IDSkillColaborador INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT 
+  ) ;
+
+CREATE TABLE SkillProjeto
+  (
+    IDSkill        INTEGER NOT NULL ,
+    IDProjeto      INTEGER NOT NULL ,
+    IDSkillProjeto INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT
+  ) ;
+
+CREATE TABLE Trilha
+  (
+    IDTrilha  INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Nome      VARCHAR2 (100) ,
+    Descricao VARCHAR2 (200),
+	Ativo 			BOOLEAN DEFAULT TRUE,
+  ) ;
+
+CREATE TABLE Usuario
+  (
+    IDUsuario INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+    Nome      VARCHAR2 (50) NOT NULL ,
+    Email     VARCHAR2 (100) NOT NULL,
+    Senha     VARCHAR2 (50) NOT NULL
+  ) ;
+
+
+ALTER TABLE ProjetoColaborador ADD CONSTRAINT FK_ProjetoColaborador_Colab FOREIGN KEY ( IDColaborador ) REFERENCES Colaborador ( IDColaborador ) ;
+ALTER TABLE ProjetoColaborador ADD CONSTRAINT FK_ProjetoColaborador_Projeto FOREIGN KEY ( IDProjeto ) REFERENCES Projeto ( IDProjeto ) ;
+ALTER TABLE ProjetoColaborador ADD CONSTRAINT FK_ProjetoColaborador_Alocacao UNIQUE ( IDColaborador , DataInicio, DataFim) ;
+ALTER TABLE SkillColaborador ADD CONSTRAINT FK_SkillColaborador_Colab FOREIGN KEY ( IDColaborador ) REFERENCES Colaborador ( IDColaborador ) ;
+ALTER TABLE SkillColaborador ADD CONSTRAINT FK_SkillColaborador_Skill FOREIGN KEY ( IDSkill ) REFERENCES Skill ( IDSkill ) ;
+ALTER TABLE SkillColaborador ADD CONSTRAINT UK_SkillColaborador_Ids UNIQUE ( IDSkill, IdColaborador )  ;
+ALTER TABLE SkillProjeto ADD CONSTRAINT FK_SkillProjeto_Proj FOREIGN KEY ( IDProjeto ) REFERENCES Projeto ( IDProjeto ) ;
+ALTER TABLE SkillProjeto ADD CONSTRAINT FK_SkillProjeto_Skill FOREIGN KEY ( IDSkill ) REFERENCES Skill ( IDSkill ) ;
+ALTER TABLE SkillProjeto ADD CONSTRAINT UK_SkillProjeto_Ids UNIQUE ( IDSkill, IdProjeto )  ;
+ALTER TABLE Skill ADD CONSTRAINT FK_Skill_Trilha FOREIGN KEY ( Trilha_ID ) REFERENCES Trilha ( IDTrilha ) ;
+ALTER TABLE Skill ADD CONSTRAINT UK_Skill_IdTrilha_IdSkill UNIQUE ( IDSkill, Trilha_ID )  ;
+
+--Usu·rio de Testes 
+INSERT INTO USUARIO(Nome, Email, Senha) VALUES('teste', 'teste@teste.com.br','123');
 -- Cadastro de Trilhas
-INSERT INTO TRILHA(Nome, Descricao) VALUES('.NET', '.NET √© uma plataforma de desenvolvimento da Microsoft.');
-INSERT INTO TRILHA(Nome, Descricao) VALUES('Java', 'A plataforma Java permite desenvolver aplicativos utilizando a linguagem Java com a vantagem de n√£o estar presa a um √∫nico sistema operacional.');
+INSERT INTO TRILHA(Nome, Descricao) VALUES('.NET', '.NET È uma plataforma de desenvolvimento da Microsoft.');
+INSERT INTO TRILHA(Nome, Descricao) VALUES('Java', 'A plataforma Java permite desenvolver aplicativos utilizando a linguagem Java com a vantagem de n„o estar presa a um ˙nico sistema operacional.');
 INSERT INTO TRILHA(Nome, Descricao) VALUES('Mobile', 'Tecnologias para desenvolvimento Mobile.');
 INSERT INTO TRILHA(Nome, Descricao) VALUES('Testes', 'Tecnologias para testes de Software.');
 -- Cadastros de Skills nas tecnologias 
 	-- Skills .NET
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('C#','C# √© uma linguagem orientada a objeto elegante e de tipo seguro que permite aos desenvolvedores criar uma variedade de aplicativos seguros e robustos', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('ASP.NET MVC' , 'ASP.NET - MVC - Model-View-Controller √© um padr√£o de arquitetura que prov√™ uma alternativa ao ASP.NET Web Forms, para cria√ß√£o de websites', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('ASP.NET Web Forms' , 'ASP.NET Web Forms √© a plataforma da Microsoft para o desenvolvimento de aplica√ß√µes Web e √© o sucessor da tecnologia VB', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Windows Services' , 'Usando a plataforma .NET voc√™ pode facilmente criar servi√ßos criando um aplicativo que ser√° instalado como um servi√ßo. Esse tipo de aplicativo √© chamado um Windows Service', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('ASP.NET WebAPI' , 'ASP.NET Web API √© um Framework que nos possibilita a cria√ß√£o e disponibiliz√ß√£o de servi√ßos HTTP para que os mesmos possam ser consumidos por browsers e dispositivos m√≥veis.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Entity Framework' , 'O Microsoft Entity Framework √© uma ferramenta de  ORM ‚Äì Object Relational Management, que permite aos desenvolvedores trabalhar com classes (entidades) que correspondem a tabelas em um banco de dados', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('SharePoint' , 'O SharePoint √© uma tecnologia com utiliza√ß√£o na cria√ß√£o de portais e intranets empresariais, gest√£o documental e cria√ß√£o de portais colaborativos, e publica√ß√£o de aplica√ß√µes web.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('IIS' , 'IIS (Internet Information Services √© um servidor web criado pela Microsoft', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('NuGet' , 'NuGet √© uma ferramenta open source de gerenciamento de pacotes package manager para a plataforma .NET', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('C#','C# È uma linguagem orientada a objeto elegante e de tipo seguro que permite aos desenvolvedores criar uma variedade de aplicativos seguros e robustos', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('ASP.NET MVC' , 'ASP.NET - MVC - Model-View-Controller È um padr„o de arquitetura que provÍ uma alternativa ao ASP.NET Web Forms, para criaÁ„o de websites', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('ASP.NET Web Forms' , 'ASP.NET Web Forms È a plataforma da Microsoft para o desenvolvimento de aplicaÁıes Web e È o sucessor da tecnologia VB', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Windows Services' , 'Usando a plataforma .NET vocÍ pode facilmente criar serviÁos criando um aplicativo que ser· instalado como um serviÁo. Esse tipo de aplicativo È chamado um Windows Service', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('ASP.NET WebAPI' , 'ASP.NET Web API È um Framework que nos possibilita a criaÁ„o e disponibilizÁ„o de serviÁos HTTP para que os mesmos possam ser consumidos por browsers e dispositivos mÛveis.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Entity Framework' , 'O Microsoft Entity Framework È uma ferramenta de  ORM ñ Object Relational Management, que permite aos desenvolvedores trabalhar com classes (entidades) que correspondem a tabelas em um banco de dados', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('SharePoint' , 'O SharePoint È uma tecnologia com utilizaÁ„o na criaÁ„o de portais e intranets empresariais, gest„o documental e criaÁ„o de portais colaborativos, e publicaÁ„o de aplicaÁıes web.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('IIS' , 'IIS (Internet Information Services È um servidor web criado pela Microsoft', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('NuGet' , 'NuGet È uma ferramenta open source de gerenciamento de pacotes package manager para a plataforma .NET', SELECT IDTrilha FROM Trilha WHERE Nome LIKE '.NET');
 	-- Skills Java
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Java' , 'Java √© uma linguagem de programa√ß√£o orientada a objetos e que √© compilada para um bytecode que √© executado por uma m√°quina virtual.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Spring' , 'O Spring √© um framework open source para a plataforma Java ', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('JSF' , 'JavaServer Faces (JSF) √© um framework MVC baseado em Java para a constru√ß√£o de interfaces de usu√°rio baseadas em componentes para aplica√ß√µes web.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('JSP' , 'JavaServer Pages √© uma tecnologia que ajuda os desenvolvedores de software a criarem p√°ginas web geradas dinamicamente baseadas em HTML ou outros tipos de documentos', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Apache' , 'O Servidor Apache  √© o mais bem sucedido servidor web livre', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Hibernate' , 'O Hibernate √© um framework para o mapeamento objeto-relacional escrito na linguagem Java.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Maven' , 'Maven, √© uma ferramenta de automa√ß√£o de compila√ß√£o e gerenciamento de depend√™ncias utilizada primariamente em projetos Java.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Java' , 'Java È uma linguagem de programaÁ„o orientada a objetos e que È compilada para um bytecode que È executado por uma m·quina virtual.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Spring' , 'O Spring È um framework open source para a plataforma Java ', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('JSF' , 'JavaServer Faces (JSF) È um framework MVC baseado em Java para a construÁ„o de interfaces de usu·rio baseadas em componentes para aplicaÁıes web.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('JSP' , 'JavaServer Pages È uma tecnologia que ajuda os desenvolvedores de software a criarem p·ginas web geradas dinamicamente baseadas em HTML ou outros tipos de documentos', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Apache' , 'O Servidor Apache  È o mais bem sucedido servidor web livre', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Hibernate' , 'O Hibernate È um framework para o mapeamento objeto-relacional escrito na linguagem Java.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Maven' , 'Maven, È uma ferramenta de automaÁ„o de compilaÁ„o e gerenciamento de dependÍncias utilizada primariamente em projetos Java.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Java');
 	-- Skills Mobile
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Design Responsivo' , 'Busca criar sites onde a experi√™ncia do usu√°rio √© otimizada independente da forma a qual ele acessa o website, facilitando a navega√ß√£o e scrolling em qualquer caso.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('AngularJS' , 'AngularJS √© um framework JavaScript open-source, mantido pelo Google, que auxilia na execu√ß√£o de single-page applications visando criar aplicativos que podem ser acessados por um navegador web.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Design Responsivo' , 'Busca criar sites onde a experiÍncia do usu·rio È otimizada independente da forma a qual ele acessa o website, facilitando a navegaÁ„o e scrolling em qualquer caso.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('AngularJS' , 'AngularJS È um framework JavaScript open-source, mantido pelo Google, que auxilia na execuÁ„o de single-page applications visando criar aplicativos que podem ser acessados por um navegador web.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Android' , 'Desenvolvimento de aplicativos no sistema operacional Android', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('iOS' , 'Desenvolvimento de aplicativos no sistema operacional  iOS', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Cordova' , 'Desenvolvimento de aplicativos a partir de HTML5, CSS3 e Javascript', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Mobile');
 	-- Testes
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('JUnit' , ' JUnit √© um framework open-source, criado por Erich Gamma e Kent Beck, com suporte √† cria√ß√£o de testes automatizados na linguagem de programa√ß√£o Java.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Selenium IDE' , ' Selenium √© um framework de testes para aplica√ß√µes Web', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('MSTest', ' MSTest  √© um utilit√°rio para execu√ß√£o de testes unit√°rios de sistemas criados no Visual Studio', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
-INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Cucumber' , ' Cucumber √© uma plataforma de testes para desktop, web, mobile, e server applications em diversas plataformas', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('JUnit' , ' JUnit È um framework open-source, criado por Erich Gamma e Kent Beck, com suporte ‡ criaÁ„o de testes automatizados na linguagem de programaÁ„o Java.', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Selenium IDE' , ' Selenium È um framework de testes para aplicaÁıes Web', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('MSTest', ' MSTest  È um utilit·rio para execuÁ„o de testes unit·rios de sistemas criados no Visual Studio', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
+INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Cucumber' , ' Cucumber È uma plataforma de testes para desktop, web, mobile, e server applications em diversas plataformas', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
 
 -- Cadastro de Projetos
 INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Filmator Web','https://pbs.twimg.com/profile_images/469550031322619905/89OGS1Rt.png' );
 INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Turbo Rango', 'https://pbs.twimg.com/profile_images/469550031322619905/89OGS1Rt.png');
-INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('WhiSkill','https://pbs.twimg.com/profile_images/469550031322619905/89OGS1Rt.png');
+INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Whiskill','https://pbs.twimg.com/profile_images/469550031322619905/89OGS1Rt.png');
+
 -- Cadastro de Skills do Projeto
 		-- Cadastro de Skills do Projeto Filmator Web
 INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Java',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Filmator Web');
@@ -60,24 +147,23 @@ INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WH
 INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'IIS',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Turbo Rango');
 INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'NuGet',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Turbo Rango');
 INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Design Responsivo',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Turbo Rango');
-	-- Cadastro de Skills do Projeto WhiSkill
-INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Java',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill');
-INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Spring',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill');
-INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Maven',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill');
-INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'JUnit',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill');
-INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Android',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill');
-INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'AngularJS',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill');
-INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Design Responsivo',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill');
+	-- Cadastro de Skills do Projeto Whiskill
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Java',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Spring',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Maven',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'JUnit',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Android',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'AngularJS',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
+INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Design Responsivo',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
 -- Cadastro de Colaboradores
-INSERT INTO Colaborador(Nome) VALUES('Gabriel Moutinho');
-INSERT INTO Colaborador(Nome) VALUES('Paula Tomasi');
-INSERT INTO Colaborador(Nome) VALUES('Cassiano Neves');
--- Novos
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Gabriel Moutinho', 'https://thethesiswhisperer.files.wordpress.com/2011/03/yoda-sad.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Paula Tomasi', 'https://41.media.tumblr.com/934c63ae711b8789134634a1b6c188c3/tumblr_nnqftac8aU1u71q5fo7_250.png');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Cassiano Neves', 'https://avatars2.githubusercontent.com/u/9387910?v=3&s=460');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Bernardo Bosak', 'http://sharedseeker.com/file/profile_image/default_profile.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Marlon Bernardes', 'http://sharedseeker.com/file/profile_image/default_profile.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Talles Ludwig','http://sharedseeker.com/file/profile_image/default_profile.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Eshilane  Cruz','http://sharedseeker.com/file/profile_image/default_profile.jpg');
-INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Jo√£o Bottoni','http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Jo„o Bottoni','http://sharedseeker.com/file/profile_image/default_profile.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Gustavo Jardim','http://sharedseeker.com/file/profile_image/default_profile.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Lucas Kauer','http://sharedseeker.com/file/profile_image/default_profile.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Arthur Oliveira','http://sharedseeker.com/file/profile_image/default_profile.jpg');
@@ -133,13 +219,13 @@ INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM 
 INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Android',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Eshilane%');	
 INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'iOS',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Eshilane%');	
 INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Cordova',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Eshilane%');	
-	-- Jo√£o
-INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Cordova',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo√£o%');	
-INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Android',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo√£o%');	
-INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'JUnit',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo√£o%');	
-INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Selenium IDE',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo√£o%');	
-INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'MSTest',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo√£o%');	
-INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Cucumber',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo√£o%');	
+	-- Jo„o
+INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Cordova',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo„o%');	
+INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Android',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo„o%');	
+INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'JUnit',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo„o%');	
+INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Selenium IDE',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo„o%');	
+INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'MSTest',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo„o%');	
+INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Cucumber',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Jo„o%');	
 	-- Gustavo 
 INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'JUnit',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Gustavo%');	
 INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Selenium IDE',SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Gustavo%');	
@@ -200,11 +286,11 @@ INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador)  VALUES(SELECT IDSKILL FROM
 
 
 	-- Cadastro de Projetos do Colaborador
-		-- WhiSkill
+		-- Whiskill
 INSERT INTO PROJETOCOLABORADOR
 							(IDPROJETO, IDCOLABORADOR, DATAINICIO, DATAFIM) 
 							VALUES
-								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill',
+								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill',
 								SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Cassiano%', 
 								'2015-06-12' ,  
 								 '2015-06-15', 
@@ -213,21 +299,21 @@ INSERT INTO PROJETOCOLABORADOR
 INSERT INTO PROJETOCOLABORADOR
 							(IDPROJETO, IDCOLABORADOR, DATAINICIO, DATAFIM) 
 							VALUES
-								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill',
+								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill',
 								SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Paula%', 
 								'2015-06-12' ,  
 								 '2015-06-15', 
 							);
-	INSERT INTO PROJETOCOLABORADOR
+INSERT INTO PROJETOCOLABORADOR
 							(IDPROJETO, IDCOLABORADOR, DATAINICIO, DATAFIM) 
 							VALUES
-								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'WhiSkill',
+								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill',
 								SELECT IDCOLABORADOR FROM COLABORADOR WHERE NOME LIKE 'Gabriel%', 
 								'2015-06-12' ,  
 								 '2015-06-15', 
 							);
 	-- Filmator
-	INSERT INTO PROJETOCOLABORADOR
+INSERT INTO PROJETOCOLABORADOR
 							(IDPROJETO, IDCOLABORADOR, DATAINICIO, DATAFIM) 
 							VALUES
 								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Filmator Web',
@@ -235,7 +321,7 @@ INSERT INTO PROJETOCOLABORADOR
 								'2015-06-12' ,  
 								 '2015-12-15', 
 							);
-	INSERT INTO PROJETOCOLABORADOR
+INSERT INTO PROJETOCOLABORADOR
 							(IDPROJETO, IDCOLABORADOR, DATAINICIO, DATAFIM) 
 							VALUES
 								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Filmator Web',
@@ -245,7 +331,7 @@ INSERT INTO PROJETOCOLABORADOR
 							);
 	
 	-- Turbo Rango
-	INSERT INTO PROJETOCOLABORADOR
+INSERT INTO PROJETOCOLABORADOR
 							(IDPROJETO, IDCOLABORADOR, DATAINICIO, DATAFIM) 
 							VALUES
 								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Turbo Rango',
@@ -253,7 +339,7 @@ INSERT INTO PROJETOCOLABORADOR
 								'2015-06-12' ,  
 								 '2016-12-15', 
 							);
-	INSERT INTO PROJETOCOLABORADOR
+INSERT INTO PROJETOCOLABORADOR
 							(IDPROJETO, IDCOLABORADOR, DATAINICIO, DATAFIM) 
 							VALUES
 								(SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Turbo Rango',
@@ -261,4 +347,3 @@ INSERT INTO PROJETOCOLABORADOR
 								'2015-08-17' ,  
 								 '2016-12-17', 
 							);
-	
