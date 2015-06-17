@@ -57,13 +57,13 @@ public class RelatoriosDao {
 		}	
 		
 		int quantidadeColaboradores = colaboradores.size();
-		double porExcelente = (colaboradoresExcelente / quantidadeColaboradores)*100;
-		double porRegular   = (colaboradoresRegular / quantidadeColaboradores)*100;
-		double porRuim = 	  (colaboradoresRuim / quantidadeColaboradores)*100;
+		double porExcelente = (colaboradoresExcelente / quantidadeColaboradores);
+		double porRegular   = (colaboradoresRegular / quantidadeColaboradores);
+		double porRuim 		= (colaboradoresRuim / quantidadeColaboradores)*100;
 		
-		double porcentagemExcelente = 0;
-		double porcentagemRegular = 0; 
-		double porcentagemRuim = (39 * porRuim)/100;
+		double porcentagemExcelente = (porExcelente * 20) + 80;
+		double porcentagemRegular 	= (porRegular * 39) + 40; 
+		double porcentagemRuim 		= (39 * porRuim)/100;
 		
 		if(porcentagemExcelente >= 80){
 			return porcentagemExcelente;
