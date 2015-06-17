@@ -98,6 +98,7 @@
 							<th>Projeto Alocado</th>
 							<th>Periodo Alocação</th>
 							<th></th>
+							<th></th>
 						</tr>						
 					</thead>
 
@@ -111,6 +112,7 @@
 							<td>{{#pcd.dataInicio}}<span>{{pcd.dataInicio}}</span> à{{/pcd.dataInicio}}
 								{{#pcd.dataFim}}<span>{{pcd.dataFim}}</span>{{/pcd.dataFim}}{{^pcd.dataInicio}}--{{/pcd.dataInicio}}</td>
 							<td><button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal{{colaborador.idColaborador}}"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button></td>
+							<td><button idProjeto="{{projeto.idProjeto}}" idColaborador="{{colaborador.idColaborador}}" class="btn btn-warning alocar">Alocar</button></td>
 						</tr>
 						{{/indicados}}
 					</tbody>
@@ -175,8 +177,6 @@
 		{{> scripts}}
 		<script type="text/javascript">
 		$(function(){
-
-
 			{{#projeto.skills}}
 			$('#{{trilha.idTrilha}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
 			{{/projeto.skills}}
@@ -193,6 +193,13 @@
 				$('#t{{trilha.idTrilha}}c{{colaborador.idColaborador}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
 				{{/colaborador.skills}}
 			{{/indicados}}
+
+			$('.alocar').click(function(){
+				var self = $(this).parent().parent();
+				self.fadeOut(500, function(){
+					self.remove();
+				});
+			});
 		});
 
 		</script>
