@@ -74,31 +74,35 @@
 				</div>
 			</div>
 
-			<div class="row text-center">
-				<h2>Profissionais indicados a este Projeto</h2>
-			</div>
-
-			<div class="row text-center">
-				<div class="col-xs-6">
-					<b>Nome</b>
-				</div>
-
-				<div class="col-xs-6">
-					<b>Indicação</b>
-				</div>	
-			</div>
-
-			{{#indicados}}
+			<div class="row alert alert-danger">
 				<div class="row text-center">
-					<div class="col-xs-6">
-						{{colaborador.nome}}
-					</div>
-
-					<div class="col-xs-6">
-						{{indicacao}}%
-					</div>	
+					<h2>Profissionais indicados a este Projeto</h2>
 				</div>
-				{{/indicados}}
+				<br><br>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Indicação</th>
+							<th>Projeto Alocado</th>
+							<th>Periodo Alocação</th>
+						</tr>						
+					</thead>
+
+					<tbody>
+						{{#indicados}}
+						<tr>
+							<td>{{colaborador.nome}}</td>
+							<td>{{indicacao}}%</td>
+							<td>{{#pcd.projeto.nome}} {{pcd.projeto.nome}} {{/pcd.projeto.nome}}
+							{{^pcd.projeto.nome}}--{{/pcd.projeto.nome}}</td>
+							<td>{{#pcd.dataInicio}}<span>{{pcd.dataInicio}}</span> à{{/pcd.dataInicio}}
+								{{#pcd.dataFim}}<span>{{pcd.dataFim}}</span>{{/pcd.dataFim}}{{^pcd.dataInicio}}--{{/pcd.dataInicio}}</td>
+						</tr>
+						{{/indicados}}
+					</tbody>
+				</table>
+			</div>
 		</div>
 		{{#ColaboradoresDoProjeto}}
 		<!-- Modal -->
