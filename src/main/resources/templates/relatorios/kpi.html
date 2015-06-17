@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		{{> header}}
+		<title>Whiskill - KPI</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{{> style}}
+		{{> row}}	
+	</head>
+	<body>
+		{{> navbar}}
+		
+		<div id="g1"></div>
+		
+		
+		
+		{{> scripts}}
+		<script src="/components/raphael.2.1.0.min.js"></script>
+    	<script src="/components/justgage.1.0.1.min.js"></script>
+	
+		<script>
+		 window.onload = function(){
+
+				var kpi = {{#kpi}}{{kpi}}{{/kpi}}
+			    	  
+			      var g1 = new JustGage({
+			        id: "g1", 
+			        value: kpi, 
+			        min: 0,
+			        max: 100,
+			        title: "Hide Labels",
+			        showMinMax: true       
+			      });
+			     
+			      };
+		</script>
+	
+	</body>
+</html>
