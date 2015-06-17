@@ -1,12 +1,9 @@
 package whiskill.dao;
 
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
 import whiskill.model.Colaborador;
 import whiskill.model.Projeto;
 import whiskill.model.Skill;
@@ -36,7 +33,6 @@ public class RelatoriosDao {
 			// int colaboradores faixa abaixo de 40%
 		int colaboradoresRuim=0;
 		
-		// 
 		List<Skill> skillsProjeto = projeto.getSkills();
 		int countSkillsProjeto = skillsProjeto.size();
 		
@@ -61,9 +57,13 @@ public class RelatoriosDao {
 		}	
 		
 		int quantidadeColaboradores = colaboradores.size();
-		double porcentagemExcelente = (colaboradoresExcelente / quantidadeColaboradores)*100;
-		double porcentagemRegular   = (colaboradoresRegular / quantidadeColaboradores)*100;
-		double porcentagemRuim = 	  (colaboradoresRuim / quantidadeColaboradores)*100;
+		double porExcelente = (colaboradoresExcelente / quantidadeColaboradores)*100;
+		double porRegular   = (colaboradoresRegular / quantidadeColaboradores)*100;
+		double porRuim = 	  (colaboradoresRuim / quantidadeColaboradores)*100;
+		
+		double porcentagemExcelente = 0;
+		double porcentagemRegular = 0; 
+		double porcentagemRuim = (39 * porRuim)/100;
 		
 		if(porcentagemExcelente >= 80){
 			return porcentagemExcelente;
