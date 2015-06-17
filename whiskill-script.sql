@@ -9,8 +9,9 @@
 CREATE TABLE Colaborador
   (
     IDColaborador INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Nome          VARCHAR2 (100) NOT NULL,
-    Ativo         BOOLEAN DEFAULT TRUE
+    Nome          		VARCHAR2 (100) NOT NULL,
+	ImagemPerfil 	VARCHAR(300) NOT NULL,
+    Ativo         			BOOLEAN DEFAULT TRUE
   ) ;
 
 CREATE TABLE Projeto
@@ -74,7 +75,9 @@ ALTER TABLE ProjetoColaborador ADD CONSTRAINT FK_ProjetoColaborador_Colab FOREIG
 
 ALTER TABLE ProjetoColaborador ADD CONSTRAINT FK_ProjetoColaborador_Projeto FOREIGN KEY ( IDProjeto ) REFERENCES Projeto ( IDProjeto ) ;
 
-ALTER TABLE SkillColaborador ADD CONSTRAINT FK_SkillColaborador_Colab FOREIGN KEY ( IDColaborador ) REFERENCES Colaborador ( IDColaborador ) ;
+ALTER TABLE ProjetoColaborador ADD CONSTRAINT UK_ProjetoColaborador_Alocacao FOREIGN KEY ( IDColaborador ) REFERENCES Colaborador ( IDColaborador ) ;
+
+ALTER TABLE SkillColaborador ADD CONSTRAINT FK_SkillColaborador_Colab UNIQUE ( IDColaborador , DataInicio, DataFim) ;
 
 ALTER TABLE SkillColaborador ADD CONSTRAINT FK_SkillColaborador_Skill FOREIGN KEY ( IDSkill ) REFERENCES Skill ( IDSkill ) ;
 
