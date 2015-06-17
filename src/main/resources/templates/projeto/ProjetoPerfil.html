@@ -6,12 +6,50 @@
 		<title>Whiskill - Detalhes</title>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		{{> style}}
+		{{> stylecadastro}}
+		<style type="text/css">
+		.display-none{
+			display: none;
+		}
+		.margin-10{
+			margin: 10px;
+		}
+		</style>
 	</head>
 	<body>
 		{{> navbar}}
-		<br>
-		<br>
-		{{projeto.nome}}
+
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-4">
+					<img class="img-thumbnail" width="250px" src="{{projeto.imagemLogo}}">
+				</div>
+
+				<div class="col-xs-8">
+					<div class="row">
+						
+						<h1> {{projeto.nome}}</h1>
+					</div>
+					<div class="row text-center">
+						<h3>Tecnologias utilizadas</h3>
+					</div>
+					
+
+					{{#trilhas}}
+					<div id="{{idTrilha}}" class="row alert alert-danger display-none">
+						<h4>{{nome}}</h4>
+					</div>
+					{{/trilhas}}
+				</div>
+			</div>
+
+		</div>
+		
 		{{> scripts}}
+		<script type="text/javascript">
+		{{#projeto.skills}}
+		$('#{{trilha.idTrilha}}').removeClass('display-none').append('<label class="margin-10">{{nome}}</label>');
+		{{/projeto.skills}}
+		</script>
 	</body>
 </html>
