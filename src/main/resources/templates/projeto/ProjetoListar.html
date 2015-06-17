@@ -27,6 +27,7 @@
 						<tr>
 							<th>Nome</th>
 							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 	
@@ -34,6 +35,7 @@
 						{{#projetos}}
 							<tr>
 								<td>{{#nome}}{{nome}}{{/nome}}</td>
+								<td><img width="100px" src="{{imagemLogo}}"></td>
 								<td>
 									<a href="/projeto/atualizar?idProjeto={{idProjeto}}"><button class="btn btn-primary">
 									Editar</button></a>
