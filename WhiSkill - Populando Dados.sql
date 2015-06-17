@@ -84,8 +84,7 @@ INSERT INTO Colaborador(Nome) VALUES('Arthur Oliveira');
 INSERT INTO Colaborador(Nome) VALUES('Pablo Diehl');
 INSERT INTO Colaborador(Nome) VALUES('Rodrigo Dagnese');
 INSERT INTO Colaborador(Nome) VALUES('Vitor de Castro');
-
-
+INSERT INTO Colaborador(Nome) VALUES('Rodrigo Frohlich');
 
 	-- Cadastro de Skills do Colaborador
 		-- Cassiano
@@ -201,5 +200,3 @@ INSERT INTO SKILLCOLABORADOR(IDSkill, IDColaborador)  VALUES(SELECT IDSKILL FROM
 
 
 	-- Cadastro de Projetos do Colaborador
-
-
