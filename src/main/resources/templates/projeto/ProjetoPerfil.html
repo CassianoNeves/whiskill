@@ -27,42 +27,45 @@
 				height: 30px;
 				font-size: 10px;
 			}
+			.alert {
+				padding: 5px;
+				padding-top: 10px;
+				padding-left: 10px;
+				margin-bottom: 5px;
+			}
 		</style>
 	</head>
 	<body>
 		{{> navbar}}
 
 		<div class="container">
+			<div class="text-center">
+				<h1 class="margemlado"> {{projeto.nome}}</h1>
+			</div>
+
 			<div class="row">
 				<div class="col-xs-4 titulo text-center">
 					<img class="img-thumbnail imagemdetalhes margemimagem" width="250px" src="{{projeto.imagemLogo}}">
 				</div>
 
 				<div class="col-xs-8">
-					<div class="row text-center">
-						<br><br>
-						<h1 class="margemlado"> {{projeto.nome}}</h1>
+					<div class="text-center">
+						<h3>Tecnologias utilizadas</h3>
 					</div>
-				</div>
-				
-			</div>
+					
+					{{#trilhas}}
+					<div id="{{idTrilha}}" class="alert alert-danger display-none">
+						<label>{{nome}}: </label>
+					</div>
+					{{/trilhas}}
+				</div>	
 
-			<div class="row">
-				<div class="row text-center">
-					<h3>Tecnologias utilizadas</h3>
-				</div>
-				
-				{{#trilhas}}
-				<div id="{{idTrilha}}" class="row alert alert-danger display-none">
-					<h4>{{nome}}</h4>
-				</div>
-				{{/trilhas}}
 			</div>
 
 			<br>
 
 			<div class="row alert alert-danger">
-				<div class="row text-center">
+				<div class="text-center">
 					<h3>Colaboradores Alocados</h3>
 				</div>
 
@@ -94,6 +97,7 @@
 							<th>Indicação</th>
 							<th>Projeto Alocado</th>
 							<th>Periodo Alocação</th>
+							<th></th>
 						</tr>						
 					</thead>
 
@@ -174,20 +178,19 @@
 
 
 			{{#projeto.skills}}
-			$('#{{trilha.idTrilha}}').removeClass('display-none').append('<label class="margin-10">{{nome}}</label>');
+			$('#{{trilha.idTrilha}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
 			{{/projeto.skills}}
 
 			{{#ColaboradoresDoProjeto}}
 
 				{{#skills}}
-				$('#t{{trilha.idTrilha}}c{{idColaborador}}').removeClass('display-none').append('<label class="margin-10">{{nome}}</label>');
-				
+				$('#t{{trilha.idTrilha}}c{{idColaborador}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
 				{{/skills}}
 			{{/ColaboradoresDoProjeto}}
 
 			{{#indicados}}
 				{{#colaborador.skills}}
-				$('#t{{trilha.idTrilha}}c{{colaborador.idColaborador}}').removeClass('display-none').append('<label class="margin-10">{{nome}}</label>');
+				$('#t{{trilha.idTrilha}}c{{colaborador.idColaborador}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
 				{{/colaborador.skills}}
 			{{/indicados}}
 		});
