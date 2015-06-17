@@ -5,11 +5,11 @@ import java.sql.Date;
 public class ProjetoColaboradorData {
 
 	private Projeto projeto;
-	private Date dataInicio;
-	private Date dataFim;
+	private String dataInicio;
+	private String dataFim;
 	
 	
-	public ProjetoColaboradorData( Projeto projeto, Date dataInicio, Date dataFim ) {
+	public ProjetoColaboradorData( Projeto projeto, String dataInicio, String dataFim ) {
 		this.projeto = projeto;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
@@ -21,16 +21,16 @@ public class ProjetoColaboradorData {
 	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
 	}
-	public Date getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
-	public Date getDataFim() {
+	public String getDataFim() {
 		return dataFim;
 	}
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
 }
