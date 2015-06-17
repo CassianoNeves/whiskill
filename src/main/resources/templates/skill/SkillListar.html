@@ -8,10 +8,16 @@
 			{{> style}}
 			{{> row}}
 			<style>
-				th{
+				.descricao{
+					width:50%;
+				}
+				.nome{
+					width: 20%;
+				}
+				.edit{
 					width: 50px;
 				}
-			</style>
+			</style>	
 	</head>
 	<body>
 		<div class="container">
@@ -29,19 +35,17 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Nome</th>
-							<th>Descrição</th>
-							<th>Trilha</th>
-							<th></th>
+							<th class="nome">Nome</th>
+							<th class="descricao">Descrição</th>
+							<th class="edit"></th>
 						</tr>
 					</thead>
 	
 					<tbody>
 						{{#skills}}
 							<tr>
-								<td>{{nome}}</td>
+								<td>{{nome}} ({{trilha.nome}})</td>
 								<td>{{descricao}}</td>
-								<td>{{trilha.nome}}</td>
 								<td>
 									<a href="/skill/atualizar?idSkill={{idSkill}}"><button class="btn btn-primary">
 									Editar</button></a>
