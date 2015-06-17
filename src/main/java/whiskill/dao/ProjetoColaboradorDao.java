@@ -57,20 +57,15 @@ public class ProjetoColaboradorDao {
 				+ "ORDER BY QTDSKILLS DESC", ( ResultSet rs, int rowNum ) ->{
 					
 					ProjetoColaborador pc = new ProjetoColaborador();
-					
 
 					pc.setColaborador( colaboradorDao.buscaColaboradorPorId(
 							rs.getInt("idColaborador") ) );
-//					
-//					pc.setPcd(buscarProjetoEDataInicioEFim( rs.getInt("idColaborador") ) );
-//					
-					int qdtSkillsColaborador = rs.getInt("QTDSKILLS");
 					
-					double qtdIndicacao = 
-							(qdtSkillsColaborador * 100) / quantidadeDeSkillsDoProjeto;
-//					
-					pc.setIndicacao( qtdIndicacao );
-//					
+					pc.setPcd(buscarProjetoEDataInicioEFim( rs.getInt("idColaborador") ) );
+					
+					int qdtSkillsColaborador = rs.getInt("QTDSKILLS");
+					pc.setIndicacao( (qdtSkillsColaborador * 100) / quantidadeDeSkillsDoProjeto );
+					
 					return pc;
 				},
 				idProjeto,
@@ -80,11 +75,13 @@ public class ProjetoColaboradorDao {
 
 	
 	public ProjetoColaboradorData buscarProjetoEDataInicioEFim( int idColaborador ){
-		List<ProjetoColaboradorData> projetosData = jdbcTemplate.query( "SELECT * FROM PROJETOCOLABORADOR PC "
+		List<ProjetoColaboradorData> projetosData = jdbcTemplate.query( 
+				"SELECT p.idProjeto as ProjetoID, p.imagemLogo, p.nome, pc.datainicio, pc.datafim "
+				+ "FROM PROJETOCOLABORADOR PC "
 				+ "JOIN PROJETO P ON P.IDPROJETO = PC.IDPROJETO  "
 				+ "WHERE IDCOLABORADOR = ?", ( ResultSet rs, int rowNum ) ->{
 					Projeto projeto = new Projeto( 
-							rs.getInt( "idProjeto" ),
+							rs.getInt( "ProjetoID" ),
 							rs.getString( "nome"),
 							rs.getString( "imagemLogo") );
 					
@@ -98,6 +95,11 @@ public class ProjetoColaboradorDao {
 				},
 				idColaborador);
 		
-		return projetosData.get(0);
+		if(projetosData.size() > 0 ){
+			return projetosData.get(0);
+		}
+		
+		return null;
+		
 	}
 }

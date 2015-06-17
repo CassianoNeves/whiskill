@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ProjetoColaborador {
 	
 	private Colaborador colaborador;
-	private double indicacao;
+	private int indicacao;
 	private ProjetoColaboradorData pcd;
 	
 	public ProjetoColaboradorData getPcd() {
@@ -21,10 +21,10 @@ public class ProjetoColaborador {
 		this.colaborador = colaborador;
 	}
 
-	public double getIndicacao() {
+	public int getIndicacao() {
 		return indicacao;
 	}
-	public void setIndicacao(double indicacao) {
+	public void setIndicacao(int indicacao) {
 		this.indicacao = indicacao;
 	}
 
