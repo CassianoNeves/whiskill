@@ -120,7 +120,7 @@ public class ProjetoDao {
 		Projeto projeto = new Projeto();
 		projeto.setIdProjeto(idProjeto);
 		
-		List<Skill> skills = jdbcTemplate.query( "SELECT IDSKILL FROM SKILLPROJETO SP JOIN SKILL S ON S.IDSKILL = SP.IDSKILL WHERE SP.IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
+		List<Skill> skills = jdbcTemplate.query( "SELECT s.IDSKILL FROM SKILLPROJETO SP JOIN SKILL S ON S.IDSKILL = SP.IDSKILL WHERE SP.IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
 			
 			Skill skill = new Skill();
 			skill.setIdSkill(rs.getInt( "IDSKILL" ));			
