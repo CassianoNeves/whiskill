@@ -112,6 +112,25 @@ public class ProjetoDao {
                 idProjeto,
                 idSkill );
     }
+	/*** 
+	 * Método para busca de apenas o Id e as Skills do Projeto
+	 */
+	public Projeto buscaSkillsPorId(int idProjeto){
+		
+		Projeto projeto = new Projeto();
+		projeto.setIdProjeto(idProjeto);
+		
+		List<Skill> skills = jdbcTemplate.query( "SELECT IDSKILL FROM SKILLPROJETO SP JOIN SKILL S ON S.IDSKILL = SP.IDSKILL WHERE SP.IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
+			
+			Skill skill = new Skill();
+			skill.setIdSkill(rs.getInt( "IDSKILL" ));			
+			return skill;
+		}, idProjeto);
+		
+		projeto.setSkills(skills);
+		
+	 return projeto;
+	}
 
 	public int buscaIdDoProjetoPorNome(String nome) {
 		
