@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import whiskill.dao.ProjetoColaboradorDao;
 import whiskill.dao.ProjetoDao;
+import whiskill.dao.RelatoriosDao;
 import whiskill.dao.SkillDao;
 import whiskill.dao.TrilhaDao;
 import whiskill.model.Colaborador;
@@ -30,6 +31,9 @@ public class ProjetoController {
 	
 	@Inject
 	ProjetoColaboradorDao pcDao;
+	
+	@Inject
+	RelatoriosDao relatoriosDao;
 	
 
 	@RequestMapping( value = "/projeto/cadastro", method = RequestMethod.GET )
@@ -97,4 +101,12 @@ public class ProjetoController {
 		projetoDao.excluirSkillsProjeto( idProjeto );
 		return "ok";
 	}
+	// Nice
+	@RequestMapping( value = "/projeto/kpi", method = RequestMethod.GET )
+	public String projetoKPI( Model model, @RequestParam int idProjeto){
+		model.addAttribute("kpi", relatoriosDao.calculaKPI(idProjeto));		
+		return "/relatorios/kpi";
+	}
+	
+	
 }
