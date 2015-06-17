@@ -37,7 +37,8 @@ public class ProjetoController {
 	
 	@RequestMapping( value = "/projeto/perfil", method = RequestMethod.GET )
 	public String projetoPerfil(Model model, @RequestParam int idProjeto ){
-		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) ); 
+		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
+		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
 		return "/projeto/ProjetoPerfil";
 	}
 	

@@ -9,11 +9,6 @@ public class Projeto {
 	private String nome;
 	private List<Skill> skills = new ArrayList<>();
 	private String imagemLogo;
-	// Métodos
-//	
-//	public void addSkill(Skill skill){
-//		this.skillsProjeto.add(skill);
-//	}
 	
 	// Construtores
 	public Projeto(){}
