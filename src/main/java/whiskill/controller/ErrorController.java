@@ -10,6 +10,6 @@ public class ErrorController {
 	
 	@RequestMapping( value = "/error", method = RequestMethod.GET )
 	public String colaboradorCadastro( Model model){
-		return "/erro";
+		return "error";
 	}
 }
