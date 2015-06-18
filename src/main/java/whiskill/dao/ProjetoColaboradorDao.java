@@ -50,7 +50,7 @@ public class ProjetoColaboradorDao {
 				+ "to_char(pc.dataInicio, 'dd/MM/yyyy') as dataInicio"
 				+ " FROM PROJETOCOLABORADOR PC "
 				+ "JOIN COLABORADOR C ON C.IDCOLABORADOR = PC.IDCOLABORADOR "
-				+ "WHERE IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
+				+ "WHERE PC.IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
 					
 					ColaboradorData colaborador = 
 							new ColaboradorData(

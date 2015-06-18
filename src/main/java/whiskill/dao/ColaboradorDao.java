@@ -49,6 +49,7 @@ public class ColaboradorDao {
 	
 	public void excluirColaborador( int idColaborador ){
 		jdbcTemplate.update( "UPDATE COLABORADOR SET ATIVO = 'FALSE' WHERE idColaborador = ?", idColaborador );
+		jdbcTemplate.update( "DELETE FROM PROJETOCOLABORADOR WHERE idColaborador = ?", idColaborador );
 	}
 	
 	public Colaborador buscaColaboradorPorId( int idColaborador ){
