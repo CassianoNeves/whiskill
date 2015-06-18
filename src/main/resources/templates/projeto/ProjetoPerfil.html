@@ -4,25 +4,26 @@
 		<meta charset="utf-8">
 		{{> header}}
 		<title>{{projeto.nome}} - Detalhes</title>
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans'
+			rel='stylesheet' type='text/css'>
 		{{> style}}
 		{{> stylecadastro}}
 		{{> row}}
 		<style type="text/css">
-			.display-none{
+			.display-none {
 				display: none;
 			}
-			.margin-10{
+			.margin-10 {
 				margin: 10px;
 			}
-			.block-inline{
+			.block-inline {
 				display: inline-block;
 				margin: 20px;
 			}
-			.margemimagem{
+			.margemimagem {
 				margin-top: 20px;
 			}
-			.botao-ver{
+			.botao-ver {
 				width: 40px;
 				height: 30px;
 				font-size: 10px;
@@ -32,121 +33,131 @@
 				padding-top: 10px;
 				padding-left: 10px;
 				margin-bottom: 5px;
-			}		 	
-			
-			#kpi{
-		    	width:300; height:200px;
-		        display: inline-block;
-		        margin: 1em;
-		    };
-
+			}
+			#kpi {
+				width: 300;
+				height: 200px;
+				display: inline-block;
+				margin: 1em;
+			}
 		</style>
 	</head>
 	<body>
 		{{> navbar}}
-
+	
 		<div class="container">
 			<div class="text-center">
-				<h1 class="margemlado"> {{projeto.nome}}</h1>
+				<h1 class="margemlado">{{projeto.nome}}</h1>
 			</div>
-
+	
 			<div class="row">
 				<div class="col-xs-4 titulo text-center">
-					<img class="img-thumbnail imagemdetalhes margemimagem" width="250px" src="{{projeto.imagemLogo}}">
+					<img class="img-thumbnail imagemdetalhes margemimagem" width="250px"
+						src="{{projeto.imagemLogo}}">
 				</div>
-
+	
 				<div class="col-xs-8">
 					<div class="text-center">
-						<h3>Tecnologias utilizadas</h3>
+						<h3>Tecnologias utilizadas:</h3>
 					</div>
-					
-					{{#trilhas}}
+					<br> {{#trilhas}}
 					<div id="{{idTrilha}}" class="alert alert-danger display-none">
 						<label>{{nome}}: </label>
 					</div>
 					{{/trilhas}}
-				</div>	
-
+				</div>
+	
 			</div>
-
+	
 			<br>
 			<div class="row text-center">
-			
-			{{#kpiExcelente}}
-				<h3 class="text-success"> {{kpiExcelente.status}}</h3>
-				<p class="text-success"> {{kpiExcelente.resposta}}</p>
-			{{/kpiExcelente}}
-			
-			{{#kpiRegular}}
-				<h3 class="text-warning"> {{kpiRegular.status}}</h3>
-				<p class="text-warning"> {{kpiRegular.resposta}}</p>
-			{{/kpiRegular}}
-			
-			{{#kpiRuim}}
-				<h3 class="text-danger"> {{kpiRuim.status}}</h3>
-				<p class="text-danger"> {{kpiRuim.resposta}}</p>
-			{{/kpiRuim}}
+	
+				{{#kpiExcelente}}
+				<h3 class="text-success">{{kpiExcelente.status}}</h3>
+				<p class="text-success">{{kpiExcelente.resposta}}</p>
+				{{/kpiExcelente}} {{#kpiRegular}}
+				<h3 class="text-warning">{{kpiRegular.status}}</h3>
+				<p class="text-warning">{{kpiRegular.resposta}}</p>
+				{{/kpiRegular}} {{#kpiRuim}}
+				<h3 class="text-danger">{{kpiRuim.status}}</h3>
+				<p class="text-danger">{{kpiRuim.resposta}}</p>
+				{{/kpiRuim}}
 				<!--  Div do Kpi -->
 				<div id="kpi"></div>
-			
-			</div>			
+	
+			</div>
 			<div class="row alert alert-danger">
 				<div class="text-center">
-					<h3>Colaboradores Alocados</h3>
+					<h3>Colaboradores alocados:</h3>
 				</div>
-
 				<div id="colaboradoresDoProjeto" class="row text-center">
 					{{#ColaboradoresDoProjeto}}
 					<div class="block-inline ">
-						<img style="width:200px; height:200px;" class="img-thumbnail img-responsive "
+						<img style="width: 200px; height: 200px;"
+							class="img-thumbnail img-responsive "
 							src="{{colaborador.imagemPerfil}}" alt="">
-						<h4><br>{{colaborador.nome}}</h4>
+						<h4>
+							<br>{{colaborador.nome}}
+						</h4>
 						<div>
-							<span>Período de Alocação:</span>
+							<span>Período de alocação:</span>
 							<div>
 								<span>{{dataInicio}} à {{dataFim}}</span>
 							</div>
 							<br>
 						</div>
-						
+	
 						<!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal{{colaborador.idColaborador}}"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
+						<button type="button" class="btn btn-primary botao-ver"
+							data-toggle="modal"
+							data-target="#modal{{colaborador.idColaborador}}">
+							<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+						</button>
 					</div>
-					{{/ColaboradoresDoProjeto}}
-					{{^ColaboradoresDoProjeto}}
-						<h4>Este Projeto ainda não tem colaboradores</h4>
+					{{/ColaboradoresDoProjeto}} {{^ColaboradoresDoProjeto}}
+					<h4>Este projeto ainda não tem colaboradores</h4>
 					{{/ColaboradoresDoProjeto}}
 				</div>
 			</div>
-
+	
 			<div class="row alert alert-danger">
 				<div class="row text-center">
-					<h2>Profissionais indicados a este Projeto</h2>
+					<h2>Profissionais indicados para este projeto:</h2>
 				</div>
-				<br><br>
+				<br>
+				<br>
 				<table class="table">
 					<thead>
 						<tr>
 							<th>Nome</th>
 							<th>Indicação</th>
-							<th>Projeto Alocado</th>
-							<th>Período Alocação</th>
+							<th>Projeto alocado</th>
+							<th>Período de alocação</th>
 							<th></th>
 							<th></th>
-						</tr>						
+						</tr>
 					</thead>
-
+	
 					<tbody>
 						{{#indicados}}
 						<tr>
 							<td>{{colaborador.nome}}</td>
 							<td>{{indicacao}}%</td>
-							<td>{{#pcd.projeto.nome}} {{pcd.projeto.nome}} {{/pcd.projeto.nome}}
-							{{^pcd.projeto.nome}}--{{/pcd.projeto.nome}}</td>
-							<td>{{#pcd.dataInicio}}<span>{{pcd.dataInicio}}</span> à{{/pcd.dataInicio}}
-								{{#pcd.dataFim}}<span>{{pcd.dataFim}}</span>{{/pcd.dataFim}}{{^pcd.dataInicio}}--{{/pcd.dataInicio}}</td>
-							<td><button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal{{colaborador.idColaborador}}"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button></td>
-							<td><button idProjeto="{{projeto.idProjeto}}" idColaborador="{{colaborador.idColaborador}}" class="btn btn-primary alocar" data-toggle="modal" data-target="#modelDataAlocacao">Alocar</button></td>
+							<td>{{#pcd.projeto.nome}} {{pcd.projeto.nome}}
+								{{/pcd.projeto.nome}}
+								{{^pcd.projeto.nome}}--{{/pcd.projeto.nome}}</td>
+							<td>{{#pcd.dataInicio}}<span>{{pcd.dataInicio}}</span>
+								à{{/pcd.dataInicio}} {{#pcd.dataFim}}<span>{{pcd.dataFim}}</span>{{/pcd.dataFim}}{{^pcd.dataInicio}}--{{/pcd.dataInicio}}
+							</td>
+							<td><button type="button" class="btn btn-primary botao-ver"
+									data-toggle="modal"
+									data-target="#modal{{colaborador.idColaborador}}">
+									<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+								</button></td>
+							<td><button idProjeto="{{projeto.idProjeto}}"
+									idColaborador="{{colaborador.idColaborador}}"
+									class="btn btn-primary alocar" data-toggle="modal"
+									data-target="#modelDataAlocacao">Alocar</button></td>
 						</tr>
 						{{/indicados}}
 					</tbody>
@@ -155,59 +166,70 @@
 		</div>
 		{{#ColaboradoresDoProjeto}}
 		<!-- Modal -->
-		<div class="modal fade" id="modal{{colaborador.idColaborador}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		 	<div class="modal-dialog text-center" role="document">
-		    	<div class="modal-content">
-		      		<div class="modal-header">
-		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        		<h4 class="modal-title" id="myModalLabel"><b>{{colaborador.nome}}</b></h4>
-		      		</div>
-		      		
-		      		<div class="modal-body">
-		      			<h4>Conhecimentos</h4>
-		      			{{#trilhas}}
-						<div id="t{{idTrilha}}c{{colaborador.idColaborador}}" class="row alert alert-danger display-none">
+		<div class="modal fade" id="modal{{colaborador.idColaborador}}"
+			tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog text-center" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							<b>{{colaborador.nome}}</b>
+						</h4>
+					</div>
+	
+					<div class="modal-body">
+						<h4>Conhecimentos:</h4>
+						{{#trilhas}}
+						<div id="t{{idTrilha}}c{{colaborador.idColaborador}}"
+							class="row alert alert-danger display-none">
 							<label>{{nome}}: </label>
 						</div>
 						{{/trilhas}}
-		      		</div>
-		      		
-		      		<div class="modal-footer">
-		        		<button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
-		      		</div>
-		    	</div>
-		  	</div>
+					</div>
+	
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Sair</button>
+					</div>
+				</div>
+			</div>
 		</div>
-		<br>
-		{{/ColaboradoresDoProjeto}}
-
+		<br> {{/ColaboradoresDoProjeto}} 
 		{{#indicados}}
 		<!-- Modal -->
-		<div class="modal fade" id="modal{{colaborador.idColaborador}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		 	<div class="modal-dialog text-center" role="document">
-		    	<div class="modal-content">
-		      		<div class="modal-header">
-		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        		<h4 class="modal-title" id="myModalLabel"><b>{{colaborador.nome}}</b></h4>
-		      		</div>
-		      		
-		      		<div class="modal-body">
-		      			<h4>Conhecimentos</h4>
-		      			{{#trilhas}}
-						<div id="t{{idTrilha}}c{{colaborador.idColaborador}}" class="row alert alert-danger display-none">
+		<div class="modal fade" id="modal{{colaborador.idColaborador}}"
+			tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog text-center" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							<b>{{colaborador.nome}}</b>
+						</h4>
+					</div>
+	
+					<div class="modal-body">
+						<h4>Conhecimentos</h4>
+						{{#trilhas}}
+						<div id="t{{idTrilha}}c{{colaborador.idColaborador}}"
+							class="row alert alert-danger display-none">
 							<label>{{nome}}: </label>
 						</div>
 						{{/trilhas}}
-		      		</div>
-		      		
-		      		<div class="modal-footer">
-		        		<button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
-		      		</div>
-		    	</div>
-		  	</div>
+					</div>
+	
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Sair</button>
+					</div>
+				</div>
+			</div>
 		</div>
 		{{/indicados}}
-
 		<div class="modal fade" id="modelDataAlocacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		 	<div class="modal-dialog" role="document">
 		    	<div class="modal-content">
@@ -236,44 +258,43 @@
 		    	</div>
 		  	</div>
 		</div>
-
-		{{> scripts}}
-
-			<script src="/components/raphael.2.1.0.min.js"></script>
-	    	<script src="/components/justgage.1.0.1.min.js"></script>
-	    	<script>
-			 window.onload = function(){
 	
-				{{#kpiExcelente}}
-					var kpi ={{kpiExcelente.porcentagem}};
-					var cor =["#4CD964"];
-					var mensagem = "Porcentagem Excelentes";
-				{{/kpiExcelente}}
-				
-				{{#kpiRegular}}
-					var kpi ={{kpiRegular.porcentagem}};
-					var cor =["#FFA400"];
-					var mensagem = "Porcentagem Regulares";
-				{{/kpiRegular}}
-				{{#kpiRuim}}
-					var kpi ={{kpiRuim.porcentagem}};
-					var cor =["#F22613"];
-					var mensagem = "Necessitam de treinamento";
-				{{/kpiRuim}}
-							 
-				    	  
-			var gaugeKpi = new JustGage({
-				id: 	"kpi", 
-				value: 	kpi, 
-				min: 	0,
-				max: 	100,
-				title:  mensagem,
-				label: "%",
-				showMinMax: true,
-				levelColors: cor
-			});		     	
-			 };
-			</script>
+		{{> scripts}}
+	
+		<script src="/components/raphael.2.1.0.min.js"></script>
+		<script src="/components/justgage.1.0.1.min.js"></script>
+		<script>
+				 window.onload = function(){
+					{{#kpiExcelente}}
+						var kpi ={{kpiExcelente.porcentagem}};
+						var cor =["#4CD964"];
+						var mensagem = "Porcentagem Excelentes";
+					{{/kpiExcelente}}
+					
+					{{#kpiRegular}}
+						var kpi ={{kpiRegular.porcentagem}};
+						var cor =["#FFA400"];
+						var mensagem = "Porcentagem Regulares";
+					{{/kpiRegular}}
+					{{#kpiRuim}}
+						var kpi ={{kpiRuim.porcentagem}};
+						var cor =["#F22613"];
+						var mensagem = "";
+						//var mensagem = "Necessitam de treinamento";
+					{{/kpiRuim}}
+					    	  
+				var gaugeKpi = new JustGage({
+					id: 	"kpi", 
+					value: 	kpi, 
+					min: 	0,
+					max: 	100,
+					title:  mensagem,
+					label: "%",
+					showMinMax: true,
+					levelColors: cor
+				});		     	
+				 };
+				</script>
 	
 		<script type="text/javascript">
 		$(function(){
@@ -344,9 +365,7 @@
 			    $('input[name="dataInicio"]').val('');
 				$('input[name="dataFim"]').val('');
 			});
-
-		});
-
-		</script>
+			});
+			</script>
 	</body>
 </html>
