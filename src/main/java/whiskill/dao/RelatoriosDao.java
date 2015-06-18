@@ -23,7 +23,7 @@ public class RelatoriosDao {
 	public double calculaKPI(int idProjeto){
 		// Pega o Colaborador e Projeto com SKills
 		Projeto projeto = projetoDao.buscaSkillsPorId(idProjeto);
-			//Criar outro método pra buscar só o IDColaborador e Skills(perf)
+		//Criar outro método pra buscar só o IDColaborador e Skills(perf)
 		List<Colaborador> colaboradores = projetoColaboradorDao.bucarColaboradoresPorIdDoProjeto(idProjeto);
 		// Verifica
 			// int colaboradores faixa acima de 80%
@@ -32,13 +32,18 @@ public class RelatoriosDao {
 		int colaboradoresRegular=0;
 			// int colaboradores faixa abaixo de 40%
 		int colaboradoresRuim=0;
-		
+		// Pega as skills do projeto
 		List<Skill> skillsProjeto = projeto.getSkills();
+		// conta numero de Skills
 		int countSkillsProjeto = skillsProjeto.size();
 		
+		// Para cada habilidade do colaborador verifica se tem a 
+		
 		for (Colaborador colaborador : colaboradores) {
+			
 			List<Skill> skillsColaborador = colaborador.getSkills();
 			int skillsIguais = 0;
+			
 			for (Skill skillColaborador : skillsColaborador) {
 				for (Skill skillProjeto : skillsProjeto) {
 					if(skillColaborador.getIdSkill() == skillProjeto.getIdSkill() ){
@@ -46,25 +51,36 @@ public class RelatoriosDao {
 					}					
 				}
 			}	
+			// Calcula a porcentagem de Skills do Projeto que o colaborador possui
 			double porcentagemSkillColaborador = (skillsIguais / countSkillsProjeto)*100;
+			// Incrementa na faixa em que ele se encaixa
+			
+			
 			if(porcentagemSkillColaborador >= 80){
-				colaboradoresExcelente++;
+				colaboradoresExcelente++;			
 			}else if(porcentagemSkillColaborador >= 40 && porcentagemSkillColaborador <= 79){
-				colaboradoresRegular++;
-			}else if(porcentagemSkillColaborador <=39){
-				colaboradoresRuim++;
-			}
-		}	
 		
+				colaboradoresRegular++;
+				
+			}else if(porcentagemSkillColaborador <=39){
+					
+					   colaboradoresRuim++;
+		    
+				   } // Fim do incremento de faixas
+			
+		} // Fim do Foreach 	
+				
+		// Pega a quantidade de colaboradores		
 		int quantidadeColaboradores = colaboradores.size();
+				
 		double porExcelente = (colaboradoresExcelente / quantidadeColaboradores);
-		double porRegular   = (colaboradoresRegular / quantidadeColaboradores);
+		double porRegular   = (colaboradoresRegular / quantidadeColaboradores);		
 		double porRuim 		= (colaboradoresRuim / quantidadeColaboradores)*100;
 		
 		double porcentagemExcelente = (porExcelente * 20) + 80;
-		double porcentagemRegular 	= (porRegular * 39) + 40; 
+		double porcentagemRegular 	= (porRegular * 39) + 40; 		
 		double porcentagemRuim 		= (39 * porRuim)/100;
-		
+		// Retorno		
 		if(porcentagemExcelente >= 80){
 			return porcentagemExcelente;
 		} else if(porcentagemRegular >=40 && porcentagemRegular <=79 ){
