@@ -35,6 +35,8 @@ public class ColaboradorController {
 	@ResponseBody
 	@RequestMapping( value = "/colaborador/inserir/colaborador", method = RequestMethod.POST )
 	public int colaboradorInserirColaborador( Colaborador colaborador){
+		if (colaborador.getImagemPerfil() == null || colaborador.getImagemPerfil().trim() == "")
+			colaborador.setImagemPerfil("http://sharedseeker.com/file/profile_image/default_profile.jpg");
 		int idCriado = colaboradorDao.inserirColaborador( colaborador );
 		return idCriado;
 	}
@@ -63,6 +65,8 @@ public class ColaboradorController {
 	@ResponseBody
 	@RequestMapping( value = "/colaborador/atualizar", method = RequestMethod.POST )
 	public String colaboradorAtualizar( Colaborador colaborador ){
+		if (colaborador.getImagemPerfil() == null || colaborador.getImagemPerfil().trim() == "")
+			colaborador.setImagemPerfil("http://sharedseeker.com/file/profile_image/default_profile.jpg");
 		colaboradorDao.atualizarColaborador( colaborador );
 		return "ok";
 	}
