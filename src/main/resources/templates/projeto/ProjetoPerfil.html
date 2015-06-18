@@ -73,14 +73,14 @@
 			<div class="row text-center">
 	
 				{{#kpiExcelente}}
-				<h3 class="text-success">{{kpiExcelente.status}}</h3>
-				<p class="text-success">{{kpiExcelente.resposta}}</p>
+					<h3>{{kpiExcelente.status}}</h3>
+					<p>{{kpiExcelente.resposta}}</p>
 				{{/kpiExcelente}} {{#kpiRegular}}
-				<h3 class="text-warning">{{kpiRegular.status}}</h3>
-				<p class="text-warning">{{kpiRegular.resposta}}</p>
+					<h3>{{kpiRegular.status}}</h3>
+					<p>{{kpiRegular.resposta}}</p>
 				{{/kpiRegular}} {{#kpiRuim}}
-				<h3 class="text-danger">{{kpiRuim.status}}</h3>
-				<p class="text-danger">{{kpiRuim.resposta}}</p>
+					<h3>{{kpiRuim.status}}</h3>
+					<p>{{kpiRuim.resposta}}</p>
 				{{/kpiRuim}}
 				<!--  Div do Kpi -->
 				<div id="kpi"></div>
@@ -270,35 +270,20 @@
 		<script src="/components/raphael.2.1.0.min.js"></script>
 		<script src="/components/justgage.1.0.1.min.js"></script>
 		<script>
-				 window.onload = function(){
-					{{#kpiExcelente}}
-						var kpi ={{kpiExcelente.porcentagem}};
-						var cor =["#4CD964"];
-						var mensagem = "Porcentagem Excelentes";
-					{{/kpiExcelente}}
-					
-					{{#kpiRegular}}
-						var kpi ={{kpiRegular.porcentagem}};
-						var cor =["#FFA400"];
-						var mensagem = "Porcentagem Regulares";
-					{{/kpiRegular}}
-					{{#kpiRuim}}
-						var kpi ={{kpiRuim.porcentagem}};
-						var cor =["#F22613"];
-						var mensagem = "";
-						//var mensagem = "Necessitam de treinamento";
-					{{/kpiRuim}}
+
+		window.onload = function(){
 					    	  
 				var gaugeKpi = new JustGage({
-					id: 	"kpi", 
-					value: 	kpi, 
+					id: 	'kpi', 
+					value:  '{{#kpiExcelente}} {{kpiExcelente.porcentagem}} {{/kpiExcelente}} {{#kpiRegular}} {{kpiRegular.porcentagem}} {{/kpiRegular}}{{#kpiRuim}} {{kpiRuim.porcentagem}} {{/kpiRuim}}', 
 					min: 	0,
+					hideValue: true,
+					tile:  'Kpi do Projeto',
+					levelColors: ['#CF000F', '#F2CA27',  '#2ECC71'],
+					levelColorGradient: false,
 					max: 	100,
-					title:  mensagem,
-					label: "%",
-					showMinMax: true,
-					levelColors: cor
-				});		     	
+					showMinMax: true
+					});		     	
 				 };
 				</script>
 	

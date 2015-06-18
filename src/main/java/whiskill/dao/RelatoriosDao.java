@@ -36,7 +36,7 @@ public class RelatoriosDao {
 			// Passo 2.1 - Defina as Classificações
 		int colaboradoresSkillsNivelExcelente 	= 0;
 		int colaboradoresSkillsNivelRegular 	= 0;
-		int colaboradoresSkillsNivelRuim 		= 0;
+//		int colaboradoresSkillsNivelRuim 		= 0;
 				
 			// Passo 2.2 - Categorize os Colaboradores
 		// Variável para contagem do número de Skills em comum de Colaborador com o Projeto.
@@ -59,9 +59,9 @@ public class RelatoriosDao {
 				colaboradoresSkillsNivelExcelente++;
 			} else if(porcentagemSkillsColaborador >=40 && porcentagemSkillsColaborador <=79){
 				colaboradoresSkillsNivelRegular++;
-			} else{
-				colaboradoresSkillsNivelRuim++;
-			}		
+			} //else{
+//				colaboradoresSkillsNivelRuim++;
+//			}		
 		} // Fim do For do Colaborador
 		
 		// Passo 3: Calcule a Porcentagem do KPI - \o/
@@ -70,16 +70,16 @@ public class RelatoriosDao {
 			
 			int porcentagemExcelente = (colaboradoresSkillsNivelExcelente/numeroDeColaboradores)*100;
 			int porcentagemRegular = (colaboradoresSkillsNivelRegular/numeroDeColaboradores)*100;
-			int porcentagemRuim = (colaboradoresSkillsNivelRuim/numeroDeColaboradores)*100;
+			// Não precisa calcular pq não usa ! (perf)//int porcentagemRuim = (colaboradoresSkillsNivelRuim/numeroDeColaboradores)*100;
 			// Será Excelente: se 80% ou mais da equipe do projeto tiver 80% ou mais das skills do projeto
 			if(porcentagemExcelente >= 80)
-				kpi = new Kpi("Excelente !","Equipe não necessita de capacitação no momento !", porcentagemExcelente);			
+				kpi = new Kpi("Excelente !","Equipe não necessita de capacitação no momento !", 99);			
 			// Regular: se entre 40% e 79% da equipe do projeto tiver 40% ou mais das skills do projeto
 			else if(porcentagemRegular>= 40 && porcentagemRegular<=79)
-				kpi = new Kpi("Regular !","Equipe poderia se beneficiar de capacitação !", porcentagemRegular);
+				kpi = new Kpi("Regular !","Equipe poderia se beneficiar de capacitação !", 66);
 			// Ruim: se menos que 40% da equipe do projeto tiver menos que 40% das skills do projeto. 
 			else 
-				kpi = new Kpi("Ruim !","A equipe deste projeto necessita de treinamento !",porcentagemRuim);
+				kpi = new Kpi("Ruim !","A equipe deste projeto necessita de capacitação !",33);
 		
 		// Passo 4: Retorne o KPI de Preferência certo - \o/	
 			
