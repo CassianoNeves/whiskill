@@ -1,10 +1,14 @@
 package whiskill.dao;
 
 import java.util.List;
+
 import javax.inject.Inject;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
 import whiskill.model.Colaborador;
+import whiskill.model.Kpi;
 import whiskill.model.Projeto;
 import whiskill.model.Skill;
 
@@ -20,72 +24,65 @@ public class RelatoriosDao {
 	@Inject
 	ProjetoColaboradorDao projetoColaboradorDao;
 	
-	public double calculaKPI(int idProjeto){
-		// Pega o Colaborador e Projeto com SKills
+	public Kpi calculaKPI(int idProjeto){
+		
+		// Passo 1 : Pegue os dados - \o/
 		Projeto projeto = projetoDao.buscaSkillsPorId(idProjeto);
-		//Criar outro método pra buscar só o IDColaborador e Skills(perf)
-		List<Colaborador> colaboradores = projetoColaboradorDao.bucarColaboradoresPorIdDoProjeto(idProjeto);
-		// Verifica
-			// int colaboradores faixa acima de 80%
-		int colaboradoresExcelente=0;
-			// int colaboradores faixa entre 40% e 79%
-		int colaboradoresRegular=0;
-			// int colaboradores faixa abaixo de 40%
-		int colaboradoresRuim=0;
-		// Pega as skills do projeto
 		List<Skill> skillsProjeto = projeto.getSkills();
-		// conta numero de Skills
-		int countSkillsProjeto = skillsProjeto.size();
-		
-		// Para cada habilidade do colaborador verifica se tem a 
-		
+		int numeroSkillsProjeto = skillsProjeto.size();
+		List<Colaborador> colaboradores = projetoColaboradorDao.bucarColaboradoresPorIdDoProjeto(idProjeto);		
+		int numeroDeColaboradores = colaboradores.size();
+		// Passo 2: Compare a Skill dos Colaboradores com a Skill do Projeto e os Classifique - \o/
+			// Passo 2.1 - Defina as Classificações
+		int colaboradoresSkillsNivelExcelente 	= 0;
+		int colaboradoresSkillsNivelRegular 	= 0;
+		int colaboradoresSkillsNivelRuim 		= 0;
+				
+			// Passo 2.2 - Categorize os Colaboradores
+		// Variável para contagem do número de Skills em comum de Colaborador com o Projeto.
+		int numeroSkillsIguais = 0;
+		//
 		for (Colaborador colaborador : colaboradores) {
-			
+			// Passo 2.2.1 - Pegar as Skills do Colaborador
 			List<Skill> skillsColaborador = colaborador.getSkills();
-			int skillsIguais = 0;
-			
 			for (Skill skillColaborador : skillsColaborador) {
 				for (Skill skillProjeto : skillsProjeto) {
-					if(skillColaborador.getIdSkill() == skillProjeto.getIdSkill() ){
-						skillsIguais++;
-					}					
+					if(skillColaborador.getIdSkill() == skillProjeto.getIdSkill()){
+						numeroSkillsIguais++;
+					}
 				}
-			}	
-			// Calcula a porcentagem de Skills do Projeto que o colaborador possui
-			double porcentagemSkillColaborador = (skillsIguais / countSkillsProjeto)*100;
-			// Incrementa na faixa em que ele se encaixa
-			
-			
-			if(porcentagemSkillColaborador >= 80){
-				colaboradoresExcelente++;			
-			}else if(porcentagemSkillColaborador >= 40 && porcentagemSkillColaborador <= 79){
+			}
+			// Passo 2.2.2 - Define porcentagem de Skills do Colaborador.
+			int porcentagemSkillsColaborador = (numeroSkillsIguais/numeroSkillsProjeto)*100;
+			// Passo 2.2.3 - Incrementa a categoria na qual o Colaborador se encaixa
+			if(porcentagemSkillsColaborador >= 80){
+				colaboradoresSkillsNivelExcelente++;
+			} else if(porcentagemSkillsColaborador >=40 && porcentagemSkillsColaborador <=79){
+				colaboradoresSkillsNivelRegular++;
+			} else{
+				colaboradoresSkillsNivelRuim++;
+			}		
+		} // Fim do For do Colaborador
 		
-				colaboradoresRegular++;
-				
-			}else if(porcentagemSkillColaborador <=39){
-					
-					   colaboradoresRuim++;
-		    
-				   } // Fim do incremento de faixas
+		// Passo 3: Calcule a Porcentagem do KPI - \o/
+		// criando variável de retorno	
+		Kpi kpi;
 			
-		} // Fim do Foreach 	
-				
-		// Pega a quantidade de colaboradores		
-		int quantidadeColaboradores = colaboradores.size();
-				
-		double porExcelente = (colaboradoresExcelente / quantidadeColaboradores);
-		double porRegular   = (colaboradoresRegular / quantidadeColaboradores);		
-		double porRuim 		= (colaboradoresRuim / quantidadeColaboradores)*100;
+			int porcentagemExcelente = (colaboradoresSkillsNivelExcelente/numeroDeColaboradores)*100;
+			int porcentagemRegular = (colaboradoresSkillsNivelRegular/numeroDeColaboradores)*100;
+			int porcentagemRuim = (colaboradoresSkillsNivelRuim/numeroDeColaboradores)*100;
+			// Será Excelente: se 80% ou mais da equipe do projeto tiver 80% ou mais das skills do projeto
+			if(porcentagemExcelente >= 80)
+				kpi = new Kpi("Excelente !","Equipe não necessita de capacitação no momento !", porcentagemExcelente);			
+			// Regular: se entre 40% e 79% da equipe do projeto tiver 40% ou mais das skills do projeto
+			else if(porcentagemRegular>= 40 && porcentagemRegular<=79)
+				kpi = new Kpi("Regular !","Equipe poderia se beneficiar de capacitação !", porcentagemRegular);
+			// Ruim: se menos que 40% da equipe do projeto tiver menos que 40% das skills do projeto. 
+			else 
+				kpi = new Kpi("Ruim !","A equipe deste projeto necessita de treinamento !",porcentagemRuim);
 		
-		double porcentagemExcelente = (porExcelente * 20) + 80;
-		double porcentagemRegular 	= (porRegular * 39) + 40; 		
-		double porcentagemRuim 		= (39 * porRuim)/100;
-		// Retorno		
-		if(porcentagemExcelente >= 80){
-			return porcentagemExcelente;
-		} else if(porcentagemRegular >=40 && porcentagemRegular <=79 ){
-			return porcentagemRegular;
-		} 
-		return porcentagemRuim;
-	}	
+		// Passo 4: Retorne o KPI de Preferência certo - \o/	
+			
+		return kpi;
+	}
 }
