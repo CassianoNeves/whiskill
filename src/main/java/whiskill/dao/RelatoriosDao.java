@@ -25,13 +25,15 @@ public class RelatoriosDao {
 	ProjetoColaboradorDao projetoColaboradorDao;
 	
 	public Kpi calculaKPI(int idProjeto){
-		
+	
 		// Passo 1 : Pegue os dados - \o/
 		Projeto projeto = projetoDao.buscaSkillsPorId(idProjeto);
 		List<Skill> skillsProjeto = projeto.getSkills();
 		int numeroSkillsProjeto = skillsProjeto.size();
 		List<Colaborador> colaboradores = projetoColaboradorDao.bucarColaboradoresPorIdDoProjeto(idProjeto);		
 		int numeroDeColaboradores = colaboradores.size();
+		
+		if(numeroDeColaboradores != 0){
 		// Passo 2: Compare a Skill dos Colaboradores com a Skill do Projeto e os Classifique - \o/
 			// Passo 2.1 - Defina as Classificações
 		int colaboradoresSkillsNivelExcelente 	= 0;
@@ -84,5 +86,8 @@ public class RelatoriosDao {
 		// Passo 4: Retorne o KPI de Preferência certo - \o/	
 			
 		return kpi;
+		
+		} else
+			return new Kpi("Sem Equipe !","Este projeto precisa de uma equipe !",0);
 	}
 }
