@@ -1,26 +1,15 @@
 package whiskill.dao;
 
-
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.List;
-
-
-
 import javax.inject.Inject;
-
-
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
-
-
 import whiskill.model.Colaborador;
 import whiskill.model.ColaboradorData;
 import whiskill.model.Projeto;
 import whiskill.model.ProjetoColaborador;import whiskill.model.ProjetoColaboradorData;
-
 
 @Component
 public class ProjetoColaboradorDao {
@@ -42,7 +31,6 @@ public class ProjetoColaboradorDao {
 							colaboradorDao.buscaColaboradorPorId(rs.getInt( "idColaborador") );
 					return colaborador;
 				}, idProjeto);
-		
 	}
 	
 	public List<ColaboradorData> bucarColaboradoresEDatasPorIdDoProjeto( int idProjeto ){
@@ -61,7 +49,6 @@ public class ProjetoColaboradorDao {
 							return colaborador;
 				}, 
 				idProjeto);
-		
 	}
 	
 	public List<ProjetoColaborador> buscarColaboradoresIndicadosParaProjeto( int idProjeto ){
@@ -93,7 +80,6 @@ public class ProjetoColaboradorDao {
 				},
 				idProjeto,
 				idProjeto);
-		
 	}
 	
 	public ProjetoColaboradorData buscarProjetoEDataInicioEFim( int idColaborador ){
@@ -113,15 +99,12 @@ public class ProjetoColaboradorDao {
 									projeto,
 									rs.getString( "DATAINICIO" ),
 									rs.getString( "DATAFIM" ) );
-					
 					return pcd;
 				},
 				idColaborador);
-		
 		if(projetosData.size() > 0 ){
 			return projetosData.get(0);
 		}
-		
 		return null;
 	}
 	
