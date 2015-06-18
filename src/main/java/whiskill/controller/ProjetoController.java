@@ -102,13 +102,6 @@ public class ProjetoController {
 	public String colaboradorExcluirSkills( @RequestParam int idProjeto ){
 		projetoDao.excluirSkillsProjeto( idProjeto );
 		return "ok";
-	}
-	// Nice
-	@RequestMapping( value = "/projeto/kpi", method = RequestMethod.GET )
-	public String projetoKPI( Model model, @RequestParam int idProjeto){
-		model.addAttribute("kpi", relatoriosDao.calculaKPI(idProjeto));		
-		return "/relatorios/kpi";
-	}
-	
+	}	
 	
 }
