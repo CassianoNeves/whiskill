@@ -156,11 +156,11 @@ INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WH
 INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'AngularJS',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
 INSERT INTO SKILLPROJETO(IDSKILL, IDPROJETO) VALUES(SELECT IDSKILL FROM SKILL WHERE NOME LIKE 'Design Responsivo',SELECT IDPROJETO FROM PROJETO WHERE NOME LIKE 'Whiskill');
 -- Cadastro de Colaboradores
-INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Gabriel Moutinho', 'https://thethesiswhisperer.files.wordpress.com/2011/03/yoda-sad.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Gabriel Moutinho', 'https://41.media.tumblr.com/51e9bafee42c8ecffcb725da64ee9c9f/tumblr_nq51ogQ3kg1qjj7rao1_540.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Paula Tomasi', 'https://41.media.tumblr.com/934c63ae711b8789134634a1b6c188c3/tumblr_nnqftac8aU1u71q5fo7_250.png');
-INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Cassiano Neves', 'https://avatars2.githubusercontent.com/u/9387910?v=3&s=460');
-INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Bernardo Bosak', 'http://sharedseeker.com/file/profile_image/default_profile.jpg');
-INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Marlon Bernardes', 'http://sharedseeker.com/file/profile_image/default_profile.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Cassiano Neves', 'https://41.media.tumblr.com/a0517589a6ae32e5d23d05b9f4f8e03c/tumblr_no8x65v5mO1slgxxho1_250.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Bernardo Bosak', 'https://lh6.googleusercontent.com/-WexfWZEt3FM/AAAAAAAAAAI/AAAAAAAAABw/NIZXs6mlf0o/photo.jpg');
+INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Marlon Bernardes', 'http://i1173.photobucket.com/albums/r581/Mae86able/PES2014/ESCUDOS/FRANCIA/1n/13_zpsfe1aeb95.png');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Talles Ludwig','http://sharedseeker.com/file/profile_image/default_profile.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('Eshilane  Cruz','http://sharedseeker.com/file/profile_image/default_profile.jpg');
 INSERT INTO Colaborador(Nome, ImagemPerfil) VALUES('João Bottoni','http://sharedseeker.com/file/profile_image/default_profile.jpg');
