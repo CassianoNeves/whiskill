@@ -55,9 +55,10 @@ public class ProjetoController {
 		} else {
 			model.addAttribute("kpiRuim", relatoriosDao.calculaKPI(idProjeto) );
 		}
+		
 		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
-		model.addAttribute( "ColaboradoresDoProjeto", pcDao.bucarColaboradoresPorIdDoProjeto( idProjeto) );
+		model.addAttribute( "ColaboradoresDoProjeto", pcDao.bucarColaboradoresEDatasPorIdDoProjeto( idProjeto) );
 		model.addAttribute( "indicados", pcDao.buscarColaboradoresIndicadosParaProjeto( idProjeto ) );
 		return "/projeto/ProjetoPerfil";
 	}

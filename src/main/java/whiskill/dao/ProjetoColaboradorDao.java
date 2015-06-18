@@ -6,14 +6,18 @@ import java.sql.ResultSet;
 import java.util.List;
 
 
+
 import javax.inject.Inject;
+
 
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 
+
 import whiskill.model.Colaborador;
+import whiskill.model.ColaboradorData;
 import whiskill.model.Projeto;
 import whiskill.model.ProjetoColaborador;import whiskill.model.ProjetoColaboradorData;
 
@@ -38,6 +42,25 @@ public class ProjetoColaboradorDao {
 							colaboradorDao.buscaColaboradorPorId(rs.getInt( "idColaborador") );
 					return colaborador;
 				}, idProjeto);
+		
+	}
+	
+	public List<ColaboradorData> bucarColaboradoresEDatasPorIdDoProjeto( int idProjeto ){
+		return jdbcTemplate.query( "SELECT pc.idColaborador, to_char(pc.datafim, 'dd/MM/yyyy') as dataFim, "
+				+ "to_char(pc.dataInicio, 'dd/MM/yyyy') as dataInicio"
+				+ " FROM PROJETOCOLABORADOR PC "
+				+ "JOIN COLABORADOR C ON C.IDCOLABORADOR = PC.IDCOLABORADOR "
+				+ "WHERE IDPROJETO = ?", ( ResultSet rs, int rowNum ) ->{
+					
+					ColaboradorData colaborador = 
+							new ColaboradorData(
+									colaboradorDao.buscaColaboradorPorId(rs.getInt( "idColaborador") ),
+									rs.getString( "dataInicio"),
+									rs.getString( "dataFim") );
+					
+							return colaborador;
+				}, 
+				idProjeto);
 		
 	}
 	
@@ -72,7 +95,6 @@ public class ProjetoColaboradorDao {
 				idProjeto);
 		
 	}
-
 	
 	public ProjetoColaboradorData buscarProjetoEDataInicioEFim( int idColaborador ){
 		List<ProjetoColaboradorData> projetosData = jdbcTemplate.query( 
@@ -101,6 +123,9 @@ public class ProjetoColaboradorDao {
 		}
 		
 		return null;
-		
+	}
+	
+	public void inserirColaboradorEmProjeto( int idProjeto, int idColaborador ){
+		jdbcTemplate.update( "" );
 	}
 }

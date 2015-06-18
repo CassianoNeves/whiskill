@@ -99,10 +99,18 @@
 					{{#ColaboradoresDoProjeto}}
 					<div class="block-inline ">
 						<img style="width:200px; height:200px;" class="img-thumbnail img-responsive "
-							src="{{imagemPerfil}}" alt="">
-						<h4><br>{{nome}}</h4>
+							src="{{colaborador.imagemPerfil}}" alt="">
+						<h4><br>{{colaborador.nome}}</h4>
+						<div>
+							<span>Período de Alocação:</span>
+							<div>
+								<span>{{dataInicio}} à {{dataFim}}</span>
+							</div>
+							<br>
+						</div>
+						
 						<!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal{{idColaborador}}"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
+						<button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal{{colaborador.idColaborador}}"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
 					</div>
 					{{/ColaboradoresDoProjeto}}
 					{{^ColaboradoresDoProjeto}}
@@ -122,7 +130,7 @@
 							<th>Nome</th>
 							<th>Indicação</th>
 							<th>Projeto Alocado</th>
-							<th>Periodo Alocação</th>
+							<th>Período Alocação</th>
 							<th></th>
 							<th></th>
 						</tr>						
@@ -138,7 +146,7 @@
 							<td>{{#pcd.dataInicio}}<span>{{pcd.dataInicio}}</span> à{{/pcd.dataInicio}}
 								{{#pcd.dataFim}}<span>{{pcd.dataFim}}</span>{{/pcd.dataFim}}{{^pcd.dataInicio}}--{{/pcd.dataInicio}}</td>
 							<td><button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal{{colaborador.idColaborador}}"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button></td>
-							<td><button idProjeto="{{projeto.idProjeto}}" idColaborador="{{colaborador.idColaborador}}" class="btn btn-primary alocar">Alocar</button></td>
+							<td><button idProjeto="{{projeto.idProjeto}}" idColaborador="{{colaborador.idColaborador}}" class="btn btn-primary alocar" data-toggle="modal" data-target="#modelDataAlocacao">Alocar</button></td>
 						</tr>
 						{{/indicados}}
 					</tbody>
@@ -147,25 +155,25 @@
 		</div>
 		{{#ColaboradoresDoProjeto}}
 		<!-- Modal -->
-		<div class="modal fade" id="modal{{idColaborador}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal fade" id="modal{{colaborador.idColaborador}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		 	<div class="modal-dialog text-center" role="document">
 		    	<div class="modal-content">
 		      		<div class="modal-header">
 		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        		<h4 class="modal-title" id="myModalLabel"><b>{{nome}}</b></h4>
+		        		<h4 class="modal-title" id="myModalLabel"><b>{{colaborador.nome}}</b></h4>
 		      		</div>
 		      		
 		      		<div class="modal-body">
 		      			<h4>Conhecimentos</h4>
 		      			{{#trilhas}}
-						<div id="t{{idTrilha}}c{{idColaborador}}" class="row alert alert-danger display-none">
+						<div id="t{{idTrilha}}c{{colaborador.idColaborador}}" class="row alert alert-danger display-none">
 							<label>{{nome}}: </label>
 						</div>
 						{{/trilhas}}
 		      		</div>
 		      		
 		      		<div class="modal-footer">
-		        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
 		      		</div>
 		    	</div>
 		  	</div>
@@ -193,12 +201,40 @@
 		      		</div>
 		      		
 		      		<div class="modal-footer">
-		        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
 		      		</div>
 		    	</div>
 		  	</div>
 		</div>
 		{{/indicados}}
+
+		<div class="modal fade" id="modelDataAlocacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		 	<div class="modal-dialog" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        		<h4 class="modal-title" id="myModalLabel"><b></b></h4>
+		      		</div>
+		      		
+		      		<div class="modal-body">
+		      			<h3 class="text-center">Período Alocação</h3>
+		      			<div>
+		      				<label>Inicio:</label>
+		      				<input name="dataInicio" type="date" class="form-control">
+		      			</div>
+		      			<br>
+		      			<div>
+		      				<label>Inicio:</label>
+		      				<input name="dataFim" type="date" class="form-control">
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
 
 		{{> scripts}}
 
@@ -240,15 +276,18 @@
 	
 		<script type="text/javascript">
 		$(function(){
+
+
+
 			{{#projeto.skills}}
 			$('#{{trilha.idTrilha}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
 			{{/projeto.skills}}
 
 			{{#ColaboradoresDoProjeto}}
 
-				{{#skills}}
-				$('#t{{trilha.idTrilha}}c{{idColaborador}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
-				{{/skills}}
+				{{#colaborador.skills}}
+				$('#t{{trilha.idTrilha}}c{{colaborador.idColaborador}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
+				{{/colaborador.skills}}
 			{{/ColaboradoresDoProjeto}}
 
 			{{#indicados}}
@@ -258,11 +297,29 @@
 			{{/indicados}}
 
 			$('.alocar').click(function(){
-				var self = $(this).parent().parent();
-				self.fadeOut(500, function(){
-					self.remove();
-				});
+				// var idProjeto = $(this).attr('idProjeto');
+				// var idColaborador = $(this).attr('idColaborador');
+
+				// $.ajax({
+		  // 			url: '',
+		  // 			type: 'POST',
+		  // 			contentType: 'json',
+		  // 			data: JSON.stringify(resposta)
+				// });
+
+				// var linha = $(this).parent().parent();
+
+
+
+				// linha.fadeOut(500, function(){
+				// 	linha.remove();
+				// });
 			});
+
+			$('div.modal').on('hidden.bs.modal', function () {
+			    $('body').css('padding-right', '0px');
+			});
+
 		});
 
 		</script>
