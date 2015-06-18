@@ -3,14 +3,10 @@ package whiskill.dao;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
 import whiskill.model.Skill;import whiskill.model.Trilha;
-
 
 @Component
 public class SkillDao {
@@ -41,18 +37,15 @@ public class SkillDao {
 	
 	public Skill buscarSkillPorId( int idSkill ){
 		List<Skill> skills = new ArrayList<>();
-		
 		skills = jdbcTemplate.query( "SELECT * FROM SKILL WHERE IDSKILL = ?", ( ResultSet rs, int rowNum ) ->{
 			Skill skill = new Skill(rs.getInt( "idSkill"),
 					rs.getString( "nome" ),
 					rs.getString( "descricao" ) );
 			
 			skill.setTrilha( trilhaDao.buscaTrilhaPorId(rs.getInt( "trilha_id") ) );
-			
 			return skill;
 		},
 		idSkill);
-		
 		return skills.get( 0 );
 	}
 	
@@ -67,12 +60,4 @@ public class SkillDao {
 	public void skillExcluir( int idSkill ){
 		jdbcTemplate.update( "UPDATE SKILL SET ATIVO = 'FALSE' WHERE IDSKILL = ? ", idSkill );
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }
