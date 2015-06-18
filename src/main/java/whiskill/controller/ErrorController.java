@@ -12,4 +12,14 @@ public class ErrorController {
 	public String colaboradorCadastro( Model model){
 		return "error";
 	}
+	
+	@RequestMapping( value = "/404", method = RequestMethod.GET )
+	public String notFound( Model model){
+		return "404";
+	}
+	
+	@RequestMapping( value = "/500", method = RequestMethod.GET )
+	public String serverError( Model model){
+		return "500";
+	}
 }
