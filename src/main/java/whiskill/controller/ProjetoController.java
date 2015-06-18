@@ -40,19 +40,20 @@ public class ProjetoController {
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );		
 		return "/projeto/ProjetoCadastro";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping( value = "/projeto/atualizarKpi", method = RequestMethod.GET )
+	public Kpi coletarInformacaoKpi( Model model, @RequestParam int idProjeto ){
+		Kpi kpi = relatoriosDao.calculaKPI( idProjeto );
+		
+		return kpi;
+	}
+	
 	@RequestMapping( value = "/projeto/perfil", method = RequestMethod.GET )
 	public String projetoPerfil(Model model, @RequestParam int idProjeto ){
 		// kpi
-		Kpi kpi = relatoriosDao.calculaKPI(idProjeto);
-		if(kpi.getStatus() == "Excelente"){
-			model.addAttribute("kpiExcelente", relatoriosDao.calculaKPI(idProjeto) );
-		} else if(kpi.getStatus() == "Regular"){
-			model.addAttribute("kpiRegular", relatoriosDao.calculaKPI(idProjeto) );
-		} else {
-			model.addAttribute("kpiRuim", relatoriosDao.calculaKPI(idProjeto) );
-		}
-
+		model.addAttribute("KPI", relatoriosDao.calculaKPI(idProjeto) );
+		
 		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
 		model.addAttribute( "ColaboradoresDoProjeto", pcDao.bucarColaboradoresEDatasPorIdDoProjeto( idProjeto) );
@@ -107,5 +108,5 @@ public class ProjetoController {
 	public String colaboradorExcluirSkills( @RequestParam int idProjeto ){
 		projetoDao.excluirSkillsProjeto( idProjeto );
 		return "ok";
-	}	
+	}
 }

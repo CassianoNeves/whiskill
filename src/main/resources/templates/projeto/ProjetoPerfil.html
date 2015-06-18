@@ -72,22 +72,12 @@
 			<br>
 			<div class="row text-center">
 	
-				{{#kpiExcelente}}
-					<h3>{{kpiExcelente.status}}</h3>
-					<p>{{kpiExcelente.resposta}}</p>
+				{{#KPI}}
+					<h3 id="KpiStatus">{{KPI.status}}</h3>
+					<p id="KpiResposta">{{KPI.resposta}}</p>
 					<!--  Div do Kpi -->
 					<div id="kpi"></div>
-				{{/kpiExcelente}} {{#kpiRegular}}
-					<h3>{{kpiRegular.status}}</h3>
-					<p>{{kpiRegular.resposta}}</p>
-					<!--  Div do Kpi -->
-					<div id="kpi"></div>
-				{{/kpiRegular}} {{#kpiRuim}}
-					<h3>{{kpiRuim.status}}</h3>
-					<p>{{kpiRuim.resposta}}</p>
-					<!--  Div do Kpi -->
-					<div id="kpi"></div>
-				{{/kpiRuim}}
+				{{/KPI}} 
 	
 			</div>
 			<div class="row alert alert-danger">
@@ -245,12 +235,12 @@
 		      		<div class="modal-body">
 		      			<h3 class="text-center">Período Alocação</h3>
 		      			<div>
-		      				<label>Inicio:</label>
+		      				<label>Ínicio:</label>
 		      				<input name="dataInicio" type="date" class="form-control ">
 		      			</div>
 		      			<br>
 		      			<div>
-		      				<label>nicio:</label>
+		      				<label>Fim:</label>
 		      				<input name="dataFim" type="date" class="form-control">
 		      			</div>
 		      		</div>
@@ -270,19 +260,20 @@
 		<script>
 		
 		
-				 
+		var gaugeKpi;		 
 		window.onload = function(){
-		var gaugeKpi = new JustGage({
-			id: 	'kpi', 
-			value:  '{{#kpiExcelente}} {{kpiExcelente.porcentagem}} {{/kpiExcelente}} {{#kpiRegular}} {{kpiRegular.porcentagem}} {{/kpiRegular}}{{#kpiRuim}} {{kpiRuim.porcentagem}} {{/kpiRuim}}', 
-			min: 	0,
-			hideValue: true,
-			tile:  'Kpi do Projeto',
-			levelColors: ['#CF000F', '#F2CA27',  '#2ECC71'],
-			levelColorGradient: false,
-			max: 	100,
-			showMinMax: true
-		}); };
+			gaugeKpi = new JustGage({
+				id: 	'kpi', 
+				value:  '{{#KPI}} {{KPI.porcentagem}} {{/KPI}}', 
+				min: 	0,
+				hideValue: true,
+				tile:  'Kpi do Projeto',
+				levelColors: ['#CF000F', '#F2CA27',  '#2ECC71'],
+				levelColorGradient: false,
+				max: 	100,
+				showMinMax: true
+			}); 
+		};
 		</script>
 
 		<script type="text/javascript">
@@ -332,7 +323,6 @@
 					type: 'POST',
 					contentType: 'json',
 				}).done(function(res){
-					console.log(res);
 					$('.alocar[idColaborador="'+idColaborador+'"]').fadeOut(500, function(){
 						$(this).parent().parent().remove();
 					});
@@ -345,6 +335,16 @@
 						'<!-- Button trigger modal -->'+
 						'<button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal'+res.colaborador.idColaborador+'"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button></div>');
 					
+					$.ajax({
+						url: '/projeto/atualizarKpi?idProjeto=' + idProjeto,
+						type: 'GET',
+						contentType: 'json',
+					}).done(function(res){
+						gaugeKpi.refresh(res.porcentagem,100);
+						$('#KpiStatus').text(res.status);
+						$('#KpiResposta').text(res.resposta);
+					});
+
 				});
 
 			});
