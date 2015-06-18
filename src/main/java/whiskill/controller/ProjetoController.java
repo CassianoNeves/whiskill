@@ -45,6 +45,8 @@ public class ProjetoController {
 	
 	@RequestMapping( value = "/projeto/perfil", method = RequestMethod.GET )
 	public String projetoPerfil(Model model, @RequestParam int idProjeto ){
+		// kpi
+		model.addAttribute("kpi", relatoriosDao.calculaKPI(idProjeto) );
 		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
 		model.addAttribute( "ColaboradoresDoProjeto", pcDao.bucarColaboradoresPorIdDoProjeto( idProjeto) );
