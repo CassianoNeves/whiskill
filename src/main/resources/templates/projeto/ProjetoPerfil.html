@@ -74,6 +74,8 @@
 			<br>
 			{{#kpi}}
 			<div class="row text-center">
+				<h3> {{kpi.status}}</h3>
+				<p> {{kpi.resposta}}</p>
 				<div id="kpi"></div>
 				
 			</div>
@@ -195,7 +197,7 @@
 	    	<script>
 			 window.onload = function(){
 	
-				var kpi = {{#kpi}}{{kpi}}{{/kpi}}
+				var kpi = {{#kpi}}{{kpi.porcentagem}}{{/kpi}}
 				    	  
 			var gaugeKpi = new JustGage({
 				id: 	"kpi", 

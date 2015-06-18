@@ -142,13 +142,6 @@ public class ProjetoDao {
         
         return projetos.get(0).getIdProjeto();
 	}
-
-	public List<Integer> buscarSkillsProjeto( int idProjeto ){
-		return jdbcTemplate.query( "SELECT idSkill  FROM SKILLProjeto WHERE IDProjeto  = ?", ( ResultSet rs, int rowNum ) ->{
-			return rs.getInt( "idSkill");
-		},
-		idProjeto);
-	}
 	
 	public int buscarQuantidadeDeSkillsPorProjeto( int idProjeto ){
 		List<Integer> quantidades = jdbcTemplate.query( "SELECT COUNT(1) AS QTDSKILLS FROM SKILLPROJETO WHERE IDPROJETO = ?", 
