@@ -10,4 +10,17 @@ public class Kpi {
 		this.resposta = resposta;
 		this.porcentagem=porcentagem;
 	}
+		
+		// Getters and Setters
+	public String getStatus() {
+		return status;
+	}
+
+	public String getResposta() {
+		return resposta;
+	}
+
+	public int getPorcentagem() {
+		return porcentagem;
+	}
 }

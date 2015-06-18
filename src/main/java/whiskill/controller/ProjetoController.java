@@ -15,6 +15,7 @@ import whiskill.dao.RelatoriosDao;
 import whiskill.dao.SkillDao;
 import whiskill.dao.TrilhaDao;
 import whiskill.model.Colaborador;
+import whiskill.model.Kpi;
 import whiskill.model.Projeto;
 
 @Controller
@@ -46,7 +47,14 @@ public class ProjetoController {
 	@RequestMapping( value = "/projeto/perfil", method = RequestMethod.GET )
 	public String projetoPerfil(Model model, @RequestParam int idProjeto ){
 		// kpi
-		model.addAttribute("kpi", relatoriosDao.calculaKPI(idProjeto) );
+		Kpi kpi = relatoriosDao.calculaKPI(idProjeto);
+		if(kpi.getStatus() == "Excelente"){
+			model.addAttribute("kpiExcelente", relatoriosDao.calculaKPI(idProjeto) );
+		} else if(kpi.getStatus() == "Regular"){
+			model.addAttribute("kpiRegular", relatoriosDao.calculaKPI(idProjeto) );
+		} else {
+			model.addAttribute("kpiRuim", relatoriosDao.calculaKPI(idProjeto) );
+		}
 		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
 		model.addAttribute( "ColaboradoresDoProjeto", pcDao.bucarColaboradoresPorIdDoProjeto( idProjeto) );

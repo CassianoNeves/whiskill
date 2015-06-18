@@ -32,16 +32,14 @@
 				padding-top: 10px;
 				padding-left: 10px;
 				margin-bottom: 5px;
-			}
-			{{#kpi}}
-		 	
-			 	#kpi{
-		        	width:300; height:200px;
-		        	display: inline-block;
-		        	margin: 1em;
-		      	};
-		      	
-      		{{/kpi}}
+			}		 	
+			
+			#kpi{
+		    	width:300; height:200px;
+		        display: inline-block;
+		        margin: 1em;
+		    };
+
 		</style>
 	</head>
 	<body>
@@ -72,14 +70,26 @@
 			</div>
 
 			<br>
-			{{#kpi}}
 			<div class="row text-center">
-				<h3> {{kpi.status}}</h3>
-				<p> {{kpi.resposta}}</p>
+			
+			{{#kpiExcelente}}
+				<h3 class="text-success"> {{kpiExcelente.status}}</h3>
+				<p class="text-success"> {{kpiExcelente.resposta}}</p>
+			{{/kpiExcelente}}
+			
+			{{#kpiRegular}}
+				<h3 class="text-warning"> {{kpiRegular.status}}</h3>
+				<p class="text-warning"> {{kpiRegular.resposta}}</p>
+			{{/kpiRegular}}
+			
+			{{#kpiRuim}}
+				<h3 class="text-danger"> {{kpiRuim.status}}</h3>
+				<p class="text-danger"> {{kpiRuim.resposta}}</p>
+			{{/kpiRuim}}
+				<!--  Div do Kpi -->
 				<div id="kpi"></div>
-				
-			</div>
-			{{/kpi}}
+			
+			</div>			
 			<div class="row alert alert-danger">
 				<div class="text-center">
 					<h3>Colaboradores Alocados</h3>
@@ -191,39 +201,43 @@
 		{{/indicados}}
 
 		{{> scripts}}
-		{{#kpi}}
+
 			<script src="/components/raphael.2.1.0.min.js"></script>
 	    	<script src="/components/justgage.1.0.1.min.js"></script>
 	    	<script>
 			 window.onload = function(){
 	
-				var kpi = {{#kpi}}{{kpi.porcentagem}}{{/kpi}}
+				{{#kpiExcelente}}
+					var kpi ={{kpiExcelente.porcentagem}};
+					var cor =["#4CD964"];
+					var mensagem = "Porcentagem Excelentes";
+				{{/kpiExcelente}}
+				
+				{{#kpiRegular}}
+					var kpi ={{kpiRegular.porcentagem}};
+					var cor =["#FFA400"];
+					var mensagem = "Porcentagem Regulares";
+				{{/kpiRegular}}
+				{{#kpiRuim}}
+					var kpi ={{kpiRuim.porcentagem}};
+					var cor =["#F22613"];
+					var mensagem = "Necessitam de treinamento";
+				{{/kpiRuim}}
+							 
 				    	  
 			var gaugeKpi = new JustGage({
 				id: 	"kpi", 
 				value: 	kpi, 
 				min: 	0,
 				max: 	100,
-				title: "KPI do Projeto",
+				title:  mensagem,
 				label: "%",
-				showMinMax: true,    
-				customSectors: [{
-					color: "#F22613",
-					lo: 0,
-					hi: 39					
-				},{
-					color:"#FFA400",
-					lo: 40,
-					hi: 79
-				},{
-					color:"4CD964",
-					lo: 80,
-					hi: 100
-				}]			 
+				showMinMax: true,
+				levelColors: cor
 			});		     	
 			 };
 			</script>
-		{{/kpi}}
+	
 		<script type="text/javascript">
 		$(function(){
 			{{#projeto.skills}}
