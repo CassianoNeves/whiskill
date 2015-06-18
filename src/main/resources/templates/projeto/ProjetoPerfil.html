@@ -95,7 +95,7 @@
 					<h3>Colaboradores Alocados</h3>
 				</div>
 
-				<div class="row text-center">
+				<div id="colaboradoresDoProjeto" class="row text-center">
 					{{#ColaboradoresDoProjeto}}
 					<div class="block-inline ">
 						<img style="width:200px; height:200px;" class="img-thumbnail img-responsive "
@@ -213,14 +213,14 @@
 		    	<div class="modal-content">
 		      		<div class="modal-header">
 		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        		<h4 class="modal-title" id="myModalLabel"><b></b></h4>
+		        		<h4 class="modal-title" id="tituloModelAlocar"><b>Alocar </b></h4>
 		      		</div>
 		      		
 		      		<div class="modal-body">
 		      			<h3 class="text-center">Período Alocação</h3>
 		      			<div>
 		      				<label>Inicio:</label>
-		      				<input name="dataInicio" type="date" class="form-control">
+		      				<input name="dataInicio" type="date" class="form-control ">
 		      			</div>
 		      			<br>
 		      			<div>
@@ -231,6 +231,7 @@
 		      		
 		      		<div class="modal-footer">
 		        		<button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+		        		<button id="btAlocar" type="button" class="btn btn-primary" data-dismiss="modal">Alocar</button>
 		      		</div>
 		    	</div>
 		  	</div>
@@ -297,27 +298,51 @@
 			{{/indicados}}
 
 			$('.alocar').click(function(){
-				// var idProjeto = $(this).attr('idProjeto');
-				// var idColaborador = $(this).attr('idColaborador');
+				var self = $(this);
+ 				var idProjeto = self.attr('idProjeto');
+				var idColaborador = self.attr('idColaborador');
 
-				// $.ajax({
-		  // 			url: '',
-		  // 			type: 'POST',
-		  // 			contentType: 'json',
-		  // 			data: JSON.stringify(resposta)
-				// });
+				$('#btAlocar').attr('idProjeto', idProjeto).attr('idColaborador', idColaborador);
 
 				// var linha = $(this).parent().parent();
-
-
 
 				// linha.fadeOut(500, function(){
 				// 	linha.remove();
 				// });
 			});
 
+			$('#btAlocar').click(function(){
+				var dataInicio = $('input[name="dataInicio"]').val();
+				var dataFim = $('input[name="dataFim"]').val();
+				var idProjeto = $('#btAlocar').attr('idProjeto');
+				var idColaborador = $('#btAlocar').attr('idColaborador');
+
+				$.ajax({
+					url: '/projeto/cadastro/colaborador?idProjeto=' + idProjeto + '&idColaborador=' + idColaborador + '&dataInicio=' + dataInicio + '&dataFim=' + dataFim,
+					type: 'POST',
+					contentType: 'json',
+				}).done(function(res){
+					console.log(res);
+					$('.alocar[idColaborador="'+idColaborador+'"]').fadeOut(500, function(){
+						$(this).parent().parent().remove();
+					});
+
+					$('#colaboradoresDoProjeto').append('<div class="block-inline "><img style="width:200px; height:200px;" class="img-thumbnail img-responsive " src="'+res.colaborador.imagemPerfil+'">'+
+						'<h4><br>'+res.colaborador.nome+'</h4>'+
+						'<div><span>Período de Alocação:</span>'+
+						'<div><span>'+res.dataInicio+' à '+res.dataFim+'</span></div><br></div>'+
+						
+						'<!-- Button trigger modal -->'+
+						'<button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal'+res.colaborador.idColaborador+'"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button></div>');
+					
+				});
+
+			});
+
 			$('div.modal').on('hidden.bs.modal', function () {
 			    $('body').css('padding-right', '0px');
+			    $('input[name="dataInicio"]').val('');
+				$('input[name="dataFim"]').val('');
 			});
 
 		});

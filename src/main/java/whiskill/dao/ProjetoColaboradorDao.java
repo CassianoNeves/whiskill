@@ -125,7 +125,13 @@ public class ProjetoColaboradorDao {
 		return null;
 	}
 	
-	public void inserirColaboradorEmProjeto( int idProjeto, int idColaborador ){
-		jdbcTemplate.update( "" );
+	public void inserirColaboradorEmProjeto( int idProjeto, int idColaborador, String dataInicio, String dataFim ){
+		jdbcTemplate.update( "INSERT INTO PROJETOCOLABORADOR "
+				+ "(IDPROJETO , IDCOLABORADOR , DATAINICIO , DATAFIM) "
+				+ "values (?, ?, ?, ?)",
+				idProjeto,
+				idColaborador,
+				dataInicio,
+				dataFim);
 	}
 }
