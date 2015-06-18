@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import whiskill.model.Colaborador;
+import whiskill.model.ColaboradorData;
 import whiskill.model.Skill;
 
 @Component
@@ -20,6 +21,7 @@ public class ColaboradorDao {
 	
 	@Inject
 	TrilhaDao trilhaDao;
+
 	
 	public int inserirColaborador( Colaborador colaborador ){
 		jdbcTemplate.update( "INSERT INTO COLABORADOR (NOME, IMAGEMPERFIL) VALUES (?,?)",
@@ -47,6 +49,7 @@ public class ColaboradorDao {
 	
 	public void excluirColaborador( int idColaborador ){
 		jdbcTemplate.update( "UPDATE COLABORADOR SET ATIVO = 'FALSE' WHERE idColaborador = ?", idColaborador );
+		jdbcTemplate.update( "DELETE FROM PROJETOCOLABORADOR WHERE idColaborador = ?", idColaborador );
 	}
 	
 	public Colaborador buscaColaboradorPorId( int idColaborador ){
@@ -99,7 +102,29 @@ public class ColaboradorDao {
 		idColaborador);
 	}
 	
-
+	public ColaboradorData bucarColaboradorEDatasPorId( int idColaborador){
+		List<ColaboradorData> colaboradores = jdbcTemplate.query( "SELECT pc.idColaborador, to_char(pc.datafim, 'dd/MM/yyyy') as dataFim, "
+				+ "to_char(pc.dataInicio, 'dd/MM/yyyy') as dataInicio"
+				+ " FROM PROJETOCOLABORADOR PC "
+				+ "JOIN COLABORADOR C ON C.IDCOLABORADOR = PC.IDCOLABORADOR "
+				+ "WHERE C.IDCOLABORADOR = ?", ( ResultSet rs, int rowNum ) ->{
+					
+					ColaboradorData colaborador = 
+							new ColaboradorData(
+									buscaColaboradorPorId(rs.getInt( "idColaborador") ),
+									rs.getString( "dataInicio"),
+									rs.getString( "dataFim") );
+					
+							return colaborador;
+				}, 
+				idColaborador);
+		
+		if(colaboradores.size() > 0){
+			return colaboradores.get(0);
+		}
+		
+		return null;
+	}
 	
 	public void excluirSkillsColaborador( int idColaborador ){
 		jdbcTemplate.update( "DELETE SKILLCOLABORADOR WHERE IDCOLABORADOR = ?", idColaborador );
