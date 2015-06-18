@@ -12,5 +12,4 @@ public class ErrorController {
 	public String colaboradorCadastro( Model model){
 		return "/erro";
 	}
-
 }

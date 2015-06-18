@@ -3,12 +3,9 @@ package whiskill.dao;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
 import whiskill.model.Colaborador;
 import whiskill.model.ColaboradorData;
 import whiskill.model.Skill;
@@ -21,7 +18,6 @@ public class ColaboradorDao {
 	
 	@Inject
 	TrilhaDao trilhaDao;
-
 	
 	public int inserirColaborador( Colaborador colaborador ){
 		jdbcTemplate.update( "INSERT INTO COLABORADOR (NOME, IMAGEMPERFIL) VALUES (?,?)",
@@ -31,19 +27,16 @@ public class ColaboradorDao {
 			
 			return rs.getInt( "IDCOLABORADOR" );
 		});
-		
 		return idColaborador.get(0);
 	}
 	
 	public List<Colaborador> buscaTodosColaboradores(){
-		
 		List<Colaborador> colaboradores = jdbcTemplate.query("SELECT IDColaborador, Nome, ImagemPerfil FROM Colaborador WHERE ATIVO = 'TRUE'", ( ResultSet rs, int rowNum ) ->{
 			 Colaborador colaborador = new Colaborador ( rs.getString( "nome" ));
 			 colaborador.setIdColaborador( rs.getInt( "idColaborador" ) );
 			 colaborador.setImagemPerfil(rs.getString("ImagemPerfil"));
 			 return colaborador;
 		});
-		
 		return colaboradores;
 	}
 	
@@ -53,7 +46,6 @@ public class ColaboradorDao {
 	}
 	
 	public Colaborador buscaColaboradorPorId( int idColaborador ){
-		
 		List<Colaborador> colaboradores = 
 				jdbcTemplate.query("SELECT IdColaborador, nome, ImagemPerfil FROM Colaborador"+
 					" WHERE IdColaborador = ?", ( ResultSet rs, int rowNum ) ->{
@@ -75,7 +67,6 @@ public class ColaboradorDao {
 									rs.getString( "DESCRICAO" ));
 							
 							skill.setTrilha( trilhaDao.buscaTrilhaPorId(rs.getInt( "trilha_id") ) );
-							
 							return skill;
 						},
 						idColaborador);
@@ -118,16 +109,13 @@ public class ColaboradorDao {
 							return colaborador;
 				}, 
 				idColaborador);
-		
 		if(colaboradores.size() > 0){
 			return colaboradores.get(0);
 		}
-		
 		return null;
 	}
 	
 	public void excluirSkillsColaborador( int idColaborador ){
 		jdbcTemplate.update( "DELETE SKILLCOLABORADOR WHERE IDCOLABORADOR = ?", idColaborador );
 	}
-	
 }
