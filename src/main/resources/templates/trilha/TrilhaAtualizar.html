@@ -12,32 +12,30 @@
 		<div class="container">
 			{{> navbar}}
 			<div class="row">
-				<div class="col-xs-4 col-md-4 col-lg-4">
-				</div>
+				<div class="col-xs-4 col-md-4 col-lg-4"></div>
 	
 				<div class="col-xs-4 col-md-4 col-lg-4">
-					<div class="text-center">
-					</div>
+					<div class="text-center"></div>
 					<form action="/trilha/atualizar" method="POST">
-						<input value="{{trilha.idTrilha}}" type="hidden" name="idTrilha"/>
+						<input value="{{trilha.idTrilha}}" type="hidden" name="idTrilha" />
 						<div class="row text-center">
 							<h4>Nome:</h4>
-							<input value="{{trilha.nome}}" type="text" name="nome" class="form-control" required />
+							<input value="{{trilha.nome}}" type="text" name="nome"
+								class="form-control" required />
 						</div>
 	
 						<div class="row text-center">
 							<h4>Descrição:</h4>
-							<input  value="{{trilha.descricao}}" type="text" name="descricao" class="form-control" required/>
+							<input value="{{trilha.descricao}}" type="text" name="descricao"
+								class="form-control" required />
 						</div>
 	
 						<div class="row text-center">
-							<input type="submit" value="Atualizar" class="btn btn-primary"/>
+							<input type="submit" value="Atualizar" class="btn btn-primary" />
 						</div>
 					</form>
 				</div>
-	
-				<div class="col-xs-4 col-md-4 col-lg-4">
-				</div>
+				<div class="col-xs-4 col-md-4 col-lg-4"></div>
 			</div>
 		</div>
 		{{> scripts}}
