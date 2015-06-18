@@ -123,9 +123,9 @@ INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('MSTest', ' MSTest  é um util
 INSERT INTO Skill(Nome,Descricao,Trilha_Id) VALUES('Cucumber' , ' Cucumber é uma plataforma de testes para desktop, web, mobile, e server applications em diversas plataformas', SELECT IDTrilha FROM Trilha WHERE Nome LIKE 'Testes');
 
 -- Cadastro de Projetos
-INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Filmator Web','https://pbs.twimg.com/profile_images/469550031322619905/89OGS1Rt.png' );
-INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Turbo Rango', 'https://pbs.twimg.com/profile_images/469550031322619905/89OGS1Rt.png');
-INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Whiskill','https://pbs.twimg.com/profile_images/469550031322619905/89OGS1Rt.png');
+INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Filmator Web','http://images.offerpop.com/wp-content/uploads/2014/08/Movies.jpg?d00527' );
+INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Turbo Rango', 'https://shellzero.files.wordpress.com/2012/05/delicious-food-yum-favim-com-183557.jpg?w=500&h=333');
+INSERT INTO PROJETO(NOME, IMAGEMLOGO) VALUES('Whiskill','http://rack.0.mshcdn.com/media/ZgkyMDE0LzA0LzMwL2FlL0NvbXB1dGVyUHJvLmEwMTVmLmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/12d6e1a4/cad/Computer-Programming-Sucks.jpg');
 
 -- Cadastro de Skills do Projeto
 		-- Cadastro de Skills do Projeto Filmator Web
