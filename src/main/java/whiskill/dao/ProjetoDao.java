@@ -18,6 +18,21 @@ public class ProjetoDao {
 	@Inject
 	TrilhaDao trilhaDao;
 	
+	public Projeto buscarProjetoPeloNome( String nome ){
+		List<Projeto> projetos = jdbcTemplate.query( "SELECT * FROM PROJETO WHERE NOME = ?", ( ResultSet rs, int rowNum ) ->{
+			Projeto projeto = new Projeto( rs.getInt( "idProjeto"),
+					rs.getString( "nome" ),
+					rs.getString( "imagemLogo") );
+			return projeto;
+		}, nome);
+		
+		if(projetos.size() > 0){
+			return projetos.get(0);
+		}
+		
+		return null;
+	}
+	
 	public int inserirProjeto( Projeto projeto ){
 		jdbcTemplate.update( "INSERT INTO PROJETO (NOME, IMAGEMLOGO) VALUES (?, ?)",
 				projeto.getNome(), projeto.getImagemLogo() );

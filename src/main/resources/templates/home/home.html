@@ -7,10 +7,26 @@
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		{{> style}}
 		{{> row}}
+		{{> typeahead}}
+		<style type="text/css">
+		#input-pesquisa{
+			
+		}
+		</style>
 	</head>
 	<body>
 		{{> navbar}}
 		<div class="container">
+			<div class="row text-center">
+				<div class="col-xs-3"></div>
+				<div class="col-xs-6">
+					<span>Pesquisar por Projetos:</span><br><br>
+					<div id="the-basics" class="form-group">
+						<input id="input-pesquisa" class="typeahead form-control" type="text" placeholder="Ex: Whiskill" >
+					</div>
+				</div>
+				<div class="col-xs-3"></div>
+			</div>
 			<div class="row">
 				<div class="titulo text-center">
 					<h2>Nossos projetos</h2>
@@ -37,5 +53,57 @@
 			</footer>
 		</div>
 		{{> scripts}}
+		<script type="text/javascript" src="/components/typeahead.jquery.js"></script>
+		<script type="text/javascript">
+
+		var substringMatcher = function(strs) {
+			return function findMatches(q, cb) {
+				var matches, substringRegex;
+			    matches = [];
+
+			    substrRegex = new RegExp(q, 'i');
+
+			    $.each(strs, function(i, str) {
+			    	console.log(str);
+			    	if (substrRegex.test(str)) {
+			    		matches.push(str);	
+			    	}
+			    });
+
+			    cb(matches);
+			};
+		};
+
+		var projetos = [];
+
+		$.ajax({
+			url: '/projetos/json',
+			type: 'GET'
+		}).done(function(res){
+			console.log(res)
+			res.forEach(function(i){
+				projetos.push(i.nome);
+			});
+		});
+		$('#the-basics .typeahead').typeahead({
+			hint: true,
+			highlight: true,
+			minLength: 1
+		},
+		{
+			name: 'projetos',
+			source: substringMatcher(projetos)
+		});
+
+		$('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+
+			$.ajax({
+				url: '/projeto/buscar/nome?nome=' + suggestion,
+				type: 'GET'
+			}).done(function(projeto){
+				location.href="/projeto/perfil?idProjeto=" + projeto.idProjeto;
+		 	});
+		});
+		</script>
 	</body>
 </html>

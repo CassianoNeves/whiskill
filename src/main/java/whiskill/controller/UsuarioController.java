@@ -1,15 +1,21 @@
 package whiskill.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import whiskill.dao.ProjetoDao;
 import whiskill.dao.UsuarioDao;
+import whiskill.model.Projeto;
 import whiskill.model.Usuario;
 
 @Controller
@@ -26,6 +32,19 @@ public class UsuarioController {
 	public String index( Model model ) {
 		model.addAttribute( "Projeto", projetoDao.buscaTodosProjetos() );
 		return "home/home";
+	}
+	
+	@ResponseBody
+	@RequestMapping( value = "/projeto/buscar/nome", method = RequestMethod.GET )
+	public Projeto buscarProjetoPeloNome( Model model, @RequestParam String nome ) {
+		return projetoDao.buscarProjetoPeloNome( nome );
+	}
+	
+	@ResponseBody
+	@RequestMapping( value = "/projetos/json", method = RequestMethod.GET )
+	public List<Projeto> todosFilmesJson( Model model ) {
+		
+		return projetoDao.buscaTodosProjetos();
 	}
 
 	@RequestMapping( value = "/usuario/semPermissao", method = RequestMethod.GET )
