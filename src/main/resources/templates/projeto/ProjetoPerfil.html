@@ -275,7 +275,7 @@
 				id: 	'kpi', 
 				value:  '{{#KPI}} {{KPI.porcentagem}} {{/KPI}}', 
 				min: 	0,
-				hideValue: true,
+				hideValue: false,
 				tile:  'Kpi do Projeto',
 				levelColors: ['#CF000F', '#F2CA27',  '#2ECC71'],
 				levelColorGradient: false,
@@ -301,8 +301,19 @@
 					contentType: 'json',
 				}).done(function(res){
 					console.log(res);
+					
 					self.parent().fadeOut(500, function(){
 						self.remove();
+					});
+
+					$.ajax({
+						url: '/projeto/atualizarKpi?idProjeto=' + idProjeto,
+						type: 'GET',
+						contentType: 'json',
+					}).done(function(res){
+						gaugeKpi.refresh(res.porcentagem,100);
+						$('#KpiStatus').text(res.status);
+						$('#KpiResposta').text(res.resposta);
 					});
 				});
 			});

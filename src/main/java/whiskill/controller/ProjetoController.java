@@ -1,14 +1,17 @@
 package whiskill.controller;
 
 import javax.inject.Inject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import whiskill.dao.ProjetoColaboradorDao;
 import whiskill.dao.ProjetoDao;
+import whiskill.dao.RelatorioDao2;
 import whiskill.dao.RelatoriosDao;
 import whiskill.dao.SkillDao;
 import whiskill.dao.TrilhaDao;
@@ -33,6 +36,9 @@ public class ProjetoController {
 
 	@Inject
 	RelatoriosDao relatoriosDao;
+	
+	@Inject
+	RelatorioDao2 relatorioDao2;
 
 	@RequestMapping( value = "/projeto/cadastro", method = RequestMethod.GET )
 	public String projetoCadastro(Model model){
@@ -44,7 +50,7 @@ public class ProjetoController {
 	@ResponseBody
 	@RequestMapping( value = "/projeto/atualizarKpi", method = RequestMethod.GET )
 	public Kpi coletarInformacaoKpi( Model model, @RequestParam int idProjeto ){
-		Kpi kpi = relatoriosDao.calculaKPI( idProjeto );
+		Kpi kpi = relatorioDao2.calcularEstadoDoProjeto( idProjeto );
 		
 		return kpi;
 	}
@@ -52,7 +58,7 @@ public class ProjetoController {
 	@RequestMapping( value = "/projeto/perfil", method = RequestMethod.GET )
 	public String projetoPerfil(Model model, @RequestParam int idProjeto ){
 		// kpi
-		model.addAttribute("KPI", relatoriosDao.calculaKPI(idProjeto) );
+		model.addAttribute("KPI", relatorioDao2.calcularEstadoDoProjeto( idProjeto ) );
 		
 		model.addAttribute( "projeto", projetoDao.buscaProjetoComSkillsPorId( idProjeto ) );
 		model.addAttribute( "trilhas", trilhaDao.buscaTodasTrilhas() );
