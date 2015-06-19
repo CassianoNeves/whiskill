@@ -117,4 +117,9 @@ public class ProjetoColaboradorDao {
 				dataInicio,
 				dataFim);
 	}
+	
+	public void removerColaboradorDoProjeto( int idProjeto, int idColaborador ){
+		jdbcTemplate.update( "DELETE FROM PROJETOCOLABORADOR WHERE IDPROJETO = ? AND IDCOLABORADOR = ?",
+				idProjeto, idColaborador );
+	}
 }

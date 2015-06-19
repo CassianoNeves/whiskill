@@ -86,10 +86,10 @@
 				</div>
 				<div id="colaboradoresDoProjeto" class="row text-center">
 					{{#ColaboradoresDoProjeto}}
-					<div class="block-inline ">
+					<div class="block-inline" id="colaboradosDoProjetoo">
 						<img style="width: 200px; height: 200px;"
 							class="img-thumbnail img-responsive "
-							src="{{colaborador.imagemPerfil}}" alt="">
+							src="{{colaborador.imagemPerfil}}" alt=""/>
 						<h4>
 							<br>{{colaborador.nome}}
 						</h4>
@@ -105,7 +105,11 @@
 						<button type="button" class="btn btn-primary botao-ver"
 							data-toggle="modal"
 							data-target="#modal{{colaborador.idColaborador}}">
-							<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+
+						<button idColaborador="{{colaborador.idColaborador}}" idProjeto="{{projeto.idProjeto}}" class="btn btn-primary botao-ver removerColaborador">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 						</button>
 					</div>
 					{{/ColaboradoresDoProjeto}} {{^ColaboradoresDoProjeto}}
@@ -146,7 +150,7 @@
 							<td><button type="button" class="btn btn-primary botao-ver"
 									data-toggle="modal"
 									data-target="#modal{{colaborador.idColaborador}}">
-									<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								</button></td>
 							<td><button idProjeto="{{projeto.idProjeto}}"
 									idColaborador="{{colaborador.idColaborador}}"
@@ -284,7 +288,24 @@
 		<script type="text/javascript">
 		$(function(){
 
+			$(document).on('click', '.removerColaborador', function() {
+				console.log($(this))
+				var idProjeto = $(this).attr('idProjeto');
+				var idColaborador = $(this).attr('idColaborador');
 
+				var self = $(this);
+
+				$.ajax({
+					url: '/projeto/colaborador/remover?idProjeto=' + idProjeto + '&idColaborador=' + idColaborador,
+					type: 'POST',
+					contentType: 'json',
+				}).done(function(res){
+					console.log(res);
+					self.parent().fadeOut(500, function(){
+						self.remove();
+					});
+				});
+			});
 
 			{{#projeto.skills}}
 			$('#{{trilha.idTrilha}}').removeClass('display-none').append('<span class="margin-10">{{nome}}</span>');
@@ -329,13 +350,14 @@
 							$(this).parent().parent().remove();
 						});
 
-						$('#colaboradoresDoProjeto').append('<div class="block-inline "><img style="width:200px; height:200px;" class="img-thumbnail img-responsive " src="'+res.colaborador.imagemPerfil+'">'+
+						$('#colaboradoresDoProjeto').append('<div class="block-inline">'+
+							'<img style="width:200px; height:200px;" class="img-thumbnail img-responsive " src="'+res.colaborador.imagemPerfil+'">'+
 							'<h4><br>'+res.colaborador.nome+'</h4>'+
 							'<div><span>Período de Alocação:</span>'+
 							'<div><span>'+res.dataInicio+' à '+res.dataFim+'</span></div><br></div>'+
 							
 							'<!-- Button trigger modal -->'+
-							'<button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal'+res.colaborador.idColaborador+'"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button></div>');
+							'<button type="button" class="btn btn-primary botao-ver" data-toggle="modal" data-target="#modal'+res.colaborador.idColaborador+'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button><button style="margin-left: 4px;" idColaborador="'+res.colaborador.idColaborador+'" idProjeto="{{projeto.idProjeto}}" class="btn btn-primary botao-ver removerColaborador"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
 						
 						$.ajax({
 							url: '/projeto/atualizarKpi?idProjeto=' + idProjeto,

@@ -28,4 +28,11 @@ public class ProjetoColaboradorController {
 		pcDao.inserirColaboradorEmProjeto(idProjeto, idColaborador, dataInicio, dataFim);
 		return colaboradorDao.bucarColaboradorEDatasPorId(idColaborador);
 	}
+	
+	@ResponseBody
+	@RequestMapping( value = "/projeto/colaborador/remover", method = RequestMethod.POST )
+	public String removerColaboradorDoProjeto( @RequestParam int idProjeto, @RequestParam int idColaborador ){
+		pcDao.removerColaboradorDoProjeto( idProjeto, idColaborador );
+		return "ok";
+	}
 }
